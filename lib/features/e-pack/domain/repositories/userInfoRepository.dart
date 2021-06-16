@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_pack/core/error/failures.dart';
-import 'package:e_pack/features/e-pack/domain/entities/user_info.dart';
+import 'package:e_pack/features/e-pack/domain/entities/userRequest.dart';
 
 //creates a contract of the information that would be sent to the server when packing
 abstract class UserRequestRepository {
-  Future<Either<Failure, UserAccount>> sendUserRequestInfo(
+  Future<Either<Failure, UserRequest>> sendUserRequestInfo(
       {required String firstName,
       required String lastName,
       required String emailAddress,
