@@ -9,14 +9,14 @@ abstract class UserRequestRepository {
       required String lastName,
       required String emailAddress,
       required String phoneNumber,
-      required int largeBoxSizeCount,
-      required int mediumBoxSizeCount,
-      required int smallBoxSizeCount,
+      required int? largeBoxSizeCount,
+      required int? mediumBoxSizeCount,
+      required int? smallBoxSizeCount,
       required String locationName,
       required String apartmentName,
-      required int roomNumber,
+      required int? roomNumber,
       required String address,
-      required double cost});
+      required double? cost});
 
   receiveUserIDNumber({required int number});
 }
