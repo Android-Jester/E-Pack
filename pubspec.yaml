@@ -14,7 +14,6 @@ dependencies:
   dartz:
   get_it:
   cupertino_icons: ^1.0.2
-  flutter_bloc:
   equatable:
   shared_preferences:
 
