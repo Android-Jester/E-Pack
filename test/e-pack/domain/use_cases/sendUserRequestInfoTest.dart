@@ -12,6 +12,7 @@ void main() {
   setUp(() {
     mockedInfo = MockUserRequestInfo();
     usecase = GetUserRequestInfo(repo: mockedInfo);
+
     //arrange
 
     //assert
