@@ -6,10 +6,12 @@ import 'package:mockito/mockito.dart';
 class MockUserRequestInfo extends Mock implements UserRequestRepository {}
 
 void main() {
-  UserRequestInfo usecase;
-  MockUserRequestInfo mock;
+  GetUserRequestInfo usecase;
+  MockUserRequestInfo mockedInfo;
 
   setUp(() {
+    mockedInfo = MockUserRequestInfo();
+    usecase = GetUserRequestInfo(repo: mockedInfo);
     //arrange
 
     //assert
