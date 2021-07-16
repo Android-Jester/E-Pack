@@ -1,19 +1,48 @@
-import 'package:e_pack/features/e-pack/domain/entities/boxCount.dart';
-import 'package:e_pack/features/e-pack/domain/entities/deliveryInfo.dart';
-import 'package:e_pack/features/e-pack/domain/entities/userAccount.dart';
+import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
-import 'accessInfo.dart';
-import 'personalInfo.dart';
 
-
-// ignore: must_be_immutable
 class UserRequest extends Equatable {
-    late final PersonalInfo person;
-    late final DeliveryInfo delivery;
-    late final UserAccount account;
-    late final BoxCount boxes;
-    late final AccessInfo accessInfo;
+  final String? firstName;
+  final String? lastName;
+  final String? emailAddress;
+  final String? phoneNumber;
+  final int? largeBoxSizeCount;
+  final int? mediumBoxSizeCount;
+  final int? smallBoxSizeCount;
+  final String? locationName;
+  final String? apartmentName;
+  final int? roomNumber;
+  final String? address;
+  final double? cost;
+
+  UserRequest({
+    @required this.firstName,
+    @required this.lastName,
+    @required this.emailAddress,
+    @required this.phoneNumber,
+    @required this.largeBoxSizeCount,
+    @required this.mediumBoxSizeCount,
+    @required this.smallBoxSizeCount,
+    @required this.locationName,
+    @required this.apartmentName,
+    @required this.roomNumber,
+    @required this.address,
+    @required this.cost,
+  });
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [];}
+  List<Object?> get props => [
+        firstName,
+        lastName,
+        emailAddress,
+        phoneNumber,
+        largeBoxSizeCount,
+        mediumBoxSizeCount,
+        smallBoxSizeCount,
+        locationName,
+        apartmentName,
+        roomNumber,
+        address,
+        cost
+      ];
+}
