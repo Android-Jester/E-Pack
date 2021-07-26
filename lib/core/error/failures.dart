@@ -10,4 +10,3 @@ class ServerFailure extends Failure {}
 
 class SendRequestFailure extends Failure {}
 
-class CacheFailure extends Failure {}
