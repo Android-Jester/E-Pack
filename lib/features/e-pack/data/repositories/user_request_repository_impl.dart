@@ -1,4 +1,4 @@
-import 'package:e_pack/core/platform/network_info.dart';
+import 'package:e_pack/core/network/network_info.dart';
 import 'package:e_pack/features/e-pack/data/datasources/userRequestRemoteDataSource.dart';
 import 'package:e_pack/features/e-pack/domain/entities/userRequest.dart';
 import 'package:e_pack/core/error/failures.dart';
@@ -7,10 +7,8 @@ import 'package:meta/meta.dart';
 import 'package:e_pack/features/e-pack/domain/repositories/userInfoRepository.dart';
 
 class UserRequestRepositoryImpl implements UserRequestRepository {
-  final UserRequestRemoteDataSource? remoteDataSource;
   final NetworkInfo? networkInfo;
-  UserRequestRepositoryImpl(
-      {@required this.networkInfo, @required this.remoteDataSource});
+  UserRequestRepositoryImpl({@required this.networkInfo});
 
   @override
   receiveUserIDNumber({required int number}) {
