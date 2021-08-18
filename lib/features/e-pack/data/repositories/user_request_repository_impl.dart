@@ -1,3 +1,4 @@
+import 'package:e_pack/core/error/exceptions.dart';
 import 'package:e_pack/core/network/network_info.dart';
 import 'package:e_pack/features/e-pack/data/datasources/userRequestRemoteDataSource.dart';
 import 'package:e_pack/features/e-pack/domain/entities/userRequest.dart';
@@ -7,8 +8,12 @@ import 'package:meta/meta.dart';
 import 'package:e_pack/features/e-pack/domain/repositories/userInfoRepository.dart';
 
 class UserRequestRepositoryImpl implements UserRequestRepository {
+  final UserRequestRemoteDataSource remoteDataSource;
   final NetworkInfo? networkInfo;
-  UserRequestRepositoryImpl({@required this.networkInfo});
+  UserRequestRepositoryImpl({
+    required this.networkInfo,
+    required this.remoteDataSource,
+  });
 
   @override
   receiveUserIDNumber({required int number}) {
@@ -30,7 +35,14 @@ class UserRequestRepositoryImpl implements UserRequestRepository {
       int? roomNumber,
       String? address,
       double? cost) {
-    // TODO: implement sendUserRequestInfo
-    throw UnimplementedError();
+    throw NullThrownError();
+  }
+
+  Future<Either<Failure, UserRequest>> _sendInformation() async {
+    if (await networkInfo.isConnected) {
+        try {
+          
+        }
+    }
   }
 }
