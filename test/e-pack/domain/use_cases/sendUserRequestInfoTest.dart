@@ -4,7 +4,6 @@ import 'package:e_pack/features/e-pack/domain/repositories/userInfoRepository.da
 import 'package:e_pack/features/e-pack/domain/usecases/sendUserRequest.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'dart:ui';
 
 class MockUserRequestInfo extends Mock implements UserRequestRepository {}
 
@@ -46,7 +45,7 @@ void main() {
     );
     //arrange
     when(mockedInfo
-        .sendUserRequestInfo(
+        .sendUserRequest(
           any,
           any,
           any,

@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
           child: Container(
             child: Text(
               "Hello World",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold

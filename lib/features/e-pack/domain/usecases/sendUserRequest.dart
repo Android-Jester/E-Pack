@@ -1,8 +1,8 @@
+import 'package:dartz/dartz.dart';
 import 'package:e_pack/core/error/failures.dart';
 import 'package:e_pack/core/usecases/usecase.dart';
 import 'package:e_pack/features/e-pack/domain/entities/userRequest.dart';
 import 'package:e_pack/features/e-pack/domain/repositories/userInfoRepository.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -14,20 +14,19 @@ class GetUserRequestInfo extends UseCase<UserRequest, Params> {
   @override
   Future<Either<Failure, UserRequest>> call(Params? params) async {
     // TODO: implement call
-    return await repo.sendUserRequestInfo(
-      params!.firstName,
-      params.lastName,
-      params.emailAddress,
-      params.phoneNumber,
-      params.largeBoxSizeCount,
-      params.mediumBoxSizeCount,
-      params.smallBoxSizeCount,
-      params.locationName,
-      params.apartmentName,
-      params.roomNumber,
-      params.address,
-      params.cost,
-    );
+    return await repo.sendUserRequest(
+        params!.firstName,
+        params.lastName,
+        params.emailAddress,
+        params.phoneNumber,
+        params.largeBoxSizeCount,
+        params.mediumBoxSizeCount,
+        params.smallBoxSizeCount,
+        params.locationName,
+        params.apartmentName,
+        params.roomNumber,
+        params.address,
+        params.cost);
   }
 }
 

@@ -4,7 +4,7 @@ import 'package:e_pack/features/e-pack/domain/entities/userRequest.dart';
 
 //creates a contract of the information that would be sent to the server when packing
 abstract class UserRequestRepository {
-  Future<Either<Failure, UserRequest>> sendUserRequestInfo(
+  Future<Either<Failure, UserRequest>> sendUserRequest(
     String? firstName,
     String? lastName,
     String? emailAddress,
