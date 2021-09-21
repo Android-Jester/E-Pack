@@ -14,6 +14,8 @@ dependencies:
   connectivity: ^3.0.6
   system_settings: ^2.0.0
   appwrite: ^1.0.2
+  dartz:
+  get:
   equatable: ^2.0.3
   flutter:
     sdk: flutter

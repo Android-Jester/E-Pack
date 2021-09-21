@@ -1,30 +1,20 @@
-import 'package:e_pack/features/requestBuilder/data/models/user_request.dart';
+import 'package:dartz/dartz.dart';
+import 'package:e_pack/core/Failure/failures.dart';
+import 'package:e_pack/features/requestBuilder/data/datasources/server_host.dart';
+import 'package:e_pack/features/requestBuilder/domain/entities/user_request.dart';
 import 'package:e_pack/features/requestBuilder/domain/repositories/user_request_repo.dart';
 
 class UserRequestRepoImpl implements UserRequestRepo {
-  @override
-  late UserRequest request;
+  final ServerHostImpl serverHostImpl;
 
-  UserRequestRepoImpl(this.request);
-  @override
-  late Map<String, dynamic> data;
+  UserRequestRepoImpl({ required this.serverHostImpl});
 
   @override
-  Map<String, dynamic> sendUserRequest() {
-    data = {
-      "firstName: ": request.firstName,
-      "lastName": request.lastName,
-      "emailAddress": request.emailAddress,
-      "phoneNumber": request.phoneNumber,
-      "largeBoxSizeCount": request.largeBoxSizeCount ?? 0,
-      "mediumBoxSizeCount": request.mediumBoxSizeCount ?? 0,
-      "smallBoxSizeCount": request.smallBoxSizeCount ?? 0,
-      "locationName": request.locationName,
-      "apartmentName": request.apartmentName,
-      "roomNumber": request.roomNumber,
-      "address": request.address,
-      "cost": request.cost
-    };
-    return data;
+  // TODO: implement request
+  UserRequest get request => throw UnimplementedError();
+
+  @override
+  Future<Either<Failure, Map<String, UserRequest>>> sendUserRequest() async {
+    return await 
   }
 }

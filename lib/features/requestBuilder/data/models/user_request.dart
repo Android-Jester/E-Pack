@@ -1,29 +1,62 @@
-abstract class UserRequest {
-  final String? firstName;
-  final String? lastName;
-  final String? emailAddress;
-  final String? phoneNumber;
-  final int? largeBoxSizeCount;
-  final int? mediumBoxSizeCount;
-  final int? smallBoxSizeCount;
-  final String? locationName;
-  final String? apartmentName;
-  final int? roomNumber;
-  final String? address;
-  final double? cost;
+import 'package:e_pack/features/requestBuilder/domain/entities/user_request.dart';
 
-  UserRequest({
-    required this.firstName,
-    required this.lastName,
-    required this.emailAddress,
-    required this.phoneNumber,
-    this.largeBoxSizeCount,
-    this.mediumBoxSizeCount,
-    this.smallBoxSizeCount,
-    required this.locationName,
-    required this.apartmentName,
-    required this.roomNumber,
-    required this.address,
-    required this.cost,
-  });
+class UserRequestModel extends UserRequest {
+  UserRequestModel(
+      {required String? firstName,
+      required String? lastName,
+      required String? emailAddress,
+      required String? phoneNumber,
+      required int? largeBoxSizeCount,
+      required int? mediumBoxSizeCount,
+      required int? smallBoxSizeCount,
+      required String? locationName,
+      required String? apartmentName,
+      required int? roomNumber,
+      required String? address,
+      required double? cost})
+      : super(
+            firstName: firstName,
+            lastName: lastName,
+            emailAddress: emailAddress,
+            phoneNumber: phoneNumber,
+            largeBoxSizeCount: largeBoxSizeCount,
+            mediumBoxSizeCount: mediumBoxSizeCount,
+            smallBoxSizeCount: smallBoxSizeCount,
+            locationName: locationName,
+            apartmentName: apartmentName,
+            roomNumber: roomNumber,
+            address: address,
+            cost: cost);
+
+  factory UserRequestModel.fromJson(Map<String, dynamic> json) {
+    return UserRequestModel(
+        firstName: json['firstName'],
+        lastName: json['lastName'],
+        emailAddress: json['emailAddress'],
+        phoneNumber: json['phoneNumber'],
+        largeBoxSizeCount: (json['largeBoxSizeCount'] as num).toInt(),
+        mediumBoxSizeCount: (json['mediumBoxSizeCount'] as num).toInt(),
+        smallBoxSizeCount: (json['smallBoxSizeCount'] as num).toInt(),
+        locationName: json['locationName'],
+        apartmentName: json['apartmentName'],
+        roomNumber: (json['roomNumber'] as num).toInt(),
+        address: json['address'],
+        cost: (json['cost'] as num).toDouble());
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      "firstName: ": firstName,
+      "lastName": lastName,
+      "emailAddress": emailAddress,
+      "phoneNumber": phoneNumber,
+      "largeBoxSizeCount": largeBoxSizeCount ?? 0,
+      "mediumBoxSizeCount": mediumBoxSizeCount ?? 0,
+      "smallBoxSizeCount": smallBoxSizeCount ?? 0,
+      "locationName": locationName,
+      "apartmentName": apartmentName,
+      "roomNumber": roomNumber,
+      "address": address,
+      "cost": cost
+    };
+  }
 }
