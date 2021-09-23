@@ -23,6 +23,8 @@ dependencies:
 dev_dependencies:
   flutter_lints: ^1.0.0
   mockito: ^5.0.16
+  build_runner: ^2.1.2
+#  code_builder: ^4.0.0
   flutter_test:
     sdk: flutter
 

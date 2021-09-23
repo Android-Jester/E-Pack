@@ -3,13 +3,15 @@ import 'package:e_pack/features/requestBuilder/domain/entities/user_request.dart
 import 'package:e_pack/features/requestBuilder/domain/repositories/user_request_repo.dart';
 import 'package:e_pack/features/requestBuilder/domain/usecases/send_user_request.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-class MockUserRequestRepository extends Mock implements UserRequestRepository {}
+import 'send_user_request_test.mocks.dart';
 
+@GenerateMocks([UserRequestRepository])
 void main() {
   SendUserRequest? usecase;
-  MockUserRequestRepository? mockUserRequestRepository;
+  var mockUserRequestRepository;
 
   setUp(() {
     mockUserRequestRepository = MockUserRequestRepository();
@@ -44,22 +46,22 @@ void main() {
 
   test("sends a request to the database", () async {
     when(mockUserRequestRepository!.sendUserRequest(
-      any,
-      any,
-      any,
-      any,
-      any,
-      any,
-      any,
-      any,
-      any,
-      any,
-      any,
-      any,
+      tfirstName,
+      tlastName,
+      temailAddress,
+      tphoneNumber,
+      tlargeBoxSizeCount,
+      tmediumBoxSizeCount,
+      tsmallBoxSizeCount,
+      tlocationName,
+      tapartmentName,
+      troomNumber,
+      taddress,
+      tcost,
     )).thenAnswer((_) async {
-      return Right(tUserRequest!);
+      return Right(tUserRequest);
     });
-    final result = await usecase!.execute(
+    final result = await usecase!(Params(
         firstName: tfirstName,
         lastName: tlastName,
         emailAddress: temailAddress,
@@ -71,7 +73,7 @@ void main() {
         apartmentName: tapartmentName,
         roomNumber: troomNumber,
         address: taddress,
-        cost: tcost);
+        cost: tcost));
     expect(result, Right(tUserRequest));
 
     verify(mockUserRequestRepository!.sendUserRequest(
