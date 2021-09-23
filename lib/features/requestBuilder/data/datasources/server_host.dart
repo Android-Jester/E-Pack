@@ -1,8 +1,23 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:dartz/dartz.dart';
+import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
+import 'package:e_pack/features/requestBuilder/domain/entities/user_request.dart';
 
 abstract class ServerHost {
-  Future sendUserRequest(Map<String, dynamic> data);
+  Future<Either<Failure, UserRequest>>? sendUserRequest(
+      String? firstName,
+      String? lastName,
+      String? emailAddress,
+      String? phoneNumber,
+      int? largeBoxSizeCount,
+      int? mediumBoxSizeCount,
+      int? smallBoxSizeCount,
+      String? locationName,
+      String? apartmentName,
+      int? roomNumber,
+      String? address,
+      double? cost);
 }
 
 class ServerHostImpl implements ServerHost {
@@ -11,8 +26,22 @@ class ServerHostImpl implements ServerHost {
   ServerHostImpl();
 
   @override
-  Future sendUserRequest(Map<String, dynamic> data) =>
-      database.createDocument(collectionId: '60f4529c27565', data: data);
+  Future<Either<Failure, UserRequest>>? sendUserRequest(
+      String? firstName,
+      String? lastName,
+      String? emailAddress,
+      String? phoneNumber,
+      int? largeBoxSizeCount,
+      int? mediumBoxSizeCount,
+      int? smallBoxSizeCount,
+      String? locationName,
+      String? apartmentName,
+      int? roomNumber,
+      String? address,
+      double? cost) {
+    return null;
+  }
+  // database.createDocument(collectionId: '60f4529c27565', data: data);
 }
 
 // String collectionId = '60f4529c27565';

@@ -43,20 +43,20 @@ class UserRequestModel extends UserRequest {
         address: json['address'],
         cost: (json['cost'] as num).toDouble());
   }
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     "firstName: ": firstName,
-  //     "lastName": lastName,
-  //     "emailAddress": emailAddress,
-  //     "phoneNumber": phoneNumber,
-  //     "largeBoxSizeCount": largeBoxSizeCount ?? 0,
-  //     "mediumBoxSizeCount": mediumBoxSizeCount ?? 0,
-  //     "smallBoxSizeCount": smallBoxSizeCount ?? 0,
-  //     "locationName": locationName,
-  //     "apartmentName": apartmentName,
-  //     "roomNumber": roomNumber,
-  //     "address": address,
-  //     "cost": cost
-  //   };
-  // }
+  Map<String, dynamic> toJson() {
+    return {
+      "firstName: ": firstName,
+      "lastName": lastName,
+      "emailAddress": emailAddress,
+      "phoneNumber": phoneNumber,
+      "largeBoxSizeCount": largeBoxSizeCount ?? 0,
+      "mediumBoxSizeCount": mediumBoxSizeCount ?? 0,
+      "smallBoxSizeCount": smallBoxSizeCount ?? 0,
+      "locationName": locationName,
+      "apartmentName": apartmentName,
+      "roomNumber": roomNumber,
+      "address": address,
+      "cost": cost
+    };
+  }
 }

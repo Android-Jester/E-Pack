@@ -6,7 +6,7 @@ abstract class UserRequestRepository {
   final UserRequest request;
   UserRequestRepository({required this.request});
 
-  Future<Either<Failure, UserRequest>> sendUserRequest(
+  Future<Either<Failure, UserRequest>>? sendUserRequest(
     String? firstName,
     String? lastName,
     String? emailAddress,

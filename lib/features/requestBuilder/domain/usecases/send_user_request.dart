@@ -6,13 +6,13 @@ import 'package:e_pack/features/requestBuilder/domain/repositories/user_request_
 import 'package:equatable/equatable.dart';
 
 class SendUserRequest extends UseCase<UserRequest, Params> {
-  final UserRequestRepository repo;
+  final UserRequestRepository? repo;
 
   SendUserRequest(this.repo);
 
   @override
-  Future<Either<Failure, UserRequest>> call(Params params) async {
-    return await repo.sendUserRequest(
+  Future<Either<Failure, UserRequest>?>? call(Params params) async {
+    return await repo!.sendUserRequest(
         params.firstName,
         params.lastName,
         params.emailAddress,
