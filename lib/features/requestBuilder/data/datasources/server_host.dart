@@ -1,11 +1,9 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:dartz/dartz.dart';
-import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/features/requestBuilder/domain/entities/user_request.dart';
 
 abstract class ServerHost {
-  Future<Either<Failure, UserRequest>>? sendUserRequest(
+  Future<UserRequest?>? sendUserRequest(
       String? firstName,
       String? lastName,
       String? emailAddress,
@@ -26,7 +24,7 @@ class ServerHostImpl implements ServerHost {
   ServerHostImpl();
 
   @override
-  Future<Either<Failure, UserRequest>>? sendUserRequest(
+  Future<UserRequest>? sendUserRequest(
       String? firstName,
       String? lastName,
       String? emailAddress,

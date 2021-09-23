@@ -45,7 +45,7 @@ class UserRequestRepositoryImpl implements UserRequestRepository {
           roomNumber,
           address,
           cost);
-      return Right(remoteTrivia);
+      return Right(remoteTrivia!);
     } on ServerException {
       return Left(ServerFailure());
     }
