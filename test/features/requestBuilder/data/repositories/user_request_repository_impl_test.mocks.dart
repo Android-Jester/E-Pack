@@ -5,7 +5,8 @@
 import 'dart:async' as _i4;
 
 import 'package:e_pack/core/network/network_info.dart' as _i3;
-import 'package:e_pack/features/requestBuilder/data/datasources/server_host.dart' as _i2;
+import 'package:e_pack/features/requestBuilder/data/datasources/server_host.dart'
+    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -39,8 +40,8 @@ class MockNetworkInfo extends _i1.Mock implements _i3.NetworkInfo {
 
   @override
   _i4.Future<bool> get isConnected =>
-      (super.noSuchMethod(Invocation.getter(#isConnected), returnValue: Future<bool>.value(false))
-          as _i4.Future<bool>);
+      (super.noSuchMethod(Invocation.getter(#isConnected),
+          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
   @override
   String toString() => super.toString();
 }

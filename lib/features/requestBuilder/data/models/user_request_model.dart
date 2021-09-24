@@ -43,6 +43,7 @@ class UserRequestModel extends UserRequest {
         address: json['address'],
         cost: (json['cost'] as num).toDouble());
   }
+
   Map<String, dynamic> toJson() {
     return {
       "firstName: ": firstName,

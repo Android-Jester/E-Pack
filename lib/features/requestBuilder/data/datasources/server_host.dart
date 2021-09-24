@@ -1,5 +1,6 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
+import 'package:e_pack/features/requestBuilder/data/models/user_request_model.dart';
 import 'package:e_pack/features/requestBuilder/domain/entities/user_request.dart';
 
 abstract class ServerHost {
@@ -19,7 +20,8 @@ abstract class ServerHost {
 }
 
 class ServerHostImpl implements ServerHost {
-  Database database = Database(appwrite_server().client);
+  Database database = Database(AppWriteServer().userClient());
+  UserRequestModel? model;
 
   ServerHostImpl();
 
@@ -37,9 +39,22 @@ class ServerHostImpl implements ServerHost {
       int? roomNumber,
       String? address,
       double? cost) {
+    model = UserRequestModel(
+        firstName: firstName,
+        lastName: lastName,
+        emailAddress: emailAddress,
+        phoneNumber: phoneNumber,
+        largeBoxSizeCount: largeBoxSizeCount,
+        mediumBoxSizeCount: mediumBoxSizeCount,
+        smallBoxSizeCount: smallBoxSizeCount,
+        locationName: locationName,
+        apartmentName: apartmentName,
+        roomNumber: roomNumber,
+        address: address,
+        cost: cost);
+    database.createDocument(collectionId: '60f4529c27565', data: model!.toJson());
     return null;
   }
-  // database.createDocument(collectionId: '60f4529c27565', data: data);
 }
 
 // String collectionId = '60f4529c27565';
