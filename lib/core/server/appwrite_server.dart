@@ -7,8 +7,7 @@ class AppWriteServer {
   userClient() {
     Client client = Client();
     return client
-        .setEndpoint('http://localhost:8080/v1') // Your Appwrite Endpoint
-        .setProject('60f4528babe86') // Your project ID
-        .setSelfSigned(status: true);
+        .setEndpoint('http://192.168.2.1:8080/v1') // Your Appwrite Endpoint
+        .setProject('60f4528babe86');
   }
 }

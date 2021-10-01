@@ -46,7 +46,11 @@ class HomeScreen extends StatelessWidget {
               height: Config.height! / 2,
               width: Config.width,
               decoration: const BoxDecoration(
-                  color: Colors.blueGrey, borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  color: Colors.blueGrey,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0),
+                  )),
             )),
             Expanded(
               flex: 2,
@@ -57,6 +61,8 @@ class HomeScreen extends StatelessWidget {
                 decoration:
                     BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20.0)),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     selectionButton(
                       config: config,

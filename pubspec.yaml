@@ -13,10 +13,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   connectivity: ^3.0.6
   internet_connection_checker: ^0.0.1+2
-  appwrite: ^1.0.2
+  appwrite: ^2.0.1
   dartz:
   get:
   equatable: ^2.0.3
+  syncfusion_flutter_datepicker: ^19.2.62
   flutter:
     sdk: flutter
 
@@ -24,6 +25,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   mockito: ^5.0.16
   build_runner: ^2.1.2
+
 #  code_builder: ^4.0.0
   flutter_test:
     sdk: flutter

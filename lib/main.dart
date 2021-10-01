@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 
+import 'package:e_pack/features/requestBuilder/presentation/pages/page_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +23,11 @@ class EPackServices extends StatelessWidget {
               button: TextStyle(fontSize: 12.0, color: Colors.white),
             )),
             debugShowCheckedModeBanner: false,
-            initialRoute: HomeScreen.id,
+            initialRoute: Page1.id,
             routes: {
               HomeScreen.id: (context) => HomeScreen(),
-              Page1.id: (context) => const Page1(),
-              // Page2.id: (context) => const Page2(),
+              Page1.id: (context) => Page1(),
+              Page2.id: (context) => Page2(),
               // Page3.id: (context) => const Page3(),
             },
           )
