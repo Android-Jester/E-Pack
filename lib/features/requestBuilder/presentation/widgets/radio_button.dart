@@ -1,17 +1,31 @@
 import 'package:e_pack/features/requestBuilder/presentation/config/config.dart';
 import 'package:flutter/material.dart';
 
-Widget selectionRow(
-    {required String text,
-    required int value,
-    required Config config,
-    required int? selectedRadio,
-    required Function(Object? value) onChanged}) {
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: config.itemWidth(20.0)),
-    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text(text),
-      Radio(value: value, groupValue: selectedRadio, onChanged: onChanged)
-    ]),
-  );
+import 'custom_button.dart';
+
+class PageButton extends StatelessWidget {
+  final bool isForward;
+
+  final PageController? controller;
+  final int pageCount;
+
+  PageButton(
+      {Key? key,
+      required this.isForward,
+      required this.controller,
+      required this.pageCount})
+      : super(key: key);
+  Config config = Config();
+  @override
+  Widget build(BuildContext context) {
+    int currentPage = pageCount;
+    config.init(context);
+    return CustomButton(
+      onPressed: () {
+        controller!.animateToPage((isForward) ? currentPage++ : currentPage--,
+            duration: const Duration(milliseconds: 100), curve: Curves.easeIn);
+      },
+      text: (isForward) ? "Next" : "Previous",
+    );
+  }
 }

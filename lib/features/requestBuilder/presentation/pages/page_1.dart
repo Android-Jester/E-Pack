@@ -1,9 +1,13 @@
 import 'package:e_pack/features/requestBuilder/presentation/config/config.dart';
+import 'package:e_pack/features/requestBuilder/presentation/pages/page1/screen1.dart';
+import 'package:e_pack/features/requestBuilder/presentation/pages/page1/screen2.dart';
+import 'package:e_pack/features/requestBuilder/presentation/widgets/build_bots.dart';
+import 'package:e_pack/features/requestBuilder/presentation/widgets/custom_button.dart';
 import 'package:e_pack/features/requestBuilder/presentation/widgets/radio_button.dart';
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import 'page1/screen3.dart';
+import 'page1/screen4.dart';
 import 'page_2.dart';
 
 class Page1 extends StatefulWidget {
@@ -25,6 +29,36 @@ class _Page1State extends State<Page1> {
   String semesterPeriod = "First Semester";
   int currentPage = 0;
 
+  buttonRow() {
+    return (currentPage == 4)
+        ? PageButton(
+            isForward: false,
+            pageCount: currentPage,
+            controller: _controller,
+          )
+        : (currentPage == 0)
+            ? PageButton(
+                isForward: true,
+                pageCount: currentPage,
+                controller: _controller,
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  PageButton(
+                    isForward: false,
+                    pageCount: currentPage,
+                    controller: _controller,
+                  ),
+                  PageButton(
+                    isForward: true,
+                    pageCount: currentPage,
+                    controller: _controller,
+                  ),
+                ],
+              );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -39,283 +73,18 @@ class _Page1State extends State<Page1> {
     smallBoxController!.dispose();
   }
 
-  onChangedItem(Object? value) {
-    setState(() => selectedRadio = int.parse(value.toString()));
-  }
-
-  Widget buildRowDots({required int index, required int length}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-        length,
-        (index) => buildDot(index: index),
-      ),
-    );
-  }
-
-  AnimatedContainer buildDot({required int index}) {
-    return AnimatedContainer(
-      duration: const Duration(seconds: 1),
-      margin: const EdgeInsets.only(right: 5),
-      height: 6.0,
-      width: currentPage == index ? 20 : 6,
-      decoration: BoxDecoration(
-        color: currentPage == index ? Colors.blue : const Color(0xFFD8D8D8),
-        borderRadius: BorderRadius.circular(3),
-      ),
-    );
-  }
-
-  List<bool> list = [true, false, true, true];
-
   @override
   Widget build(BuildContext context) {
     config.init(context);
     List<Widget> pages = [
-      Container(
-        width: Config.width,
-        height: Config.height,
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 5.0,
-            ),
-            const Text(
-              "Pick A Slot",
-              style: TextStyle(fontSize: 30.0),
-            ),
-            const SizedBox(
-              height: 5.0,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  border: Border.all(
-                color: Colors.blue,
-              )),
-              width: Config.width! / 1.2,
-              child: SfDateRangePicker(),
-            ),
-            SizedBox(height: config.itemHeight(15.0)),
-            Container(
-              child: DropdownButton(
-                  value: semesterPeriod,
-                  items: const [
-                    DropdownMenuItem(
-                      child: Text("First Semester"),
-                      value: "First Semester",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("First Semester"),
-                      value: "Second Semester",
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      semesterPeriod = value.toString();
-                    });
-                  }),
-
-              // TextField(
-              //   readOnly: true,
-              //   decoration: InputDecoration(
-              //       border: OutlineInputBorder(
-              //     borderRadius: BorderRadius.circular(config.itemWidth(12.0)),
-              //   )),
-              // ),
-            ),
-            SizedBox(height: config.itemHeight(15.0)),
-            //TODO: TimeStamp(Display the information on the number of days apart)
-            TextButton(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateColor.resolveWith((states) => Colors.grey),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    side: const BorderSide(
-                      color: Colors.black,
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(config.itemWidth(20.0)),
-                  ),
-                ),
-              ),
-              child: const Text("Next"),
-              onPressed: (currentPage <= 4)
-                  ? () => {
-                        _controller!.animateToPage(currentPage++,
-                            duration: Duration(milliseconds: 100), curve: Curves.easeIn),
-                      }
-                  : null,
-            ),
-          ],
-        ),
+      Screen1(controller: _controller),
+      const Screen2(),
+      Screen3(
+        largeBoxController: largeBoxController,
+        smallBoxController: smallBoxController,
+        mediumBoxController: mediumBoxController,
       ),
-      Container(
-        width: Config.width,
-        height: Config.height,
-        child: Column(
-          children: [
-            Text("Select One Option"),
-            Text("Select Room Type"),
-            Divider(),
-            selectionRow(
-                value: 1,
-                text: "Single Room",
-                onChanged: onChangedItem,
-                selectedRadio: selectedRadio,
-                config: config),
-            selectionRow(
-                value: 2,
-                text: "Double Room",
-                onChanged: onChangedItem,
-                selectedRadio: selectedRadio,
-                config: config),
-            selectionRow(
-                value: 3,
-                text: "Two or more",
-                onChanged: onChangedItem,
-                selectedRadio: selectedRadio,
-                config: config),
-            selectionRow(
-                value: 4,
-                text: "Apartment",
-                onChanged: onChangedItem,
-                selectedRadio: selectedRadio,
-                config: config),
-            selectionRow(
-                value: 5,
-                text: "Homestel",
-                onChanged: onChangedItem,
-                selectedRadio: selectedRadio,
-                config: config),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                TextButton(
-                  style: ButtonStyle(
-                    foregroundColor: MaterialStateColor.resolveWith((states) => Colors.grey),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        side: const BorderSide(
-                          color: Colors.black,
-                          width: 1.5,
-                        ),
-                        borderRadius: BorderRadius.circular(config.itemWidth(20.0)),
-                      ),
-                    ),
-                  ),
-                  child: const Text("Next"),
-                  onPressed: (currentPage >= 1)
-                      ? () => {
-                            _controller!.animateToPage(currentPage--,
-                                duration: Duration(milliseconds: 100), curve: Curves.easeIn),
-                          }
-                      : null,
-                ),
-                TextButton(
-                  style: ButtonStyle(
-                    foregroundColor: MaterialStateColor.resolveWith((states) => Colors.grey),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        side: const BorderSide(
-                          color: Colors.black,
-                          width: 1.5,
-                        ),
-                        borderRadius: BorderRadius.circular(config.itemWidth(20.0)),
-                      ),
-                    ),
-                  ),
-                  child: const Text("Next"),
-                  onPressed: (currentPage <= 4)
-                      ? () => {
-                            _controller!.animateToPage(currentPage++,
-                                duration: Duration(milliseconds: 100), curve: Curves.easeIn),
-                          }
-                      : null,
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-      Container(
-        width: Config.width,
-        height: Config.height,
-        child: Column(
-          children: [
-            const Divider(),
-            const Text("Select"),
-            const Text(
-                "Please choose the particular type and number of boxes you may need for your belongings"),
-            const Divider(),
-            const Spacer(),
-            boxSelection(textEditingController: largeBoxController, text: "Large Box"),
-            boxSelection(textEditingController: mediumBoxController, text: "Medium Box"),
-            boxSelection(textEditingController: smallBoxController, text: "Small Box"),
-            const Spacer(),
-            Container(
-              color: Colors.red.shade200,
-              width: Config.width,
-              height: Config.width! / 3,
-              child: const Text(
-                  "NB:  Size of Large Box: 18”x18”x24” \n Size of Medium Box: 18”x18”x16” \n Size of Small Box: 16”x12”x12” "),
-            ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                TextButton(
-                  style: ButtonStyle(
-                    foregroundColor: MaterialStateColor.resolveWith((states) => Colors.grey),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        side: const BorderSide(
-                          color: Colors.black,
-                          width: 1.5,
-                        ),
-                        borderRadius: BorderRadius.circular(config.itemWidth(20.0)),
-                      ),
-                    ),
-                  ),
-                  child: const Text("Next"),
-                  onPressed: (currentPage >= 1)
-                      ? () => {
-                            _controller!.animateToPage(currentPage--,
-                                duration: Duration(milliseconds: 100), curve: Curves.easeIn),
-                          }
-                      : null,
-                ),
-                TextButton(
-                  style: ButtonStyle(
-                    foregroundColor: MaterialStateColor.resolveWith((states) => Colors.grey),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        side: const BorderSide(
-                          color: Colors.black,
-                          width: 1.5,
-                        ),
-                        borderRadius: BorderRadius.circular(config.itemWidth(20.0)),
-                      ),
-                    ),
-                  ),
-                  child: const Text("Next"),
-                  onPressed: (currentPage <= 4)
-                      ? () => {
-                            _controller!.animateToPage(currentPage++,
-                                duration: Duration(milliseconds: 100), curve: Curves.easeIn),
-                          }
-                      : null,
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-      Container(
-        color: Colors.grey,
-        width: 100,
-        height: 100,
-      ),
+      Screen4()
     ];
 
     return Scaffold(
@@ -328,7 +97,8 @@ class _Page1State extends State<Page1> {
                 width: Config.width,
                 decoration: const BoxDecoration(
                   color: Colors.grey,
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5.0)),
+                  borderRadius:
+                      BorderRadius.only(bottomLeft: Radius.circular(5.0)),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -338,9 +108,12 @@ class _Page1State extends State<Page1> {
                       alignment: Alignment.topLeft,
                       child: TextButton(
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.blue),
-                            shape: MaterialStateProperty.all(const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(40.0))))),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.blue),
+                            shape: MaterialStateProperty.all(
+                                const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(40.0))))),
                         onPressed: () => Navigator.pop(context),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -354,17 +127,21 @@ class _Page1State extends State<Page1> {
                         ),
                       ),
                     ),
-                    buildRowDots(index: currentPage, length: pages.length),
+                    BuildDotsRow(
+                        currentPage: currentPage,
+                        index: currentPage,
+                        length: pages.length),
                   ],
                 ),
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: MaterialStateColor.resolveWith((states) => Colors.white),
+                  color:
+                      MaterialStateColor.resolveWith((states) => Colors.white),
                 ),
               ),
               Container(
-                height: Config.height! / 1.4,
+                height: Config.height! / 1.5,
                 width: Config.width,
                 child: PageView.builder(
                   onPageChanged: (value) {
@@ -378,80 +155,15 @@ class _Page1State extends State<Page1> {
                   itemBuilder: (context, indexed) => pages[indexed],
                 ),
               ),
-              TextButton(
-                style: ButtonStyle(
-                  foregroundColor: MaterialStateColor.resolveWith((states) => Colors.grey),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      side: const BorderSide(
-                        color: Colors.black,
-                        width: 1.5,
-                      ),
-                      borderRadius: BorderRadius.circular(config.itemWidth(20.0)),
-                    ),
-                  ),
-                ),
-                child: const Text("Book Now"),
-                onPressed: () => Navigator.pushNamed(context, Page2.id),
-              ),
+              buttonRow(),
+              if (currentPage == 4)
+                CustomButton(
+                  onPressed: () => Navigator.pushNamed(context, Page3.id),
+                  text: 'Book Now',
+                )
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Padding boxSelection(
-      {required String text, required TextEditingController? textEditingController}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: config.itemWidth(10.0))
-          .copyWith(top: config.itemWidth(10.0)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(text),
-          Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(config.itemWidth(20.0)),
-                  color: Colors.red,
-                ),
-                child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        if (count > 0) {
-                          count -= 1;
-                        }
-                        textEditingController!.text = count.toString();
-                      });
-                    },
-                    icon: const Icon(Icons.remove)),
-              ),
-              Container(
-                  width: config.itemWidth(40.0),
-                  height: config.itemHeight(20.0),
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    readOnly: true,
-                    controller: textEditingController,
-                  )),
-              Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(config.itemWidth(20.0)),
-                    color: Colors.red,
-                  ),
-                  child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          count += 1;
-                          textEditingController!.text = count.toString();
-                        });
-                      },
-                      icon: const Icon(Icons.add))),
-            ],
-          )
-        ],
       ),
     );
   }
