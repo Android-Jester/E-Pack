@@ -16,3 +16,9 @@ class Config {
   double itemWidth(double input) => (input / 411.0) * width!;
   double itemHeight(double input) => (input / 411.0) * height!;
 }
+
+// const kPrimaryColor
+// const kPrimaryDarkColor
+// const kAccentColor
+// const kAccentDarkColor
+// const kBackgroundColor
