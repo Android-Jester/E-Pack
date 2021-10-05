@@ -10,11 +10,10 @@ class Screen2 extends StatefulWidget {
 
 class _Screen2State extends State<Screen2> {
   int selectedRadio = 0;
-  Config config = Config();
 
   Widget selectionRow({required String? text, required int? value}) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: config.itemWidth(20.0)),
+      padding: EdgeInsets.symmetric(horizontal: itemWidth(20.0)),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Text(text!),
         Radio<int>(
@@ -28,7 +27,7 @@ class _Screen2State extends State<Screen2> {
 
   @override
   Widget build(BuildContext context) {
-    config.init(context);
+    Config.init(context);
     return Container(
       width: Config.width,
       height: Config.height,

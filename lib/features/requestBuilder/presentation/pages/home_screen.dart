@@ -1,16 +1,15 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/features/requestBuilder/presentation/config/config.dart';
-import 'package:e_pack/features/requestBuilder/presentation/pages/page_1.dart';
+import 'package:e_pack/features/requestBuilder/presentation/pages/page1/page_1.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
   static String id = "HomeScreen";
-  Config config = Config();
   @override
   Widget build(BuildContext context) {
-    config.init(context);
+    Config.init(context);
     return Scaffold(
       backgroundColor: Colors.grey[300],
       // appBar: AppBar(
@@ -32,13 +31,14 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Image.asset("assets/images/Rectangle_1.png"),
                   SizedBox(
-                    height: config.itemHeight(10.0),
+                    height: itemHeight(10.0),
                   ),
                   RichText(
                     text: const TextSpan(children: [
                       TextSpan(
                           text: "WELCOME TO E-PACK SERVICES",
-                          style: TextStyle(fontSize: 17.0, color: Colors.black)),
+                          style:
+                              TextStyle(fontSize: 17.0, color: Colors.black)),
                     ]),
                   )
                 ],
@@ -58,42 +58,45 @@ class HomeScreen extends StatelessWidget {
                 height: Config.height,
                 width: Config.width,
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                decoration:
-                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20.0)),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20.0)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    selectionButton(
-                      config: config,
+                    SelectionButton(
                       text1: "ROOM PACKING SERVICE WITH STORAGE",
-                      text2: "we pick the very best location to store your very items",
+                      text2:
+                          "we pick the very best location to store your very items",
                       text3: "all at an affordable pricing",
                       onPressed: () {
                         Navigator.of(context).pushNamed(Page1.id);
                       },
                     ),
-                    selectionButton(
-                      config: config,
+                    SelectionButton(
                       text1: "ROOM PACKING SERVICE WITH STORAGE",
-                      text2: "we pick the very best location to store your very items",
+                      text2:
+                          "we pick the very best location to store your very items",
                       text3: "all at an affordable pricing",
                       onPressed: () {
                         Future result = Database(AppWriteServer().userClient())
-                            .createDocument(collectionId: "60f4529c27565", data: {
-                          "firstName": "Kwadwo",
-                          "lastName": "Duah",
-                          "emailAddress": "duah12@outlook.com",
-                          "phoneNumber": "0201317498",
-                          "largeBoxSizeCount": 5,
-                          "mediumBoxSizeCount": 2,
-                          "smallBoxSizeCount": 1,
-                          "locationName": "Ayduase",
-                          "apartmentName": "Whitpam A Hostel",
-                          "roomNumber": 213,
-                          "address": "Ayduase Gate",
-                          "cost": 2550.0
-                        });
+                            .createDocument(
+                                collectionId: "60f4529c27565",
+                                data: {
+                              "firstName": "Kwadwo",
+                              "lastName": "Duah",
+                              "emailAddress": "duah12@outlook.com",
+                              "phoneNumber": "0201317498",
+                              "largeBoxSizeCount": 5,
+                              "mediumBoxSizeCount": 2,
+                              "smallBoxSizeCount": 1,
+                              "locationName": "Ayduase",
+                              "apartmentName": "Whitpam A Hostel",
+                              "roomNumber": 213,
+                              "address": "Ayduase Gate",
+                              "cost": 2550.0
+                            });
                         result.then((value) => print(value));
                       },
                     ),
@@ -104,8 +107,8 @@ class HomeScreen extends StatelessWidget {
             Expanded(
                 child: Container(
               padding: EdgeInsets.symmetric(
-                vertical: config.itemHeight(10.0),
-                horizontal: config.itemWidth(10.0),
+                vertical: itemHeight(10.0),
+                horizontal: itemWidth(10.0),
               ),
               child: Column(
                 children: [
@@ -130,7 +133,8 @@ class HomeScreen extends StatelessWidget {
               height: Config.height! / 2,
               width: Config.width,
               decoration: const BoxDecoration(
-                  color: Color(0xFF5f7f35), borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  color: Color(0xFF5f7f35),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
             )),
           ],
         ),
@@ -139,35 +143,34 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class selectionButton extends StatelessWidget {
+class SelectionButton extends StatelessWidget {
   final String? text1;
   final String? text2;
   final String? text3;
   final onPressed;
-  const selectionButton({
+  const SelectionButton({
     Key? key,
-    required this.config,
     this.text1,
     this.text2,
     this.text3,
     required this.onPressed,
   }) : super(key: key);
 
-  final Config config;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(config.itemHeight(10.0)),
+      padding: EdgeInsets.all(itemHeight(10.0)),
       child: OutlinedButton(
         style: ButtonStyle(
-            backgroundColor: MaterialStateColor.resolveWith((states) => Colors.blue),
+            backgroundColor:
+                MaterialStateColor.resolveWith((states) => Colors.blue),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(config.itemWidth(20.0)))))),
+                borderRadius:
+                    BorderRadius.all(Radius.circular(itemWidth(20.0)))))),
         onPressed: onPressed,
         child: Container(
           width: Config.width,
-          padding: EdgeInsets.symmetric(horizontal: config.itemWidth(30.0)),
+          padding: EdgeInsets.symmetric(horizontal: itemWidth(30.0)),
           child: Column(
             children: [
               RichText(

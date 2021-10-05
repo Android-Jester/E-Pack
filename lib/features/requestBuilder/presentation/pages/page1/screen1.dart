@@ -15,11 +15,8 @@ class _Screen1State extends State<Screen1> {
 
   @override
   Widget build(BuildContext context) {
-    Config config = Config();
-    config.init(context);
+    Config.init(context);
     return Container(
-      width: Config.width,
-      height: Config.height,
       child: Column(
         children: [
           const SizedBox(
@@ -40,7 +37,7 @@ class _Screen1State extends State<Screen1> {
             width: Config.width! / 1.2,
             child: SfDateRangePicker(),
           ),
-          SizedBox(height: config.itemHeight(15.0)),
+          SizedBox(height: itemHeight(15.0)),
           Container(
             child: DropdownButton(
                 value: semesterPeriod,
@@ -64,11 +61,11 @@ class _Screen1State extends State<Screen1> {
             //   readOnly: true,
             //   decoration: InputDecoration(
             //       border: OutlineInputBorder(
-            //     borderRadius: BorderRadius.circular(config.itemWidth(12.0)),
+            //     borderRadius: BorderRadius.circular(itemWidth(12.0)),
             //   )),
             // ),
           ),
-          SizedBox(height: config.itemHeight(15.0)),
+          SizedBox(height: itemHeight(15.0)),
           //TODO: TimeStamp(Display the information on the number of days apart)
         ],
       ),

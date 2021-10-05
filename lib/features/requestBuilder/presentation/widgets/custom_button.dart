@@ -5,13 +5,11 @@ class CustomButton extends StatelessWidget {
   final String? text;
   final Function()? onPressed;
 
-  Config config = Config();
-
   CustomButton({Key? key, required this.text, required this.onPressed})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    config.init(context);
+    Config.init(context);
     return TextButton(
         style: ButtonStyle(
           foregroundColor:
@@ -22,7 +20,7 @@ class CustomButton extends StatelessWidget {
                 color: Colors.black,
                 width: 1.5,
               ),
-              borderRadius: BorderRadius.circular(config.itemWidth(20.0)),
+              borderRadius: BorderRadius.circular(itemWidth(20.0)),
             ),
           ),
         ),

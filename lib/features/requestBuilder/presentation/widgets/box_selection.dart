@@ -17,11 +17,10 @@ class _BoxSelectionState extends State<BoxSelection> {
   Widget build(BuildContext context) {
     int counted = int.parse(widget.textEditingController!.text);
 
-    Config config = Config();
-    config.init(context);
+    Config.init(context);
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: config.itemWidth(10.0))
-          .copyWith(top: config.itemWidth(10.0)),
+      padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0))
+          .copyWith(top: itemWidth(10.0)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -30,7 +29,7 @@ class _BoxSelectionState extends State<BoxSelection> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(config.itemWidth(20.0)),
+                  borderRadius: BorderRadius.circular(itemWidth(20.0)),
                   color: Colors.red,
                 ),
                 child: IconButton(
@@ -45,8 +44,8 @@ class _BoxSelectionState extends State<BoxSelection> {
                     icon: const Icon(Icons.remove)),
               ),
               Container(
-                  width: config.itemWidth(40.0),
-                  height: config.itemHeight(20.0),
+                  width: itemWidth(40.0),
+                  height: itemHeight(20.0),
                   child: TextField(
                     textAlign: TextAlign.center,
                     readOnly: true,
@@ -54,7 +53,7 @@ class _BoxSelectionState extends State<BoxSelection> {
                   )),
               Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(config.itemWidth(20.0)),
+                    borderRadius: BorderRadius.circular(itemWidth(20.0)),
                     color: Colors.red,
                   ),
                   child: IconButton(

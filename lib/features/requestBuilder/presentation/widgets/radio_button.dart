@@ -15,11 +15,10 @@ class PageButton extends StatelessWidget {
       required this.controller,
       required this.pageCount})
       : super(key: key);
-  Config config = Config();
   @override
   Widget build(BuildContext context) {
     int currentPage = pageCount;
-    config.init(context);
+    Config.init(context);
     return CustomButton(
       onPressed: () {
         controller!.animateToPage((isForward) ? currentPage++ : currentPage--,
