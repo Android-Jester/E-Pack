@@ -5,6 +5,7 @@ part 'login_test_event.dart';
 part 'login_test_state.dart';
 class LoginTestBloc extends Bloc<LoginTestEvent, LoginTestState> {
   LoginTestBloc() : super(LoginTestInitial());
+
   @override
   Stream<LoginTestState> mapEventToState(
     LoginTestEvent event,
