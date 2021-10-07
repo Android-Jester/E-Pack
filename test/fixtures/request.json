@@ -1,14 +1,137 @@
 {
-     "firstName": "Kwadwo",
-     "lastName": "Duah",
-     "emailAddress": "duah12@outlook.com",
-     "phoneNumber": "0201317498",
-     "largeBoxSizeCount": 5,
-     "mediumBoxSizeCount": 2,
-     "smallBoxSizeCount": 1,
-     "locationName": "Ayduase",
-     "apartmentName": "Whitpam A Hostel",
-     "roomNumber": 213,
-     "address": "Ayduase Gate",
-     "cost": 2550.0
-   }
+  
+    
+    {
+      "$id": "615f69fb50470",
+      "$collection": "rules",
+      "type": "numeric",
+      "key": "storageWeeks",
+      "label": "Weeks of Storage",
+      "default": 0,
+      "array": false,
+      "required": false,
+      "list": []
+    },
+    {
+      "$id": "615f69fb51c36",
+      "$collection": "rules",
+      "type": "text",
+      "key": "residenceName",
+      "label": "Residence Name",
+      "default": "",
+      "array": false,
+      "required": false,
+      "list": []
+    },
+    {
+      "$id": "615f69fb535ca",
+      "$collection": "rules",
+      "type": "numeric",
+      "key": "roomNum",
+      "label": "room Number",
+      "default": 0,
+      "array": false,
+      "required": false,
+      "list": []
+    },
+    {
+      "$id": "615f69fb54d93",
+      "$collection": "rules",
+      "type": "text",
+      "key": "phoneNum",
+      "label": "Phone Number",
+      "default": "",
+      "array": false,
+      "required": false,
+      "list": []
+    },
+    {
+      "$id": "615f69fb5673d",
+      "$collection": "rules",
+      "type": "text",
+      "key": "addressType",
+      "label": "Address Type",
+      "default": "",
+      "array": false,
+      "required": false,
+      "list": []
+    },
+    {
+      "$id": "615f69fb58439",
+      "$collection": "rules",
+      "type": "text",
+      "key": "noteAcc",
+      "label": "Access Note",
+      "default": "",
+      "array": false,
+      "required": false,
+      "list": []
+    },
+    {
+      "$id": "615f69fb59c13",
+      "$collection": "rules",
+      "type": "text",
+      "key": "location",
+      "label": "Current Location",
+      "default": "",
+      "array": false,
+      "required": false,
+      "list": []
+    },
+    {
+      "$id": "615f69fb5b3da",
+      "$collection": "rules",
+      "type": "text",
+      "key": "localPhoneNum",
+      "label": "Local Phone Number",
+      "default": "",
+      "array": false,
+      "required": false,
+      "list": []
+    },
+    {
+      "$id": "615f69fb5ce66",
+      "$collection": "rules",
+      "type": "text",
+      "key": "whatNum",
+      "label": "WhatsApp Number",
+      "default": "",
+      "array": false,
+      "required": false,
+      "list": []
+    },
+    {
+      "$id": "615f69fb5ec0a",
+      "$collection": "rules",
+      "type": "numeric",
+      "key": "CTimes",
+      "label": "Contact Times",
+      "default": 0,
+      "array": false,
+      "required": false,
+      "list": []
+    },
+    {
+      "$id": "615f69fb60cfd",
+      "$collection": "rules",
+      "type": "text",
+      "key": "momoName",
+      "label": "Momo Full Name",
+      "default": "",
+      "array": false,
+      "required": false,
+      "list": []
+    },
+    {
+      "$id": "615f69fb6244a",
+      "$collection": "rules",
+      "type": "text",
+      "key": "momoNum",
+      "label": "Momo Phone Number",
+      "default": "",
+      "array": false,
+      "required": false,
+      "list": []
+    }
+  ]
+}

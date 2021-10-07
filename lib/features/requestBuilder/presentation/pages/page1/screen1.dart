@@ -56,14 +56,13 @@ class _Screen1State extends State<Screen1> {
                     semesterPeriod = value.toString();
                   });
                 }),
-
-            // TextField(
-            //   readOnly: true,
-            //   decoration: InputDecoration(
-            //       border: OutlineInputBorder(
-            //     borderRadius: BorderRadius.circular(itemWidth(12.0)),
-            //   )),
-            // ),
+          ),
+          TextField(
+            readOnly: true,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(itemWidth(12.0)),
+            )),
           ),
           SizedBox(height: itemHeight(15.0)),
           //TODO: TimeStamp(Display the information on the number of days apart)

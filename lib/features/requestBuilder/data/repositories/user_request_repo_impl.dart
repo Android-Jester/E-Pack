@@ -10,7 +10,8 @@ class UserRequestRepositoryImpl implements UserRequestRepository {
   final ServerHost serverHost;
   final NetworkInfo networkInfo;
 
-  UserRequestRepositoryImpl({required this.serverHost, required this.networkInfo});
+  UserRequestRepositoryImpl(
+      {required this.serverHost, required this.networkInfo});
 
   @override
   // TODO: implement request
@@ -18,33 +19,55 @@ class UserRequestRepositoryImpl implements UserRequestRepository {
 
   @override
   Future<Either<Failure, UserRequest>>? sendUserRequest(
-      String? firstName,
-      String? lastName,
-      String? emailAddress,
-      String? phoneNumber,
-      int? largeBoxSizeCount,
-      int? mediumBoxSizeCount,
-      int? smallBoxSizeCount,
-      String? locationName,
-      String? apartmentName,
-      int? roomNumber,
-      String? address,
-      double? cost) async {
+    String? firstName,
+    String? lastName,
+    String? emailAddress,
+    String? timeDeposition,
+    String? semesterPeriod,
+    int? largeBoxSizeCount,
+    int? mediumBoxSizeCount,
+    int? smallBoxSizeCount,
+    String? roomType,
+    int? storageWeeks,
+    String? residenceName,
+    int? roomNumber,
+    String? phoneNumber,
+    String? addressType,
+    String? accessNote,
+    String? locationName,
+    String? localPhoneNum,
+    String? whatsPhoneNum,
+    int? contactTimes,
+    String? momoFullName,
+    String? momoPhoneNum,
+    double? cost,
+  ) async {
     networkInfo.isConnected;
     try {
       final remoteTrivia = await serverHost.sendUserRequest(
-          firstName,
-          lastName,
-          emailAddress,
-          phoneNumber,
-          largeBoxSizeCount,
-          mediumBoxSizeCount,
-          smallBoxSizeCount,
-          locationName,
-          apartmentName,
-          roomNumber,
-          address,
-          cost);
+        firstName,
+        lastName,
+        emailAddress,
+        timeDeposition,
+        semesterPeriod,
+        largeBoxSizeCount,
+        mediumBoxSizeCount,
+        smallBoxSizeCount,
+        roomType,
+        storageWeeks,
+        residenceName,
+        roomNumber,
+        phoneNumber,
+        addressType,
+        accessNote,
+        locationName,
+        localPhoneNum,
+        whatsPhoneNum,
+        contactTimes,
+        momoFullName,
+        momoPhoneNum,
+        cost,
+      );
       return Right(remoteTrivia!);
     } on ServerException {
       return Left(ServerFailure());

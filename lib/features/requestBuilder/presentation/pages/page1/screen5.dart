@@ -6,14 +6,37 @@ import 'package:e_pack/features/requestBuilder/presentation/widgets/text_with_la
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Screen5 extends StatelessWidget {
+class Screen5 extends StatefulWidget {
+  const Screen5({Key? key}) : super(key: key);
+
+  @override
+  State<Screen5> createState() => _Screen5State();
+}
+
+class _Screen5State extends State<Screen5> {
   bool isGranted = false;
+
   bool agreed = false;
+
   TextEditingController? residenceNameController;
+
   TextEditingController? roomNumController;
+
   TextEditingController? mobileNumController;
+
   TextEditingController? addressTypeController;
+
   TextEditingController? accessNoteController;
+
+  @override
+  void dispose() {
+    super.dispose();
+    residenceNameController!.dispose();
+    roomNumController!.dispose();
+    mobileNumController!.dispose();
+    addressTypeController!.dispose();
+    accessNoteController!.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

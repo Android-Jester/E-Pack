@@ -13,49 +13,74 @@ class SendUserRequest extends UseCase<UserRequest, Params> {
   @override
   Future<Either<Failure, UserRequest>?>? call(Params params) async {
     return await repo!.sendUserRequest(
-        params.firstName,
-        params.lastName,
-        params.emailAddress,
-        params.phoneNumber,
-        params.largeBoxSizeCount,
-        params.mediumBoxSizeCount,
-        params.smallBoxSizeCount,
-        params.locationName,
-        params.apartmentName,
-        params.roomNumber,
-        params.address,
-        params.cost);
+      params.firstName,
+      params.lastName,
+      params.emailAddress,
+      params.timeDeposition,
+      params.semesterPeriod,
+      params.largeBoxSizeCount,
+      params.mediumBoxSizeCount,
+      params.smallBoxSizeCount,
+      params.roomType,
+      params.storageWeeks,
+      params.residenceName,
+      params.roomNumber,
+      params.phoneNumber,
+      params.addressType,
+      params.accessNote,
+      params.locationName,
+      params.localPhoneNum,
+      params.whatsPhoneNum,
+      params.contactTimes,
+      params.momoFullName,
+      params.momoPhoneNum,
+      params.cost,
+    );
   }
 }
 
 // }
 //
 class Params extends Equatable {
-  final String? firstName;
-  final String? lastName;
+  final String? firstName, lastName;
   final String? emailAddress;
-  final String? phoneNumber;
-  final int? largeBoxSizeCount;
-  final int? mediumBoxSizeCount;
-  final int? smallBoxSizeCount;
-  final String? locationName;
-  final String? apartmentName;
+  final String? timeDeposition, semesterPeriod;
+  final int? largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
+  final String? roomType;
+  final int? storageWeeks;
+  final String? residenceName;
   final int? roomNumber;
-  final String? address;
+  final String? phoneNumber;
+  final String? addressType;
+  final String? accessNote;
+  final String? locationName;
+  final String? localPhoneNum, whatsPhoneNum;
+  final int? contactTimes;
+  final String? momoFullName, momoPhoneNum;
   final double? cost;
 
-  Params({
+  const Params({
     required this.firstName,
     required this.lastName,
     required this.emailAddress,
-    required this.phoneNumber,
+    required this.timeDeposition,
+    required this.semesterPeriod,
     this.largeBoxSizeCount,
     this.mediumBoxSizeCount,
     this.smallBoxSizeCount,
-    required this.locationName,
-    required this.apartmentName,
+    required this.roomType,
+    required this.storageWeeks,
+    required this.residenceName,
     required this.roomNumber,
-    required this.address,
+    required this.phoneNumber,
+    required this.addressType,
+    required this.accessNote,
+    required this.locationName,
+    required this.localPhoneNum,
+    required this.whatsPhoneNum,
+    required this.contactTimes,
+    required this.momoFullName,
+    required this.momoPhoneNum,
     required this.cost,
   });
 
@@ -64,14 +89,25 @@ class Params extends Equatable {
         firstName,
         lastName,
         emailAddress,
+        timeDeposition,
+        semesterPeriod,
+        roomType,
+        storageWeeks,
+        residenceName,
         phoneNumber,
         largeBoxSizeCount,
         mediumBoxSizeCount,
         smallBoxSizeCount,
         locationName,
-        apartmentName,
+        residenceName,
+        localPhoneNum,
+        whatsPhoneNum,
+        accessNote,
         roomNumber,
-        address,
+        addressType,
+        contactTimes,
+        momoFullName,
+        momoPhoneNum,
         cost,
       ];
 }
