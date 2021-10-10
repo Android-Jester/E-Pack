@@ -17,39 +17,31 @@ class PageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150.0,
+      height: itemHeight(100.0),
       width: Config.width,
       decoration: const BoxDecoration(
-        color: Colors.grey,
+        image: DecorationImage(
+            image: AssetImage("assets/images/box.jpg"), fit: BoxFit.cover),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5.0)),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Align(
-            alignment: Alignment.topLeft,
-            child: TextButton(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.blue),
-                  shape: MaterialStateProperty.all(const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(40.0))))),
-              onPressed: () => Navigator.pop(context),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                        vertical: itemHeight(5.0), horizontal: itemWidth(10.0))
-                    .copyWith(left: 20.0),
-                child: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
-                ),
-              ),
-            ),
+              alignment: Alignment.topLeft,
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: itemWidth(30.0),
+                child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios_new)),
+              ),),
+          Spacer(),
+          Padding(
+            padding: EdgeInsets.only(bottom: itemHeight(8.0)),
+            child: BuildDotsRow(
+                currentPage: currentPage,
+                index: currentPage,
+                length: pages.length),
           ),
-          BuildDotsRow(
-              currentPage: currentPage,
-              index: currentPage,
-              length: pages.length),
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:e_pack/features/requestBuilder/presentation/config/config.dart';
+import 'package:e_pack/features/requestBuilder/presentation/pages/page1/screen6.dart';
 import 'package:e_pack/features/requestBuilder/presentation/widgets/custom_button.dart';
 import 'package:e_pack/features/requestBuilder/presentation/widgets/page_header.dart';
 import 'package:e_pack/features/requestBuilder/presentation/widgets/radio_button.dart';
@@ -26,9 +27,10 @@ class _BodyState extends State<Body> {
   int selectedRadio = 0;
   String semesterPeriod = "First Semester";
   int currentPage = 0;
+  late List<Widget> pages;
 
   buttonRow() {
-    return (currentPage == 4)
+    return (currentPage == pages.length)
         ? PageButton(
             isForward: false,
             pageCount: currentPage,
@@ -74,7 +76,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    List<Widget> pages = [
+    pages = [
       Screen1(controller: _controller),
       const Screen2(),
       Screen3(
@@ -83,7 +85,8 @@ class _BodyState extends State<Body> {
         mediumBoxController: mediumBoxController,
       ),
       Screen4(),
-      Screen5()
+      Screen5(),
+      Screen6()
     ];
 
     return SafeArea(

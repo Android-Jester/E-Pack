@@ -12,6 +12,7 @@ class Screen1 extends StatefulWidget {
 
 class _Screen1State extends State<Screen1> {
   String semesterPeriod = "First Semester";
+  final TextEditingController _timeTickerController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,10 @@ class _Screen1State extends State<Screen1> {
               color: Colors.blue,
             )),
             width: Config.width! / 1.2,
-            child: SfDateRangePicker(),
+            child: SfDateRangePicker(
+              initialDisplayDate: DateTime.now(),
+              maxDate: DateTime(2021, 12, 15),
+            ),
           ),
           SizedBox(height: itemHeight(15.0)),
           Container(
@@ -57,15 +61,24 @@ class _Screen1State extends State<Screen1> {
                   });
                 }),
           ),
-          TextField(
-            readOnly: true,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(itemWidth(12.0)),
-            )),
+          SizedBox(
+            height: itemHeight(40.0),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: itemWidth(20.0)),
+              child: TextField(
+                controller: _timeTickerController,
+                onChanged: (val) {
+                  _timeTickerController.text = "";
+                },
+                readOnly: true,
+                decoration: InputDecoration(
+                  hintText: "Please selecr a date to view Timeslot here",
+                    border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(itemWidth(12.0)),
+                )),
+              ),
+            ),
           ),
-          SizedBox(height: itemHeight(15.0)),
-          //TODO: TimeStamp(Display the information on the number of days apart)
         ],
       ),
     );

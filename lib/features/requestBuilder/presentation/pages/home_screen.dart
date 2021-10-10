@@ -2,6 +2,8 @@ import 'package:appwrite/appwrite.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/features/requestBuilder/presentation/config/config.dart';
 import 'package:e_pack/features/requestBuilder/presentation/pages/page1/page_1.dart';
+import 'package:e_pack/features/requestBuilder/presentation/pages/page3.dart';
+import 'package:e_pack/features/requestBuilder/presentation/widgets/selection_button.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -71,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                           "we pick the very best location to store your very items",
                       text3: "all at an affordable pricing",
                       onPressed: () {
-                        Navigator.of(context).pushNamed(Page1.id);
+                        Navigator.of(context).pushNamed(TandC.id);
                       },
                     ),
                     SelectionButton(
@@ -143,47 +145,3 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class SelectionButton extends StatelessWidget {
-  final String? text1;
-  final String? text2;
-  final String? text3;
-  final onPressed;
-  const SelectionButton({
-    Key? key,
-    this.text1,
-    this.text2,
-    this.text3,
-    required this.onPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(itemHeight(10.0)),
-      child: OutlinedButton(
-        style: ButtonStyle(
-            backgroundColor:
-                MaterialStateColor.resolveWith((states) => Colors.blue),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(itemWidth(20.0)))))),
-        onPressed: onPressed,
-        child: Container(
-          width: Config.width,
-          padding: EdgeInsets.symmetric(horizontal: itemWidth(30.0)),
-          child: Column(
-            children: [
-              RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(children: [
-                    TextSpan(text: "$text1 \n"),
-                    TextSpan(text: "$text2 \n"),
-                    TextSpan(text: " $text3 \n"),
-                  ]))
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

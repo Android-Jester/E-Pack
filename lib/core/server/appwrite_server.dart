@@ -7,7 +7,9 @@ class AppWriteServer {
   userClient() {
     Client client = Client();
     return client
-        .setEndpoint('http://192.168.2.1:8080/v1') // Your Appwrite Endpoint
-        .setProject('60f4528babe86');
+        .setEndpoint(
+            'http://7bcd-102-176-94-18.ngrok.io/v1') // Your Appwrite Endpoint
+        .setProject('60f4528babe86')
+        .setSelfSigned(status: true);
   }
 }
