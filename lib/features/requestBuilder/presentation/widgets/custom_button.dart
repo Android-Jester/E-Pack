@@ -24,7 +24,13 @@ class CustomButton extends StatelessWidget {
             ),
           ),
         ),
-        child: Text(text!),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0)),
+          child: Text(
+            text!,
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ),
         onPressed: onPressed);
   }
 }

@@ -3,7 +3,7 @@ import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/features/requestBuilder/data/models/user_request_model.dart';
 
 void main() {
-  var database = Database(AppWriteServer().userClient());
+  var database = Database(AppWriteServer().initClient());
   const tfirstName = "Kwadwo";
   const tmiddleName = "Adjei";
   const tlastName = "Duah";

@@ -15,8 +15,13 @@ class _LoginScreenState extends State<LoginScreen> {
   late String email, password;
   void sendRequest({required String email, required String password}) {
     AppWriteServer server = AppWriteServer();
-    Account acc = Account(server.userClient());
-    acc.create(email: email, password: password).then((value) => print("Response: ${value}")).catchError((err) {print("Error: ${err}");});
+    Account acc = Account(server.initClient());
+    acc
+        .create(email: email, password: password)
+        .then((value) => print("Response: ${value}"))
+        .catchError((err) {
+      print("Error: ${err}");
+    });
   }
 
   @override

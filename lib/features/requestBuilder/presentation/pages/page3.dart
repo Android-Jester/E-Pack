@@ -1,6 +1,5 @@
 import 'package:e_pack/features/requestBuilder/presentation/config/config.dart';
 import 'package:e_pack/features/requestBuilder/presentation/pages/page1/page_1.dart';
-import 'package:e_pack/features/requestBuilder/presentation/pages/page_2.dart';
 import 'package:e_pack/features/requestBuilder/presentation/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -19,28 +18,34 @@ class TandC extends StatelessWidget {
           Container(
             child: Stack(
               children: [
-                Image.asset("assets/images/box.jpg"),
+                Image.asset(
+                  "assets/images/box.jpg",
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  height: itemHeight(150.0),
+                ),
                 Positioned(
                   top: itemHeight(15.0),
                   left: itemWidth(10.0),
                   child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: itemWidth(30.0),
-                      child: IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: const Icon(Icons.arrow_back_ios_new)),
-                    ),
+                    backgroundColor: Colors.white,
+                    radius: itemWidth(30.0),
+                    child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.arrow_back_ios_new)),
+                  ),
                 ),
               ],
             ),
             height: itemHeight(150.0),
             width: double.infinity,
           ),
+          Spacer(),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: itemWidth(8.0)),
+            padding: EdgeInsets.symmetric(horizontal: itemWidth(15.0)),
             child: RichText(
               text: TextSpan(
-                style: TextStyle(color: Colors.black),
+                style: Theme.of(context).textTheme.bodyText1,
                 children: [
                   const TextSpan(
                       text: " Terms and conditions \n\n ",
@@ -67,8 +72,10 @@ class TandC extends StatelessWidget {
             ),
           ),
           Spacer(),
-          CustomButton(text: "Book Now", onPressed: () => Navigator.pushNamed(context, Page1.id)),
-        Spacer(),
+          CustomButton(
+              text: "Book Now",
+              onPressed: () => Navigator.pushNamed(context, Page1.id)),
+          Spacer(),
         ],
       ),
     );

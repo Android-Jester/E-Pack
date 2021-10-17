@@ -1,10 +1,14 @@
 import 'package:e_pack/features/requestBuilder/presentation/config/config.dart';
+import 'package:e_pack/features/requestBuilder/presentation/widgets/datetime_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class Screen1 extends StatefulWidget {
   final PageController? controller;
-  const Screen1({Key? key, required this.controller}) : super(key: key);
+  final DateRangePickerController? dateController;
+  const Screen1(
+      {Key? key, required this.controller, required this.dateController})
+      : super(key: key);
 
   @override
   State<Screen1> createState() => _Screen1State();
@@ -20,9 +24,7 @@ class _Screen1State extends State<Screen1> {
     return Container(
       child: Column(
         children: [
-          const SizedBox(
-            height: 5.0,
-          ),
+          Spacer(),
           const Text(
             "Pick A Slot",
             style: TextStyle(fontSize: 30.0),
@@ -30,17 +32,7 @@ class _Screen1State extends State<Screen1> {
           const SizedBox(
             height: 5.0,
           ),
-          Container(
-            decoration: BoxDecoration(
-                border: Border.all(
-              color: Colors.blue,
-            )),
-            width: Config.width! / 1.2,
-            child: SfDateRangePicker(
-              initialDisplayDate: DateTime.now(),
-              maxDate: DateTime(2021, 12, 15),
-            ),
-          ),
+          DateTimePicker(widget: widget),
           SizedBox(height: itemHeight(15.0)),
           Container(
             child: DropdownButton(
@@ -68,17 +60,19 @@ class _Screen1State extends State<Screen1> {
               child: TextField(
                 controller: _timeTickerController,
                 onChanged: (val) {
-                  _timeTickerController.text = "";
+                  _timeTickerController.text =
+                      "The Date of Collection is ${widget.dateController!.displayDate} at ${DateTime.now().hour} : ${DateTime.now().minute}";
                 },
                 readOnly: true,
                 decoration: InputDecoration(
-                  hintText: "Please selecr a date to view Timeslot here",
+                    hintText: "Please selecr a date to view Timeslot here",
                     border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(itemWidth(12.0)),
-                )),
+                      borderRadius: BorderRadius.circular(itemWidth(12.0)),
+                    )),
               ),
             ),
           ),
+          const Spacer(),
         ],
       ),
     );

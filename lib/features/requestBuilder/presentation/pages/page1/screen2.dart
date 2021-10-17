@@ -19,7 +19,10 @@ class _Screen2State extends State<Screen2> {
         Radio<int>(
           value: value!,
           groupValue: selectedRadio,
-          onChanged: (valued) => setState(() => selectedRadio = valued!),
+          onChanged: (valued) => setState(() {
+            print(valued);
+            selectedRadio = valued!;
+          }),
         ),
       ]),
     );

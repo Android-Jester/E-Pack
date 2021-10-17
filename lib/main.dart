@@ -1,51 +1,39 @@
 import 'dart:io' show Platform;
 
-import 'package:e_pack/features/SignUp/presentation/pages/login_screen.dart';
-import 'package:e_pack/features/requestBuilder/presentation/pages/page_2.dart';
+import 'package:e_pack/core/presentation/theme.dart';
+import 'package:e_pack/core/server/appwrite_server.dart';
+import 'package:e_pack/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'features/requestBuilder/presentation/pages/home_screen.dart';
-import 'features/requestBuilder/presentation/pages/page1/page_1.dart';
-import 'features/requestBuilder/presentation/pages/page3.dart';
 
-void main() => runApp(const EPackServices());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var client = AppWriteServer().initClient();
+  bool isAuth = false;
+  // await server.Account(client)
+  //     .get()
+  //     .then((value) => (value == 200) ? isAuth = true : isAuth = false)
+  //     .catchError((err) {
+  //   print(err);
+  // });
 
-class EPackServices extends StatelessWidget {
-  const EPackServices({Key? key}) : super(key: key);
+  List<Provider>? providers = [];
 
-  @override
-  Widget build(BuildContext context) {
-    return (Platform.isAndroid)
+  runApp(
+    (Platform.isAndroid)
         ? MaterialApp(
-            theme: ThemeData(
-                textTheme: const TextTheme(
-              headline1: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                  decoration: TextDecoration.underline),
-              button: TextStyle(fontSize: 12.0, color: Colors.white),
-            )),
+            darkTheme: darkTheme,
+            theme: lightTheme,
+            themeMode: ThemeMode.light,
             debugShowCheckedModeBanner: false,
             initialRoute: HomeScreen.id,
-            routes: {
-              LoginScreen.id: (context) => LoginScreen(),
-              // SignUpScreen.id: (context) => SignUpScreen(),
-              HomeScreen.id: (context) => HomeScreen(),
-              Page1.id: (context) => const Page1(),
-              Page2.id: (context) => Page2(),
-              TandC.id: (context) => TandC(),
-            },
-          )
+            routes: routes!)
         : CupertinoApp(
             debugShowCheckedModeBanner: false,
             initialRoute: HomeScreen.id,
-            routes: {
-              HomeScreen.id: (context) => HomeScreen(),
-              // Page1.id: (context) => const Page1(),
-              // Page2.id: (context) => const Page2(),
-              // Page3.id: (context) => const Page3(),
-            },
-          );
-  }
+            routes: routes!),
+  );
 }

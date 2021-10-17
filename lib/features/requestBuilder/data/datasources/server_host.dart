@@ -31,7 +31,7 @@ abstract class ServerHost {
 }
 
 class ServerHostImpl implements ServerHost {
-  Database database = Database(AppWriteServer().userClient());
+  Database database = Database(AppWriteServer().initClient());
   UserRequestModel? model;
 
   ServerHostImpl();

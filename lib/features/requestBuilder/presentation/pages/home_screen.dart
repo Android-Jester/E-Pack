@@ -1,7 +1,4 @@
-import 'package:appwrite/appwrite.dart';
-import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/features/requestBuilder/presentation/config/config.dart';
-import 'package:e_pack/features/requestBuilder/presentation/pages/page1/page_1.dart';
 import 'package:e_pack/features/requestBuilder/presentation/pages/page3.dart';
 import 'package:e_pack/features/requestBuilder/presentation/widgets/selection_button.dart';
 import 'package:flutter/material.dart';
@@ -81,26 +78,7 @@ class HomeScreen extends StatelessWidget {
                       text2:
                           "we pick the very best location to store your very items",
                       text3: "all at an affordable pricing",
-                      onPressed: () {
-                        Future result = Database(AppWriteServer().userClient())
-                            .createDocument(
-                                collectionId: "60f4529c27565",
-                                data: {
-                              "firstName": "Kwadwo",
-                              "lastName": "Duah",
-                              "emailAddress": "duah12@outlook.com",
-                              "phoneNumber": "0201317498",
-                              "largeBoxSizeCount": 5,
-                              "mediumBoxSizeCount": 2,
-                              "smallBoxSizeCount": 1,
-                              "locationName": "Ayduase",
-                              "apartmentName": "Whitpam A Hostel",
-                              "roomNumber": 213,
-                              "address": "Ayduase Gate",
-                              "cost": 2550.0
-                            });
-                        result.then((value) => print(value));
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -144,4 +122,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
