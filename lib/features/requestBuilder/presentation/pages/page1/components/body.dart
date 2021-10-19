@@ -113,32 +113,7 @@ class _BodyState extends State<Body> {
             buttonRow(),
             if (currentPage == pages.length)
               CustomButton(
-                onPressed: () {
-                  UserRequestModel(
-                    firstName: firstName,
-                    lastName: lastName,
-                    emailAddress: emailAddress,
-                    timeDeposition: timeDeposition,
-                    semesterPeriod: semesterPeriod,
-                    largeBoxSizeCount: largeBoxSizeCount,
-                    mediumBoxSizeCount: mediumBoxSizeCount,
-                    smallBoxSizeCount: smallBoxSizeCount,
-                    roomType: roomType,
-                    storageWeeks: storageWeeks,
-                    residenceName: residenceName,
-                    roomNumber: roomNumber,
-                    phoneNumber: phoneNumber,
-                    addressType: addressType,
-                    accessNote: accessNote,
-                    locationName: locationName,
-                    localPhoneNum: localPhoneNum,
-                    whatsPhoneNum: whatsPhoneNum,
-                    contactTimes: contactTimes,
-                    momoFullName: momoFullName,
-                    momoPhoneNum: momoPhoneNum,
-                    cost: cost,
-                  ).toJson();
-                },
+                onPressed: () {},
                 // onPressed: () => Navigator.pushNamed(context, Page3.id),
                 text: 'Book Now',
               )
