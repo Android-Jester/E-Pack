@@ -1,13 +1,14 @@
 import 'dart:io' show Platform;
 
-import 'package:e_pack/core/presentation/theme.dart';
+import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'features/requestBuilder/presentation/pages/home_screen.dart';
+import 'core/presentation/home_screen.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

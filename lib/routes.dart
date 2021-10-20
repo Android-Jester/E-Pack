@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'features/SignUp/presentation/pages/login_screen.dart';
-import 'features/requestBuilder/presentation/pages/home_screen.dart';
-import 'features/requestBuilder/presentation/pages/page1/page_1.dart';
-import 'features/requestBuilder/presentation/pages/page3.dart';
-import 'features/requestBuilder/presentation/pages/page_2.dart';
+import 'core/presentation/home_screen.dart';
+import 'core/presentation/terms_and_conditions.dart';
+import 'features/SignUp/presentation/pages/signup_screen.dart';
+import 'features/delivery_option/presentation/pages/delivery_option/delivery_option.dart';
+import 'features/storage_option/presentation/pages/storage_option/storage_option.dart';
 
 Map<String, WidgetBuilder>? routes = {
-  LoginScreen.id: (context) => LoginScreen(),
-  // SignUpScreen.id: (context) => SignUpScreen(),
+  // LoginScreen.id: (context) => LoginScreen(),
+  SignUpScreen.id: (context) => SignUpScreen(),
   HomeScreen.id: (context) => HomeScreen(),
-  Page1.id: (context) => const Page1(),
-  Page2.id: (context) => Page2(),
+  StorageOption.id: (context) => StorageOption(),
+  DeliveryOption.id: (context) => DeliveryOption(),
   TandC.id: (context) => TandC(),
 };
