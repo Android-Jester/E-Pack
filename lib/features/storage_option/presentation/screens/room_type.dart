@@ -1,11 +1,10 @@
 import 'package:e_pack/core/presentation/config/config.dart';
-import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/components/body.dart';
+import 'package:e_pack/features/storage_option/presentation/pages/storage_option/components/body.dart';
 import 'package:flutter/material.dart';
 
 class RoomType extends StatefulWidget {
   final Body body;
-
-  RoomType({Key? key, required this.body}) : super(key: key);
+  const RoomType({Key? key, required this.body}) : super(key: key);
 
   @override
   _RoomTypeState createState() => _RoomTypeState();

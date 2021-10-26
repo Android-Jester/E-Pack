@@ -3,16 +3,19 @@
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/check_box_row.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
+import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/components/body.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+class DeliveryInfo extends StatefulWidget {
+  final Body body;
 
-class CollectLocation extends StatefulWidget {
+  DeliveryInfo({required this.body});
   @override
-  State<CollectLocation> createState() => _CollectLocationState();
+  State<DeliveryInfo> createState() => _DeliveryInfoState();
 }
 
-class _CollectLocationState extends State<CollectLocation> {
+class _DeliveryInfoState extends State<DeliveryInfo> {
   bool isGranted = false;
 
   bool agreed = false;

@@ -1,11 +1,12 @@
 import 'package:e_pack/core/presentation/config/config.dart';
-import 'package:e_pack/features/storage_option/presentation/pages/storage_option/screens/time_selection.dart';
+import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/Screens/time_selection.dart'
+    as delivery;
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class DateTimePicker extends StatelessWidget {
   final DateRangePickerController dateController = DateRangePickerController();
-  final TimeSelection? selection;
+  final delivery.TimeSelection selection;
 
   DateTimePicker({required this.selection});
   @override
@@ -23,7 +24,7 @@ class DateTimePicker extends StatelessWidget {
         minDate: DateTime.now(),
         onSelectionChanged: (val) {
           print(val.value);
-          selection!.onDateChange(val.value.toString());
+          selection.onDateChange(val.value.toString());
         },
         navigationDirection: DateRangePickerNavigationDirection.vertical,
         initialDisplayDate: DateTime.now(),

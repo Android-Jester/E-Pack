@@ -1,11 +1,13 @@
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/box_selection.dart';
+import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/components/body.dart';
 import 'package:flutter/material.dart';
 
-class StoragePeriod extends StatelessWidget {
+class RelocationDetails extends StatelessWidget {
   final TextEditingController? weeksStoredBoxController =
       TextEditingController(text: "0");
-  StoragePeriod({Key? key}) : super(key: key);
+  final Body body;
+  RelocationDetails({Key? key, required this.body}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

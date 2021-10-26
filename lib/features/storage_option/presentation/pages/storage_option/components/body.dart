@@ -3,16 +3,13 @@ import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/core/presentation/widgets/page_header.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
 import 'package:e_pack/features/storage_option/data/datasources/server_host.dart';
-import 'package:e_pack/features/storage_option/data/models/storage_request_model.dart';
-import 'package:e_pack/features/storage_option/domain/entities/storage_request.dart';
-import 'package:e_pack/features/storage_option/presentation/pages/storage_option/screens/box_choices.dart';
-import 'package:e_pack/features/storage_option/presentation/pages/storage_option/screens/collect_location.dart';
-import 'package:e_pack/features/storage_option/presentation/pages/storage_option/screens/contact_info.dart';
-import 'package:e_pack/features/storage_option/presentation/pages/storage_option/screens/room_type.dart';
-import 'package:e_pack/features/storage_option/presentation/pages/storage_option/screens/storage_period.dart';
-import 'package:e_pack/features/storage_option/presentation/pages/storage_option/screens/time_selection.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/box_choices.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/collect_location.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/contact_info.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/room_type.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/storage_period.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/time_selection.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class Body extends StatefulWidget {
   String? _timeCollect, _semesterPeriod, _collectRoomType;
@@ -28,7 +25,6 @@ class Body extends StatefulWidget {
   int? _contactTimes;
   String? _momoFullName, _momoPhoneNum;
   double? cost;
-
   void setTimeCollect(String input) => _timeCollect = input;
   void setSemesterPeriod(String input) => _semesterPeriod = input;
   void setCollectRoomType(String input) => _collectRoomType = input;
@@ -48,8 +44,28 @@ class Body extends StatefulWidget {
   void setContactTimes(int input) => _contactTimes = input;
   void setStorageWeeks(int input) => _storageWeeks = input;
 
+  String? get timeCollect => _timeCollect;
+
   @override
   _BodyState createState() => _BodyState();
+
+  String? get semesterPeriod => _semesterPeriod;
+  String? get collectRoomType => _collectRoomType;
+  int? get largeBoxSizeCount => _largeBoxSizeCount;
+  int? get mediumBoxSizeCount => _mediumBoxSizeCount;
+  int? get smallBoxSizeCount => _smallBoxSizeCount;
+  int? get storageWeeks => _storageWeeks;
+  String? get residenceName => _residenceName;
+  int? get roomNumber => _roomNumber;
+  String? get phoneNumber => _phoneNumber;
+  String? get addressType => _addressType;
+  String? get accessNote => _accessNote;
+  String? get locationName => _locationName;
+  String? get localPhoneNum => _localPhoneNum;
+  String? get whatsPhoneNum => _whatsPhoneNum;
+  int? get contactTimes => _contactTimes;
+  String? get momoFullName => _momoFullName;
+  String? get momoPhoneNum => _momoPhoneNum;
 }
 
 class _BodyState extends State<Body> {
@@ -144,10 +160,31 @@ class _BodyState extends State<Body> {
             ),
             buttonRow(),
             CustomButton(
-              onPressed: () {},
-              // onPressed: () => Navigator.pushNamed(context, Page3.id),
+              onPressed: () {
+                ServerHostImpl().sendStorageRequest(
+                  body.timeCollect,
+                  body.semesterPeriod,
+                  body.collectRoomType,
+                  body.largeBoxSizeCount,
+                  body.mediumBoxSizeCount,
+                  body.smallBoxSizeCount,
+                  body.storageWeeks,
+                  body.residenceName,
+                  body.roomNumber,
+                  body.phoneNumber,
+                  body.addressType,
+                  body.accessNote,
+                  body.locationName,
+                  body.localPhoneNum,
+                  body.whatsPhoneNum,
+                  body.contactTimes,
+                  body.momoFullName,
+                  body.momoPhoneNum,
+                  body.cost,
+                );
+              },
               text: 'Book Now',
-            )
+            ),
           ],
         ),
       ),

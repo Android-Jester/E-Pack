@@ -1,6 +1,6 @@
 import 'package:e_pack/core/presentation/config/config.dart';
-import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/components/body.dart';
-import 'package:e_pack/features/delivery_option/presentation/pages/widget/datetime_picker.dart';
+import 'package:e_pack/features/storage_option/presentation/pages/storage_option/components/body.dart';
+import 'package:e_pack/features/storage_option/presentation/widgets/datetime_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 

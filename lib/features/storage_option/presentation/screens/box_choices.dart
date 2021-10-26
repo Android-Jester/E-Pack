@@ -1,11 +1,11 @@
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/box_selection.dart';
-import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/components/body.dart';
+import 'package:e_pack/features/storage_option/presentation/pages/storage_option/components/body.dart';
 import 'package:flutter/material.dart';
 
 class BoxChoices extends StatefulWidget {
   final Body body;
-  BoxChoices({
+  const BoxChoices({
     Key? key,
     required this.body,
   }) : super(key: key);
@@ -15,9 +15,13 @@ class BoxChoices extends StatefulWidget {
 }
 
 class _BoxChoicesState extends State<BoxChoices> {
-  TextEditingController? largeBoxController = TextEditingController(text: "0");
-  TextEditingController? mediumBoxController = TextEditingController(text: "0");
-  TextEditingController? smallBoxController = TextEditingController(text: "0");
+  final TextEditingController? largeBoxController =
+      TextEditingController(text: "0");
+  final TextEditingController? mediumBoxController =
+      TextEditingController(text: "0");
+  final TextEditingController? smallBoxController =
+      TextEditingController(text: "0");
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,11 +36,23 @@ class _BoxChoicesState extends State<BoxChoices> {
           const Divider(),
           const Spacer(),
           BoxSelection(
-              textEditingController: largeBoxController, text: "Large Box"),
+            textEditingController: largeBoxController,
+            text: "Large Box",
+            onChanged: () => widget.body.setLargeBoxSizeCount(
+                int.parse(largeBoxController!.text.toString())),
+          ),
           BoxSelection(
-              textEditingController: mediumBoxController, text: "Medium Box"),
+            textEditingController: mediumBoxController,
+            text: "Medium Box",
+            onChanged: () => widget.body.setMediumBoxSizeCount(
+                int.parse(mediumBoxController!.text.toString())),
+          ),
           BoxSelection(
-              textEditingController: smallBoxController, text: "Small Box"),
+            textEditingController: smallBoxController,
+            text: "Small Box",
+            onChanged: () => widget.body.setSmallBoxSizeCount(
+                int.parse(smallBoxController!.text.toString())),
+          ),
           const Spacer(),
           Container(
             color: Colors.red.shade200,
