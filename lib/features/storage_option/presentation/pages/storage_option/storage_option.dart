@@ -1,6 +1,5 @@
+import 'package:e_pack/features/storage_option/presentation/pages/storage_option/components/body.dart';
 import 'package:flutter/material.dart';
-
-import 'components/body.dart';
 
 class StorageOption extends StatelessWidget {
   static String id = "Page1";
@@ -9,7 +8,7 @@ class StorageOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Body(),
     );
   }

@@ -1,8 +1,10 @@
 import 'package:e_pack/core/presentation/config/config.dart';
+import 'package:e_pack/features/storage_option/presentation/pages/storage_option/components/body.dart';
 import 'package:flutter/material.dart';
 
 class RoomType extends StatefulWidget {
-  const RoomType({Key? key}) : super(key: key);
+  final Body body;
+  const RoomType({Key? key, required this.body}) : super(key: key);
 
   @override
   _RoomTypeState createState() => _RoomTypeState();
@@ -22,6 +24,7 @@ class _RoomTypeState extends State<RoomType> {
           onChanged: (valued) => setState(() {
             print(valued);
             selectedRadio = valued!;
+            widget.body.setCollectRoomType(valued.toString());
           }),
         ),
       ]),

@@ -2,10 +2,6 @@
 // in e_pack/test/features/requestBuilder/domain/usecases/send_user_request_test.dart.
 // Do not manually edit this file.
 
-import 'package:e_pack/features/requestBuilder/domain/entities/user_request.dart'
-    as _i2;
-import 'package:e_pack/features/requestBuilder/domain/repositories/user_request_repo.dart'
-    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values

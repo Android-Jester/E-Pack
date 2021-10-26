@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'config/config.dart';
 
-
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
   static String id = "HomeScreen";
+  static bool? isDelivery;
   @override
   Widget build(BuildContext context) {
     Config.init(context);
@@ -72,6 +72,7 @@ class HomeScreen extends StatelessWidget {
                           "we pick the very best location to store your very items",
                       text3: "all at an affordable pricing",
                       onPressed: () {
+                        isDelivery = false;
                         Navigator.of(context).pushNamed(TandC.id);
                       },
                     ),
@@ -80,7 +81,10 @@ class HomeScreen extends StatelessWidget {
                       text2:
                           "we pick the very best location to store your very items",
                       text3: "all at an affordable pricing",
-                      onPressed: () {},
+                      onPressed: () {
+                        isDelivery = true;
+                        Navigator.of(context).pushNamed(TandC.id);
+                      },
                     ),
                   ],
                 ),

@@ -1,6 +1,6 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
-import 'package:e_pack/features/requestBuilder/data/models/user_request_model.dart';
+import 'package:e_pack/features/storage_option/presentation/pages/storage_option/storage_option.dart';
 
 void main() {
   var database = Database(AppWriteServer().initClient());
@@ -33,7 +33,7 @@ void main() {
   database
       .createDocument(
         collectionId: "60f4529c27565",
-        data: UserRequestModel(
+        data: StorageOptionModel(
           firstName: tfirstName,
           lastName: tlastName,
           emailAddress: temailAddress,

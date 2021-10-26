@@ -2,15 +2,14 @@ import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/core/presentation/widgets/page_header.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
+import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/Screens/box_choices.dart';
+import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/Screens/collect_location.dart';
+import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/Screens/contact_info.dart';
+import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/Screens/room_type.dart';
+import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/Screens/storage_period.dart';
+import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option/Screens/time_selection.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-
-import '../box_choices.dart';
-import '../collect_location.dart';
-import '../contact_info.dart';
-import '../room_type.dart';
-import '../storage_period.dart';
-import '../time_selection.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);

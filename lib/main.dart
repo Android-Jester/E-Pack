@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import 'core/presentation/home_screen.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var client = AppWriteServer().initClient();

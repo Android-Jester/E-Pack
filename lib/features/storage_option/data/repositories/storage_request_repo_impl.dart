@@ -14,43 +14,42 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
       {required this.serverHost, required this.networkInfo});
 
   @override
-  // TODO: implement request
   StorageRequest get request => throw UnimplementedError();
 
   @override
   Future<Either<Failure, StorageRequest>>? sendStorageRequest(
-      // Time of Collection
-      String? timeCollect,
-      String? semesterPeriod,
+    // Time of Collection
+    String? timeCollect,
+    String? semesterPeriod,
 
-      // Room Type
-      String? collectRoomType,
+    // Room Type
+    String? collectRoomType,
 
-      // Box Sizes
-      int? largeBoxSizeCount,
-      int? mediumBoxSizeCount,
-      int? smallBoxSizeCount,
+    // Box Sizes
+    int? largeBoxSizeCount,
+    int? mediumBoxSizeCount,
+    int? smallBoxSizeCount,
 
-      //Period of Storage
-      int? storageWeeks,
+    //Period of Storage
+    int? storageWeeks,
 
-      // Collection Information
-      String? residenceName,
-      int? roomNumber,
-      String? phoneNumber,
-      String? addressType,
-      String? accessNote,
+    // Collection Information
+    String? residenceName,
+    int? roomNumber,
+    String? phoneNumber,
+    String? addressType,
+    String? accessNote,
 
-      // Home Location and Contact Information
-      String? locationName,
-      String? localPhoneNum,
-      String? whatsPhoneNum,
-      int? contactTimes,
+    // Home Location and Contact Information
+    String? locationName,
+    String? localPhoneNum,
+    String? whatsPhoneNum,
+    int? contactTimes,
 
-      // Payment Information
-      String? momoFullName,
-      String? momoPhoneNum,
-      double? cost,
+    // Payment Information
+    String? momoFullName,
+    String? momoPhoneNum,
+    double? cost,
   ) async {
     networkInfo.isConnected;
     try {
@@ -71,22 +70,22 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
         storageWeeks,
 
         // Collection Information
-       residenceName,
-       roomNumber,
-       phoneNumber,
-       addressType,
-       accessNote,
+        residenceName,
+        roomNumber,
+        phoneNumber,
+        addressType,
+        accessNote,
 
         // Home Location and Contact Information
-      locationName,
-      localPhoneNum,
-      whatsPhoneNum,
-      contactTimes,
+        locationName,
+        localPhoneNum,
+        whatsPhoneNum,
+        contactTimes,
 
         // Payment Information
-      momoFullName,
-      momoPhoneNum,
-      cost,
+        momoFullName,
+        momoPhoneNum,
+        cost,
       );
       return Right(remoteTrivia!);
     } on ServerException {

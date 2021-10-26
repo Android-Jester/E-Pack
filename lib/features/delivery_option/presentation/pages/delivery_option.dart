@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'components/body.dart';
+import 'delivery_option/components/body.dart';
 
 class DeliveryOption extends StatelessWidget {
   static String id = "Page1";

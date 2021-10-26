@@ -1,11 +1,11 @@
 //TODO: collection of location info
 
 import 'package:e_pack/core/presentation/config/config.dart';
+import 'package:e_pack/core/presentation/widgets/check_box_row.dart';
+import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/presentation/widgets/check_box_row.dart';
-import '../../../../../core/presentation/widgets/text_with_label.dart';
 
 class CollectLocation extends StatefulWidget {
   @override

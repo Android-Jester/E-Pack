@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 class BoxSelection extends StatefulWidget {
   final String? text;
   final TextEditingController? textEditingController;
+  final void Function()? onChanged;
   const BoxSelection(
-      {Key? key, required this.text, required this.textEditingController})
+      {Key? key,
+      required this.text,
+      required this.textEditingController,
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -39,6 +43,7 @@ class _BoxSelectionState extends State<BoxSelection> {
                           counted -= 1;
                         }
                         widget.textEditingController!.text = counted.toString();
+                        widget.onChanged;
                       });
                     },
                     icon: const Icon(Icons.remove)),

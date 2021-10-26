@@ -1,11 +1,13 @@
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/box_selection.dart';
+import 'package:e_pack/features/storage_option/presentation/pages/storage_option/components/body.dart';
 import 'package:flutter/material.dart';
 
 class StoragePeriod extends StatelessWidget {
   final TextEditingController? weeksStoredBoxController =
       TextEditingController(text: "0");
-  StoragePeriod({Key? key}) : super(key: key);
+  final Body body;
+  StoragePeriod({Key? key, required this.body}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,8 @@ class StoragePeriod extends StatelessWidget {
               height: itemHeight(10.0),
             ),
             BoxSelection(
+                onChanged: () => body.setStorageWeeks(
+                    int.parse(weeksStoredBoxController!.text.toString())),
                 textEditingController: weeksStoredBoxController,
                 text: "Number of weeks stored: \$"),
             const Spacer(),

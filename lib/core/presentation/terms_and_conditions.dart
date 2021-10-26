@@ -1,7 +1,9 @@
+import 'package:e_pack/features/delivery_option/presentation/pages/delivery_option.dart';
 import 'package:e_pack/features/storage_option/presentation/pages/storage_option/storage_option.dart';
 import 'package:flutter/material.dart';
 
 import 'config/config.dart';
+import 'home_screen.dart';
 import 'widgets/custom_button.dart';
 
 class TandC extends StatelessWidget {
@@ -16,7 +18,7 @@ class TandC extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Container(
+          SizedBox(
             child: Stack(
               children: [
                 Image.asset(
@@ -75,7 +77,11 @@ class TandC extends StatelessWidget {
           Spacer(),
           CustomButton(
               text: "Book Now",
-              onPressed: () => Navigator.pushNamed(context, StorageOption.id)),
+              onPressed: () => {
+                    (HomeScreen.isDelivery!)
+                        ? Navigator.pushNamed(context, DeliveryOption.id)
+                        : Navigator.pushNamed(context, StorageOption.id)
+                  }),
           Spacer(),
         ],
       ),
