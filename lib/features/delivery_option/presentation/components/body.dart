@@ -16,7 +16,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  int count = 0;
   PageController? _controller = PageController();
   int currentPage = 0;
   late List<Widget> pages;

@@ -8,7 +8,7 @@ class BoxSizeData extends ChangeNotifier {
   final TextEditingController? smallBoxController =
       TextEditingController(text: "0");
 
-  int get largeBoxSizeText => (int.parse(largeBoxController!.text) * 2);
-  int get mediumBoxSizeText => (int.parse(mediumBoxController!.text) * 2);
-  int get smallBoxSizeText => (int.parse(smallBoxController!.text) * 2);
+  int get largeBoxSizeText => int.parse(largeBoxController!.text);
+  int get mediumBoxSizeText => int.parse(mediumBoxController!.text);
+  int get smallBoxSizeText => int.parse(smallBoxController!.text);
 }

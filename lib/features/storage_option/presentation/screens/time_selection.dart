@@ -1,7 +1,7 @@
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/date_range_picker.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
-import 'package:e_pack/features/delivery_option/presentation/provider/time_info_notifier.dart';
+import 'package:e_pack/features/storage_option/presentation/provider/time_info_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -9,6 +9,7 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 class TimeSelection extends StatefulWidget {
   final PageController? controller;
   late final int? currentPage;
+  TextEditingController _timeTickerController = TextEditingController();
 
   TimeSelection({
     this.controller,
@@ -19,9 +20,15 @@ class TimeSelection extends StatefulWidget {
   State<TimeSelection> createState() => _TimeSelectionState();
 }
 
-class _TimeSelectionState extends State<TimeSelection>
-    with AutomaticKeepAliveClientMixin {
+class _TimeSelectionState extends State<TimeSelection> {
   DateRangePickerController? dateController = DateRangePickerController();
+  String? semesterPeriod;
+  String? dateTime;
+  void onDateChange(String val) {
+    widget._timeTickerController = TextEditingController(
+        text: " Time to pick up materials is $val in $semesterPeriod");
+    print(widget._timeTickerController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +72,7 @@ class _TimeSelectionState extends State<TimeSelection>
               height: itemHeight(60.0),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: itemWidth(20.0)),
-                child: TextFormField(
+                child: TextField(
                   controller: data.timeDateData,
                   readOnly: true,
                   decoration: InputDecoration(
@@ -86,8 +93,4 @@ class _TimeSelectionState extends State<TimeSelection>
       );
     });
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }
