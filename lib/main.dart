@@ -1,27 +1,46 @@
+import 'dart:io';
+
+import 'package:e_pack/core/presentation/config/theme.dart';
+import 'package:e_pack/core/presentation/home_screen.dart';
+import 'package:e_pack/features/log_in/presentation/pages/log_in.dart';
+import 'package:e_pack/features/log_in/presentation/provider/login_info_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+import 'core/presentation/home_screen_data.dart';
+import 'core/presentation/routes.dart';
 
-class MyApp extends StatelessWidget {
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Container(
-            child: Text(
-              "Hello World",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold
-              ),
+    return MultiProvider(providers: [
+        ChangeNotifierProvider(
+        create: (BuildContext context) => HomeScreenData()),
+    ChangeNotifierProvider(
+    create: (BuildContext context) => LoginInfo()),
+    ],
+      child: (Platform.isAndroid)
+          ? MaterialApp(
+              theme: lightTheme,
+              routes: routes,
+              initialRoute: LogIn.id,
+            )
+          : CupertinoApp(
+              routes: routes,
+              initialRoute: HomeScreen.id,
             ),
-          ),
-        ),
-      ),
     );
   }
 }

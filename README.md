@@ -1,6 +1,6 @@
 # e_pack
 
-A new Flutter project.
+The E-Pack Service Application
 
 ## Getting Started
 

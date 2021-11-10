@@ -1,0 +1,1 @@
+class AuthRepoImpl implements AuthRepo {}
