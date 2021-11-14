@@ -30,26 +30,27 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
   }
 
   @override
-  Future<Either<Failure, DeliveryRequest>?>? sendDeliveryRequest(
-      String? timeCollect,
-      String? semesterPeriod,
-      int? largeBoxSizeCount,
-      int? mediumBoxSizeCount,
-      int? smallBoxSizeCount,
-      int? relocateInfo,
-      String? residenceName,
-      String? collectRoomType,
-      int? roomNumber,
-      String? phoneNumber,
-      String? addressType,
-      String? accessNote,
-      String? destinationAddress,
-      int? destinationRoomNumber,
-      String? contactName,
-      String? contactPhoneNum,
-      String? momoFullName,
-      String? momoPhoneNum,
-      double? cost) async {
+  Future<Either<Failure, DeliveryRequest>?>? sendDeliveryRequest({
+    String? timeCollect,
+    String? semesterPeriod,
+    int? largeBoxSizeCount,
+    int? mediumBoxSizeCount,
+    int? smallBoxSizeCount,
+    int? relocateInfo,
+    String? residenceName,
+    String? collectRoomType,
+    int? roomNumber,
+    String? phoneNumber,
+    String? addressType,
+    String? accessNote,
+    String? destinationAddress,
+    int? destinationRoomNumber,
+    String? contactName,
+    String? contactPhoneNum,
+    String? momoFullName,
+    String? momoPhoneNum,
+    double? cost,
+  }) async {
     return await _getResponse(() => DeliveryRequestModel(
         timeCollect: timeCollect,
         semesterPeriod: semesterPeriod,

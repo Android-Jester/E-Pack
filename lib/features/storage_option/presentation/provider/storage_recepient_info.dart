@@ -1,4 +1,8 @@
+import 'package:e_pack/features/storage_option/data/repositories/storage_request_repo_impl.dart';
+import 'package:e_pack/features/storage_option/domain/usecases/send_storage_request.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../injector.dart';
 
 class StorageRecepientInfo extends ChangeNotifier {
   final _formKey = GlobalKey<FormState>();
@@ -39,8 +43,8 @@ class StorageRecepientInfo extends ChangeNotifier {
     return null;
   }
 
-  Future? validation(BuildContext context) async {
+  validation(BuildContext context) async {
     if (_formKey.currentState!.validate()) {}
-    return null;
+    SendStorageRequest(sl<StorageRequestRepositoryImpl>());
   }
 }

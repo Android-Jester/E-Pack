@@ -3,7 +3,7 @@ import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/features/storage_option/data/models/storage_request_model.dart';
 import 'package:e_pack/features/storage_option/domain/entities/storage_request.dart';
 
-abstract class ServerHost {
+abstract class StorageDataReceiver {
   Future<StorageRequest?>? sendStorageRequest(
     // Time of Collection
     String? timeCollect,
@@ -40,11 +40,11 @@ abstract class ServerHost {
   );
 }
 
-class ServerHostImpl implements ServerHost {
+class StorageDataReceiverImpl implements StorageDataReceiver {
   Database database = Database(AppWriteServer().initClient());
   StorageRequestModel? model;
 
-  ServerHostImpl();
+  StorageDataReceiverImpl();
 
   @override
   Future<StorageRequest>? sendStorageRequest(

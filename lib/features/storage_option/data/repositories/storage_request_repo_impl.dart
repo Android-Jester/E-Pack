@@ -7,7 +7,7 @@ import 'package:e_pack/features/storage_option/domain/entities/storage_request.d
 import 'package:e_pack/features/storage_option/domain/repositories/storage_request_repo.dart';
 
 class StorageRequestRepositoryImpl implements StorageRequestRepository {
-  final ServerHost serverHost;
+  final StorageDataReceiver serverHost;
   final NetworkInfo networkInfo;
 
   StorageRequestRepositoryImpl(

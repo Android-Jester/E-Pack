@@ -3,7 +3,7 @@ import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/features/delivery_option/domain/entities/delivery_request.dart';
 
 abstract class DeliveryRequestRepository {
-  Future<Either<Failure, DeliveryRequest>?>? sendDeliveryRequest(
+  Future<Either<Failure, DeliveryRequest>?>? sendDeliveryRequest({
     String? timeCollect,
     String? semesterPeriod,
     int? largeBoxSizeCount,
@@ -23,5 +23,5 @@ abstract class DeliveryRequestRepository {
     String? momoFullName,
     String? momoPhoneNum,
     double? cost,
-  );
+  });
 }

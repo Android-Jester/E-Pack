@@ -1,10 +1,8 @@
 import 'package:e_pack/features/delivery_option/domain/entities/delivery_request.dart';
-import 'package:flutter/material.dart';
 
 class DeliveryRequestModel extends DeliveryRequest {
   DeliveryRequestModel(
-      { 
-      required String? timeCollect,
+      {required String? timeCollect,
       required String? semesterPeriod,
       int? largeBoxSizeCount,
       int? mediumBoxSizeCount,
@@ -45,29 +43,29 @@ class DeliveryRequestModel extends DeliveryRequest {
           cost: cost,
         );
 
-  factory DeliveryRequestModel.fromJson(Map<String, dynamic> json) {
-    return DeliveryRequestModel(
-      timeCollect: json['timeCollect'],
-      semesterPeriod: json['semPeriod'],
-      largeBoxSizeCount: (json['largeBoxSize'] as num).toInt(),
-      mediumBoxSizeCount: (json['mediumBoxSize'] as num).toInt(),
-      smallBoxSizeCount: (json['smallBoxSize'] as num).toInt(),
-      relocateInfo: json['relocateInfo'],
-      residenceName: json['residenceName'],
-      collectRoomType: json['roomType'],
-      roomNumber: (json['roomNum'] as num).toInt(),
-      phoneNumber: json['phoneNum'],
-      addressType: json['addressType'],
-      accessNote: json['note'],
-      destinationAddress: json['destinationAddress'],
-      destinationRoomNumber: (json['destinationRoomNumber'] as num).toInt(),
-      contactName: json['contactName'],
-      contactPhoneNum: json['contactPhoneNum'],
-      momoFullName: json['momoFullName'],
-      momoPhoneNum: json["momoNum"],
-      cost: json["cost"],
-    );
-  }
+  // factory DeliveryRequestModel.fromJson(Map<String, dynamic> json) {
+  //   return DeliveryRequestModel(
+  //     timeCollect: json['timeCollect'],
+  //     semesterPeriod: json['semPeriod'],
+  //     largeBoxSizeCount: (json['largeBoxSize'] as num).toInt(),
+  //     mediumBoxSizeCount: (json['mediumBoxSize'] as num).toInt(),
+  //     smallBoxSizeCount: (json['smallBoxSize'] as num).toInt(),
+  //     relocateInfo: json['relocateInfo'],
+  //     residenceName: json['residenceName'],
+  //     collectRoomType: json['roomType'],
+  //     roomNumber: (json['roomNum'] as num).toInt(),
+  //     phoneNumber: json['phoneNum'],
+  //     addressType: json['addressType'],
+  //     accessNote: json['note'],
+  //     destinationAddress: json['destinationAddress'],
+  //     destinationRoomNumber: (json['destinationRoomNumber'] as num).toInt(),
+  //     contactName: json['contactName'],
+  //     contactPhoneNum: json['contactPhoneNum'],
+  //     momoFullName: json['momoFullName'],
+  //     momoPhoneNum: json["momoNum"],
+  //     cost: json["cost"],
+  //   );
+  // }
 
   Map<String, dynamic> toJson() {
     return {

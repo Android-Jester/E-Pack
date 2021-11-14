@@ -14,41 +14,39 @@ class SendDeliveryRequest extends UseCase<DeliveryRequest, Params> {
   Future<Either<Failure, DeliveryRequest>?>? call(Params params) async {
     return await repo!.sendDeliveryRequest(
       // Time Collection
-      params.timeCollect,
-      params.semesterPeriod,
+      timeCollect: params.timeCollect,
+      semesterPeriod: params.semesterPeriod,
 
       //Box Sizes
-      params.largeBoxSizeCount,
-      params.mediumBoxSizeCount,
-      params.smallBoxSizeCount,
+      largeBoxSizeCount: params.largeBoxSizeCount,
+      mediumBoxSizeCount: params.mediumBoxSizeCount,
+      smallBoxSizeCount: params.smallBoxSizeCount,
 
       //relocation Information
-      params.relocateInfo,
+      relocateInfo: params.relocateInfo,
 
       // Collection Location Info
-      params.residenceName,
-      params.collectRoomType,
-      params.roomNumber,
-      params.phoneNumber,
-      params.addressType,
-      params.accessNote,
+      residenceName: params.residenceName,
+      collectRoomType: params.collectRoomType,
+      roomNumber: params.roomNumber,
+      phoneNumber: params.phoneNumber,
+      addressType: params.addressType,
+      accessNote: params.accessNote,
 
       // Destination Information
-      params.destinationAddress,
-      params.destinationRoomNumber,
-      params.contactName,
-      params.contactPhoneNum,
+      destinationAddress: params.destinationAddress,
+      destinationRoomNumber: params.destinationRoomNumber,
+      contactName: params.contactName,
+      contactPhoneNum: params.contactPhoneNum,
 
       //Payment Details
-      params.momoFullName,
-      params.momoPhoneNum,
-      params.cost,
+      momoFullName: params.momoFullName,
+      momoPhoneNum: params.momoPhoneNum,
+      cost: params.cost,
     );
   }
 }
 
-// }
-//
 class Params extends Equatable {
   final String? timeCollect, semesterPeriod, collectRoomType;
   final int? largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
