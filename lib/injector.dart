@@ -13,7 +13,7 @@ import 'features/delivery_option/domain/repositories/delivery_request_repo.dart'
 import 'features/log_in/data/datasources/auth_server.dart';
 import 'features/log_in/data/repositories/authentication_repo_impl.dart';
 import 'features/log_in/domain/repositories/auth_repo.dart';
-import 'features/storage_option/data/datasources/server_host.dart';
+import 'features/storage_option/data/datasources/storage_data_receiver.dart';
 import 'features/storage_option/domain/repositories/storage_request_repo.dart';
 import 'features/storage_option/domain/usecases/send_storage_request.dart';
 

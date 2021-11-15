@@ -86,11 +86,13 @@ class _CollectLocationState extends State<CollectLocation> {
                   ),
                   SizedBox(height: itemHeight(20.0)),
                   checkboxRow(
+                    context: context,
                     text: "Granting Access",
                     boolean: data.isGranted,
                     function: (val) => data.setGranted(val!),
                   ),
                   checkboxRow(
+                      context: context,
                       text: "I agree to terms and conditions",
                       boolean: data.isAgreed,
                       function: (val) => data.setAgree(val!)),

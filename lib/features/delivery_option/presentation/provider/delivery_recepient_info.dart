@@ -1,6 +1,5 @@
-import 'package:e_pack/features/delivery_option/data/repositories/delivery_request_repo_impl.dart';
-import 'package:e_pack/features/delivery_option/domain/usecases/send_delivery_request.dart';
-import 'package:e_pack/injector.dart';
+import 'package:e_pack/core/presentation/pages/momo_information.dart';
+import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class DeliveryRecepientInfo extends ChangeNotifier {
@@ -40,9 +39,25 @@ class DeliveryRecepientInfo extends ChangeNotifier {
 
   validation(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      SendDeliveryRequest(
-        sl<DeliveryRequestRepositoryImpl>(),
-      );
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => SimpleDialog(
+                title: Text("Have you completed everything?"),
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CustomButton(
+                          text: "Yes",
+                          onPressed: () {
+                            Navigator.pushNamed(context, MomoInformation.id);
+                          }),
+                      CustomButton(
+                          text: "No", onPressed: () => Navigator.pop(context))
+                    ],
+                  ),
+                ],
+              ));
     }
   }
 }

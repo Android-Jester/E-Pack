@@ -1,11 +1,11 @@
-import 'package:e_pack/core/presentation/home_screen_data.dart';
+import 'package:e_pack/core/presentation/provider/home_screen_data.dart';
 import 'package:e_pack/features/delivery_option/presentation/delivery_option.dart';
 import 'package:e_pack/features/storage_option/presentation/storage_option.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'config/config.dart';
-import 'widgets/custom_button.dart';
+import '../config/config.dart';
+import '../widgets/custom_button.dart';
 
 class TandC extends StatelessWidget {
   static String id = "TandC";

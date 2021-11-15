@@ -50,29 +50,29 @@ class StorageRequestModel extends StorageRequest {
           cost: cost,
         );
 
-  factory StorageRequestModel.fromJson(Map<String, dynamic> json) {
-    return StorageRequestModel(
-      timeCollect: json["timeCollect"],
-      semesterPeriod: json["semesterPeriod"],
-      collectRoomType: json["collectRoomType"],
-      largeBoxSizeCount: json["largeBoxSizeCount"],
-      mediumBoxSizeCount: json["mediumBoxSizeCount"],
-      smallBoxSizeCount: json["smallBoxSizeCount"],
-      storageWeeks: json["storageWeeks"],
-      residenceName: json["residenceName"],
-      roomNumber: json["roomNumber"],
-      phoneNumber: json["phoneNumber"],
-      addressType: json["addressType"],
-      accessNote: json["accessNote"],
-      locationName: json["locationName"],
-      localPhoneNum: json["localPhoneNum"],
-      whatsPhoneNum: json["whatsPhoneNum"],
-      contactTimes: json["contactTimes"],
-      momoFullName: json["momoFullName"],
-      momoPhoneNum: json["momoPhoneNum"],
-      cost: json["cost"],
-    );
-  }
+  // factory StorageRequestModel.fromJson(Map<String, dynamic> json) {
+  //   return StorageRequestModel(
+  //     timeCollect: json["timeCollect"],
+  //     semesterPeriod: json["semesterPeriod"],
+  //     collectRoomType: json["collectRoomType"],
+  //     largeBoxSizeCount: json["largeBoxSizeCount"],
+  //     mediumBoxSizeCount: json["mediumBoxSizeCount"],
+  //     smallBoxSizeCount: json["smallBoxSizeCount"],
+  //     storageWeeks: json["storageWeeks"],
+  //     residenceName: json["residenceName"],
+  //     roomNumber: json["roomNumber"],
+  //     phoneNumber: json["phoneNumber"],
+  //     addressType: json["addressType"],
+  //     accessNote: json["accessNote"],
+  //     locationName: json["locationName"],
+  //     localPhoneNum: json["localPhoneNum"],
+  //     whatsPhoneNum: json["whatsPhoneNum"],
+  //     contactTimes: json["contactTimes"],
+  //     momoFullName: json["momoFullName"],
+  //     momoPhoneNum: json["momoPhoneNum"],
+  //     cost: json["cost"],
+  //   );
+  // }
 
   Map<String, dynamic> toJson() {
     return {

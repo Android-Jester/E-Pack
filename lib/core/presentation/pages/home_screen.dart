@@ -1,10 +1,10 @@
-import 'package:e_pack/core/presentation/home_screen_data.dart';
-import 'package:e_pack/core/presentation/terms_and_conditions.dart';
+import 'package:e_pack/core/presentation/pages/terms_and_conditions.dart';
+import 'package:e_pack/core/presentation/provider/home_screen_data.dart';
 import 'package:e_pack/core/presentation/widgets/selection_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'config/config.dart';
+import '../config/config.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);

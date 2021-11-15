@@ -75,8 +75,10 @@ class _DeliveryInfoState extends State<DeliveryInfo>
                   checkboxRow(
                       text: "Granting Access",
                       boolean: data.isGranted,
-                      function: (val) => data.setGranted(val!)),
+                      function: (val) => data.setGranted(val!),
+                      context: context),
                   checkboxRow(
+                      context: context,
                       text: "I agree to terms and conditions",
                       boolean: data.isAgreed,
                       function: (val) => data.setAgree(val!)),

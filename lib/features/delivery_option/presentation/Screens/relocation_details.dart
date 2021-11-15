@@ -27,14 +27,14 @@ class _RelocationDetailsState extends State<RelocationDetails>
       required RelocationDetailsInfo data}) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: itemWidth(10.0), vertical: itemHeight(20.0)),
+          horizontal: itemWidth(15.0), vertical: itemHeight(20.0)),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Text(
           text!,
           style: Theme.of(context)
               .textTheme
               .bodyText1!
-              .copyWith(fontSize: itemWidth(15.0)),
+              .copyWith(fontSize: itemWidth(12.0)),
         ),
         Radio<int>(
           value: value!,

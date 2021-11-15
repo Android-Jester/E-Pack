@@ -15,7 +15,7 @@ class DeliveryDataRecieverImpl implements DeliveryDataReciever {
       DeliveryRequestModel model) async {
     var response;
     Future result = database.createDocument(
-      collectionId: '616f98fd6af31',
+      collectionId: '6185f5ac8eb3e',
       data: model.toJson(),
     );
     result

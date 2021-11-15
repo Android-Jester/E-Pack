@@ -1,6 +1,7 @@
+import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
-class MobileMoneyPaymentInfo extends ChangeNotifier {
+class MomoInformationProvider extends ChangeNotifier {
   final TextEditingController _momoUser = TextEditingController();
   final TextEditingController _momoNum = TextEditingController();
 
@@ -11,23 +12,27 @@ class MobileMoneyPaymentInfo extends ChangeNotifier {
 
   get key => _formKey;
 
-  validation(BuildContext context) {
+  validation({required BuildContext context, required Function()? function}) {
     if (_formKey.currentState!.validate()) {
       showDialog(
           context: context,
-          builder: (context) {
-            return Column(
-              children: [
-                Container(
-                  color: Colors.blue,
-                ),
-              ],
-            );
-          });
+          builder: (BuildContext context) => SimpleDialog(
+                title: Text("Have you completed everything?"),
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CustomButton(text: "Yes", onPressed: function),
+                      CustomButton(
+                          text: "No", onPressed: () => Navigator.pop(context))
+                    ],
+                  ),
+                ],
+              ));
     }
   }
 
-  validate([bool isNumber = false]) {
+  validate({required bool isNumber}) {
     if (_momoUser.text == null && _momoNum.text == null) {
       return "There is no username or value";
     } else {
