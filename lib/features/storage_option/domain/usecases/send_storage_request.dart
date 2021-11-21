@@ -11,7 +11,7 @@ class SendStorageRequest extends UseCase<StorageRequest, Params> {
   SendStorageRequest(this.repo);
 
   @override
-  Future<Either<Failure, StorageRequest>?>? call(Params params) async {
+  Future<Either<Failure, StorageRequest>?> call(Params params) async {
     return await repo!.sendStorageRequest(
       // Time of Collection
       params.timeCollect,
@@ -55,13 +55,13 @@ class Params extends Equatable {
   final int? largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
   final int? storageWeeks;
   final String? residenceName;
-  final int? roomNumber;
+  final String? roomNumber;
   final String? phoneNumber;
   final String? addressType;
   final String? accessNote;
   final String? locationName;
   final String? localPhoneNum, whatsPhoneNum;
-  final int? contactTimes;
+  final String? contactTimes;
   final String? momoFullName, momoPhoneNum;
   final double? cost;
 

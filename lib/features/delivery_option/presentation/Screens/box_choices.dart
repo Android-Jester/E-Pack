@@ -68,9 +68,10 @@ class _BoxChoicesState extends State<BoxChoices>
                 color: Colors.red.shade200,
                 width: Config.width,
                 height: Config.height! / 6,
+                padding: EdgeInsets.symmetric(horizontal: itemWidth(2.0)),
                 child: const Center(
                   child: Text(
-                      "NB:  Size of Large Box: 18”x18”x24” \n Size of Medium Box: 18”x18”x16” \n Size of Small Box: 16”x12”x12” "),
+                      " Size of Large Box: 18”x18”x24” \n Size of Medium Box: 18”x18”x16” \n Size of Small Box: 16”x12”x12” "),
                 ),
               ),
               SizedBox(height: itemHeight(20.0)),

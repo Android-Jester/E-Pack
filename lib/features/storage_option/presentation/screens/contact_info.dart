@@ -5,7 +5,7 @@ import 'package:e_pack/features/storage_option/presentation/provider/storage_rec
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-class ContactInfo extends StatelessWidget {
+class ContactInfo extends StatefulWidget {
   final PageController? controller;
   final int? currentPage;
 
@@ -14,6 +14,27 @@ class ContactInfo extends StatelessWidget {
     required this.controller,
     required this.currentPage,
   }) : super(key: key);
+
+  @override
+  State<ContactInfo> createState() => _ContactInfoState();
+}
+
+class _ContactInfoState extends State<ContactInfo> {
+  late FocusNode node;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    node = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    node.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,38 +50,38 @@ class ContactInfo extends StatelessWidget {
               key: data.key,
               child: Column(
                 children: [
-                  textWithLabel(
+                  TextWithLabel(
                     text: "Current Location",
-                    controller: data.locationAddressController,
+                    textCon: data.locationAddressController,
                     validate: (val) => data.validator(val!),
                   ),
-                  textWithLabel(
+                  TextWithLabel(
                       validate: (val) => data.validator(val!,
                           isPhoneNumber: true, isNumeric: true),
                       text: "Local Phone Number",
-                      controller: data.phoneNumberController,
+                      textCon: data.phoneNumberController,
                       type: TextInputType.phone),
-                  textWithLabel(
+                  TextWithLabel(
                       validate: (val) => data.validator(val!,
                           isPhoneNumber: true, isNumeric: true),
                       text: "WhatsApp Number",
-                      controller: data.whatsAppNumberController,
+                      textCon: data.whatsAppNumberController,
                       type: TextInputType.phone),
-                  textWithLabel(
+                  TextWithLabel(
                       text: "Contact Times per week",
-                      controller: data.contactTimesController,
+                      textCon: data.contactTimesController,
                       validate: (val) => data.validator(val!,
                           isPhoneNumber: true, isNumeric: true),
                       type: TextInputType.number),
-                  textWithLabel(
+                  TextWithLabel(
                       text: "Notes",
-                      controller: data.notesController,
-                      validate: (val) => data.validator(val!,
-                          isPhoneNumber: true, isNumeric: true),
+                      textCon: data.notesController,
+                      validate: (val) => data.validator(val!),
                       type: TextInputType.multiline),
                   Spacer(),
                   CustomButton(
-                    onPressed: () async => data.validation(context),
+                    onPressed: () async => data.validation(
+                        context, widget.controller!, widget.currentPage!),
                     text: 'Book Now',
                   ),
                 ],

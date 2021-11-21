@@ -1,4 +1,5 @@
 import 'package:e_pack/features/storage_option/presentation/components/body.dart';
+import 'package:e_pack/features/storage_option/presentation/provider/mobile_money_payment_info.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,7 @@ class StorageOption extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => BoxSizeData()),
         ChangeNotifierProvider(create: (_) => CollectionInfo()),
         ChangeNotifierProvider(create: (_) => StorageRecepientInfo()),
+        ChangeNotifierProvider(create: (_) => MomoInformationProvider()),
       ],
       child: Scaffold(
         body: Body(),

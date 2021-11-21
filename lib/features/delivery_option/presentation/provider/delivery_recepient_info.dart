@@ -1,4 +1,3 @@
-import 'package:e_pack/core/presentation/pages/momo_information.dart';
 import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -18,18 +17,19 @@ class DeliveryRecepientInfo extends ChangeNotifier {
   get contactNameController => _contactNameController;
   get contactNumberController => _contactNumberController;
 
-  int? _cost;
+  String get destinationAddress => _destinationAddressController!.text;
+  String get roomNumber => _roomNumberController!.text;
+  String get contactName => _contactNameController!.text;
+  String get contactNumber => _contactNumberController!.text;
+
   String? validator(String val,
       {bool isNumeric = false, bool isPhoneNumber = false}) {
     if (val.isEmpty) {
       return "Please Fill this space";
     }
     if (isNumeric) {
-      if (int.parse(val) is num) {
-        if (isPhoneNumber) {
-          return (val.length > 10) ? "Please type 10 digits" : null;
-        }
-        return null;
+      if (isPhoneNumber) {
+        return (val.length == 11) ? null : "Please type 10 digits";
       } else {
         return "Please type in a number and not a text";
       }
@@ -37,7 +37,7 @@ class DeliveryRecepientInfo extends ChangeNotifier {
     return null;
   }
 
-  validation(BuildContext context) {
+  validation(BuildContext context, PageController controller, int currentPage) {
     if (_formKey.currentState!.validate()) {
       showDialog(
           context: context,
@@ -50,7 +50,10 @@ class DeliveryRecepientInfo extends ChangeNotifier {
                       CustomButton(
                           text: "Yes",
                           onPressed: () {
-                            Navigator.pushNamed(context, MomoInformation.id);
+                            controller.animateToPage(currentPage + 1,
+                                duration: Duration(milliseconds: 1),
+                                curve: Curves.bounceIn);
+                            Navigator.pop(context);
                           }),
                       CustomButton(
                           text: "No", onPressed: () => Navigator.pop(context))

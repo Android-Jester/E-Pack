@@ -1,7 +1,6 @@
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/box_selection.dart';
 import 'package:e_pack/core/presentation/widgets/button_row.dart';
-import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
 import 'package:e_pack/features/storage_option/presentation/provider/storage_period_data.dart';
 import 'package:flutter/material.dart';
@@ -55,22 +54,6 @@ class _StoragePeriodState extends State<StoragePeriod>
                     textEditingController: data.weeksStoredBoxController,
                     text: "No of Weeks Stored: \$"),
                 SizedBox(height: itemHeight(50.0)),
-                CustomButton(
-                    text: "Calculate", onPressed: () => data.setCost(context)),
-                SizedBox(height: itemHeight(20.0)),
-                Padding(
-                  padding: EdgeInsets.all(itemWidth(20.0)),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      "Total: \$${data.cost}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: itemWidth(15.0)),
-                    ),
-                  ),
-                ),
                 SizedBox(height: itemHeight(15.0)),
                 buttonRow(widget.controller!, widget.currentPage!,
                     nextButton: () => (data.weeksStored == 0)

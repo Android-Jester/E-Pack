@@ -4,12 +4,11 @@ class AppWriteServer {
   AppWriteServer() {
     // For self signed certificates, only use for development
   }
-  initClient() {
-    Client client = Client();
-    return client
+  static initClient() {
+    return Client()
         .setEndpoint(
-            'http://c862-154-160-10-101.ngrok.io') // Your Appwrite Endpoint
-        .setProject('60f4528babe86') //Project Used
+            'http://7c5a-154-160-17-220.ngrok.io/v1') // Your Appwrite Endpoint
+        .setProject('6185f55c9f9b2') //Project Used
         .setSelfSigned(status: true);
   }
 }

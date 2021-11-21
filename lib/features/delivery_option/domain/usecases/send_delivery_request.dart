@@ -6,13 +6,14 @@ import 'package:e_pack/features/delivery_option/domain/repositories/delivery_req
 import 'package:equatable/equatable.dart';
 
 class SendDeliveryRequest extends UseCase<DeliveryRequest, Params> {
-  final DeliveryRequestRepository? repo;
+  final DeliveryRequestRepository repo;
 
-  SendDeliveryRequest(this.repo);
+  SendDeliveryRequest({required this.repo});
 
   @override
   Future<Either<Failure, DeliveryRequest>?>? call(Params params) async {
-    return await repo!.sendDeliveryRequest(
+    print(params);
+    return await repo.sendDeliveryRequest(
       // Time Collection
       timeCollect: params.timeCollect,
       semesterPeriod: params.semesterPeriod,
@@ -48,16 +49,17 @@ class SendDeliveryRequest extends UseCase<DeliveryRequest, Params> {
 }
 
 class Params extends Equatable {
-  final String? timeCollect, semesterPeriod, collectRoomType;
+  final String? timeCollect, semesterPeriod;
+  final String? collectRoomType;
   final int? largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
   final int? relocateInfo;
   final String? residenceName;
-  final int? roomNumber;
+  final String? roomNumber;
   final String? phoneNumber;
   final String? addressType;
   final String? accessNote;
   final String? destinationAddress;
-  final int? destinationRoomNumber;
+  final String? destinationRoomNumber;
   final String? contactName, contactPhoneNum;
   final String? momoFullName, momoPhoneNum;
   final double? cost;

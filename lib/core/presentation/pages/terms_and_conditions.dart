@@ -28,7 +28,7 @@ class TandC extends StatelessWidget {
                   "assets/images/box.jpg",
                   width: double.infinity,
                   fit: BoxFit.cover,
-                  height: itemHeight(150.0),
+                  height: itemHeight(200),
                 ),
                 Positioned(
                   top: itemHeight(15.0),
@@ -43,33 +43,41 @@ class TandC extends StatelessWidget {
                 ),
               ],
             ),
-            height: itemHeight(150.0),
+            height: itemHeight(200.0),
             width: double.infinity,
           ),
-          Spacer(),
+          SizedBox(
+            height: itemHeight(50.0),
+          ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: itemWidth(15.0)),
+            padding: EdgeInsets.symmetric(horizontal: itemWidth(17.0)),
             child: RichText(
               text: TextSpan(
                 style: Theme.of(context).textTheme.bodyText1,
                 children: [
-                  const TextSpan(
-                      text: " Terms and conditions \n\n ",
+                  TextSpan(
+                      text: " Terms and conditions \n",
                       style: TextStyle(
                         color: Colors.black,
+                        fontSize: itemWidth(35.0),
                         decoration: TextDecoration.underline,
                       )),
-                  const TextSpan(
+                  TextSpan(
                       text:
                           " We pack all your belongings in your own room for you and then store your items for you until you need them redelivered \n ",
-                      style: TextStyle(color: Colors.black)),
-                  const TextSpan(
-                    text: "\n\nAdditional Items \n\n",
-                    style: TextStyle(decoration: TextDecoration.underline),
+                      style: TextStyle(
+                          color: Colors.black, fontSize: itemWidth(17.0))),
+                  TextSpan(
+                    text: "\n\nAdditional Items\n",
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontSize: itemWidth(35.0),
+                    ),
                   ),
                   TextSpan(
                       text:
-                          "Storage of your items until you need them redelivered: \$ $price1 a week \n\n"),
+                          "Storage of your items until you need them redelivered: \$$price1 a week \n\n",
+                      style: TextStyle(fontSize: itemWidth(17.0))),
                   TextSpan(
                       text:
                           "Storage redelivery to a different address: \$$price2")

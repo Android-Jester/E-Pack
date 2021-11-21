@@ -1,6 +1,7 @@
+import 'package:e_pack/core/presentation/config/colors.dart';
 import 'package:e_pack/core/presentation/config/config.dart';
-import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/presentation/widgets/sliver_deligate.dart';
+import 'package:e_pack/features/delivery_option/presentation/Screens/momo_information.dart';
 import 'package:e_pack/features/storage_option/presentation/screens/box_choices.dart';
 import 'package:e_pack/features/storage_option/presentation/screens/collect_location.dart';
 import 'package:e_pack/features/storage_option/presentation/screens/contact_info.dart';
@@ -16,7 +17,6 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final PageController? _controller = PageController();
-  int selectedRadio = 0;
   int currentPage = 0;
 
   late List<Widget> pages;
@@ -59,7 +59,8 @@ class _BodyState extends State<Body> {
       ContactInfo(
         controller: _controller,
         currentPage: currentPage,
-      )
+      ),
+      MomoInformation()
     ];
 
     List<String> title = [
@@ -69,16 +70,20 @@ class _BodyState extends State<Body> {
       "Storage Period",
       "Collection Info",
       "Contact Info",
+      "Mobile Money Payment"
     ];
 
     return NestedScrollView(
-      body: Container(
-        child: PageView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          onPageChanged: (value) => setState(() => currentPage = value),
-          controller: _controller,
-          itemCount: pages.length,
-          itemBuilder: (context, indexed) => pages[indexed],
+      body: SingleChildScrollView(
+        child: Container(
+          height: Config.height,
+          child: PageView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            onPageChanged: (value) => setState(() => currentPage = value),
+            controller: _controller,
+            itemCount: pages.length,
+            itemBuilder: (context, indexed) => pages[indexed],
+          ),
         ),
       ),
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [

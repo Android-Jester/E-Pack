@@ -10,12 +10,12 @@ class DeliveryRequestModel extends DeliveryRequest {
       required int? relocateInfo,
       required String? residenceName,
       required String? collectRoomType,
-      required int? roomNumber,
+      required String? roomNumber,
       required String? phoneNumber,
       required String? addressType,
       required String? accessNote,
       required String? destinationAddress,
-      required int? destinationRoomNumber,
+      required String? destinationRoomNumber,
       required String? contactName,
       required String? contactPhoneNum,
       required String? momoFullName,
@@ -43,30 +43,6 @@ class DeliveryRequestModel extends DeliveryRequest {
           cost: cost,
         );
 
-  // factory DeliveryRequestModel.fromJson(Map<String, dynamic> json) {
-  //   return DeliveryRequestModel(
-  //     timeCollect: json['timeCollect'],
-  //     semesterPeriod: json['semPeriod'],
-  //     largeBoxSizeCount: (json['largeBoxSize'] as num).toInt(),
-  //     mediumBoxSizeCount: (json['mediumBoxSize'] as num).toInt(),
-  //     smallBoxSizeCount: (json['smallBoxSize'] as num).toInt(),
-  //     relocateInfo: json['relocateInfo'],
-  //     residenceName: json['residenceName'],
-  //     collectRoomType: json['roomType'],
-  //     roomNumber: (json['roomNum'] as num).toInt(),
-  //     phoneNumber: json['phoneNum'],
-  //     addressType: json['addressType'],
-  //     accessNote: json['note'],
-  //     destinationAddress: json['destinationAddress'],
-  //     destinationRoomNumber: (json['destinationRoomNumber'] as num).toInt(),
-  //     contactName: json['contactName'],
-  //     contactPhoneNum: json['contactPhoneNum'],
-  //     momoFullName: json['momoFullName'],
-  //     momoPhoneNum: json["momoNum"],
-  //     cost: json["cost"],
-  //   );
-  // }
-
   Map<String, dynamic> toJson() {
     return {
       // Time Collection
@@ -74,9 +50,9 @@ class DeliveryRequestModel extends DeliveryRequest {
       "semPeriod": semesterPeriod,
 
       // Box Sizes
-      "largeBoxSize": (largeBoxSizeCount as num),
-      "mediumBoxSize": (mediumBoxSizeCount as num),
-      "smallBoxSize": (smallBoxSizeCount as num),
+      "largeBoxSizeCount": (largeBoxSizeCount as num),
+      "mediumBoxSizeCount": (mediumBoxSizeCount as num),
+      "smallBoxSizeCount": (smallBoxSizeCount as num),
 
       // Relocation Info
       "relocateInfo": relocateInfo,

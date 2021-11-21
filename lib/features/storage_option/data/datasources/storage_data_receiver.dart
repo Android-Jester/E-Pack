@@ -9,7 +9,7 @@ abstract class StorageDataReceiver {
 }
 
 class StorageDataReceiverImpl implements StorageDataReceiver {
-  Database database = Database(AppWriteServer().initClient());
+  Database database = Database(AppWriteServer.initClient());
   StorageRequestModel? model;
 
   StorageDataReceiverImpl();

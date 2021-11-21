@@ -6,15 +6,17 @@ import 'package:e_pack/features/storage_option/data/datasources/storage_data_rec
 import 'package:e_pack/features/storage_option/data/models/storage_request_model.dart';
 import 'package:e_pack/features/storage_option/domain/entities/storage_request.dart';
 import 'package:e_pack/features/storage_option/domain/repositories/storage_request_repo.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 typedef StorageRequestModel _GetModelInstance();
 
 class StorageRequestRepositoryImpl implements StorageRequestRepository {
   final StorageDataReceiver serverHost;
-  final NetworkInfo networkInfo;
+  late NetworkInfo networkInfo;
 
-  StorageRequestRepositoryImpl(
-      {required this.serverHost, required this.networkInfo});
+  StorageRequestRepositoryImpl({required this.serverHost}) {
+    networkInfo = NetworkInfoImpl(InternetConnectionChecker());
+  }
 
   Future<Either<Failure, StorageRequest>?> _getResponse(
       _GetModelInstance responseModel) async {

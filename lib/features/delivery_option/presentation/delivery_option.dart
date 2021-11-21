@@ -1,12 +1,13 @@
-import 'package:e_pack/features/delivery_option/presentation/provider/box_size_data.dart';
-import 'package:e_pack/features/delivery_option/presentation/provider/collection_info.dart';
-import 'package:e_pack/features/delivery_option/presentation/provider/delivery_recepient_info.dart';
-import 'package:e_pack/features/delivery_option/presentation/provider/relocation_details_info.dart';
-import 'package:e_pack/features/delivery_option/presentation/provider/room_type_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'components/body.dart';
+import 'provider/box_size_data.dart';
+import 'provider/collection_info.dart';
+import 'provider/delivery_recepient_info.dart';
+import 'provider/mobile_money_payment_info.dart';
+import 'provider/relocation_details_info.dart';
+import 'provider/room_type_data.dart';
 import 'provider/time_info_notifier.dart';
 
 class DeliveryOption extends StatelessWidget {
@@ -24,6 +25,7 @@ class DeliveryOption extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => BoxSizeData()),
         ChangeNotifierProvider(create: (_) => CollectionInfo()),
         ChangeNotifierProvider(create: (_) => DeliveryRecepientInfo()),
+        ChangeNotifierProvider(create: (_) => MomoInformationProvider()),
       ],
       child: Scaffold(
         body: Body(),

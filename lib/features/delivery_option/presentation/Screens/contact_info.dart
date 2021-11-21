@@ -22,163 +22,85 @@ class ContactInfo extends StatefulWidget {
 
 class _ContactInfoState extends State<ContactInfo>
     with AutomaticKeepAliveClientMixin {
-  List<Widget> choices = [
-    Consumer<DeliveryRecepientInfo>(
-      builder: (context, data, widget) {
-        return Container(
-          width: Config.width,
-          height: Config.height! / 2,
-          child: Form(
-            key: data.key,
-            child: Column(
-              children: [
-                textWithLabel(
-                    validate: (val) => data.validator(val!),
-                    text: "Destination Address",
-                    controller: data.destinationAddressController),
-                textWithLabel(
-                    validate: (val) => data.validator(val!),
-                    text: "Contact Name",
-                    controller: data.contactNameController,
-                    type: TextInputType.phone),
-                textWithLabel(
-                    validate: (val) => data.validator(val!,
-                        isNumeric: true, isPhoneNumber: true),
-                    text: "Contact Phone Number",
-                    controller: data.contactNumberController,
-                    type: TextInputType.number),
-              ],
-            ),
-          ),
-        );
-      },
-    ),
-    SingleChildScrollView(
-      child: Consumer<DeliveryRecepientInfo>(
-        builder: (context, data, widget) {
-          return Container(
-            width: Config.width,
-            height: Config.height! / 2,
-            child: Form(
-              key: data.key,
-              child: Column(
-                children: [
-                  textWithLabel(
-                      validate: (val) => data.validator(val!),
-                      text: "Destination Address",
-                      controller: data.destinationAddressController),
-                  textWithLabel(
-                      validate: (val) => data.validator(val!),
-                      text: "Contact Name",
-                      controller: data.contactNameController,
-                      type: TextInputType.phone),
-                  textWithLabel(
-                      validate: (val) => data.validator(val!,
-                          isNumeric: true, isPhoneNumber: true),
-                      text: "Contact Phone Number",
-                      controller: data.contactNumberController,
-                      type: TextInputType.number),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    ),
-    SingleChildScrollView(
-      child: Consumer<DeliveryRecepientInfo>(
-        builder: (context, data, widget) {
-          return Container(
-            width: Config.width,
-            height: Config.height! / 2,
-            child: Form(
-              key: data.key,
-              child: Column(
-                children: [
-                  textWithLabel(
-                      validate: (val) => data.validator(val!),
-                      text: "Destination Address",
-                      controller: data.destinationAddressController),
-                  textWithLabel(
-                      validate: (val) => data.validator(val!, isNumeric: true),
-                      text: "Room Number",
-                      controller: data.roomNumberController,
-                      type: TextInputType.phone),
-                  textWithLabel(
-                      validate: (val) => data.validator(val!),
-                      text: "Contact Name",
-                      controller: data.contactNameController,
-                      type: TextInputType.phone),
-                  textWithLabel(
-                      validate: (val) => data.validator(val!,
-                          isNumeric: true, isPhoneNumber: true),
-                      text: "Contact Phone Number",
-                      controller: data.contactNumberController,
-                      type: TextInputType.number),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    ),
-    SingleChildScrollView(
-      child: Consumer<DeliveryRecepientInfo>(
-        builder: (context, data, widget) {
-          return Container(
-            width: Config.width,
-            height: Config.height! / 2,
-            child: Form(
-              key: data.key,
-              child: Column(
-                children: [
-                  textWithLabel(
-                      validate: (val) => data.validator(val!, isNumeric: true),
-                      text: "Room Number",
-                      controller: data.roomNumberController,
-                      type: TextInputType.phone),
-                  textWithLabel(
-                      validate: (val) => data.validator(val!),
-                      text: "Contact Name",
-                      controller: data.contactNameController,
-                      type: TextInputType.phone),
-                  textWithLabel(
-                      validate: (val) => data.validator(val!,
-                          isNumeric: true, isPhoneNumber: true),
-                      text: "Contact Phone Number",
-                      controller: data.contactNumberController,
-                      type: TextInputType.number),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    ),
-  ];
+  FocusNode node = FocusNode();
+
+  @override
+  void dispose() {}
+
+  @override
+  void initState() {
+    super.initState();
+    node = FocusNode();
+  }
 
   @override
   Widget build(BuildContext context) {
+    var controller = widget.controller;
+    var currentPage = widget.currentPage;
+    var choice = Provider.of<RelocationDetailsInfo>(context, listen: false)
+        .relocationValue;
     Config.init(context);
-    return SingleChildScrollView(
-      child: Container(
-        height: Config.height,
-        width: Config.width,
-        child: Column(
-          children: [
-            choices[Provider.of<RelocationDetailsInfo>(context, listen: false)
-                    .relocationValue -
-                1],
-            CustomButton(
-                text: "Book Now",
-                onPressed: () {
-                  Provider.of<DeliveryRecepientInfo>(context, listen: false)
-                      .validation(context);
-                }),
-          ],
+    return Consumer<DeliveryRecepientInfo>(builder: (context, data, widget) {
+      return SingleChildScrollView(
+        child: Container(
+          height: Config.height,
+          width: Config.width,
+          child: Column(
+            children: [
+              SingleChildScrollView(
+                child: Container(
+                  width: Config.width,
+                  height: Config.height! / 2,
+                  child: Form(
+                    key: data.key,
+                    child: Column(
+                      children: [
+                        (choice == 4)
+                            ? SizedBox(
+                                height: itemHeight(0.1),
+                              )
+                            : TextWithLabel(
+                                text: "Destination Address",
+                                validate: (val) => data.validator(val!),
+                                textCon: data.destinationAddressController,
+                                type: TextInputType.streetAddress,
+                              ),
+                        (choice == 1 || choice == 2)
+                            ? SizedBox(
+                                height: itemHeight(0.1),
+                              )
+                            : TextWithLabel(
+                                validate: (val) =>
+                                    data.validator(val!, isNumeric: true),
+                                text: "Room Number",
+                                textCon: data.roomNumberController,
+                                type: TextInputType.number),
+                        TextWithLabel(
+                            validate: (val) => data.validator(val!),
+                            text: "Contact Name",
+                            textCon: data.contactNameController,
+                            type: TextInputType.name),
+                        TextWithLabel(
+                            validate: (val) => data.validator(val!,
+                                isNumeric: true, isPhoneNumber: true),
+                            text: "Contact Phone Number",
+                            textCon: data.contactNumberController,
+                            type: TextInputType.phone),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              CustomButton(
+                  text: "Book Now",
+                  onPressed: () {
+                    data.validation(context, controller!, currentPage);
+                  }),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   @override

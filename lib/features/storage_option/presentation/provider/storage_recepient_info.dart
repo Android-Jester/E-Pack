@@ -1,8 +1,5 @@
-import 'package:e_pack/features/storage_option/data/repositories/storage_request_repo_impl.dart';
-import 'package:e_pack/features/storage_option/domain/usecases/send_storage_request.dart';
+import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../injector.dart';
 
 class StorageRecepientInfo extends ChangeNotifier {
   final _formKey = GlobalKey<FormState>();
@@ -25,6 +22,13 @@ class StorageRecepientInfo extends ChangeNotifier {
   get contactTimesController => _contactTimesController;
   get notesController => _notesController;
 
+  get locationAddress => _locationAddressController!.text;
+  get roomNumber => _roomNumberController!.text;
+  get whatsAppNumber => _whatsAppNumberController!.text;
+  get phoneNumber => _phoneNumberController!.text;
+  get contactTimes => _contactTimesController!.text;
+  get notes => _notesController!.text;
+
   String? validator(String val,
       {bool isNumeric = false, bool isPhoneNumber = false}) {
     if (val.isEmpty) {
@@ -43,8 +47,30 @@ class StorageRecepientInfo extends ChangeNotifier {
     return null;
   }
 
-  validation(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {}
-    SendStorageRequest(sl<StorageRequestRepositoryImpl>());
+  validation(BuildContext context, PageController controller, int currentPage) {
+    if (_formKey.currentState!.validate()) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => SimpleDialog(
+                title: Text("Have you completed everything?"),
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CustomButton(
+                          text: "Yes",
+                          onPressed: () {
+                            controller.animateToPage(currentPage + 1,
+                                duration: Duration(milliseconds: 1),
+                                curve: Curves.bounceIn);
+                            Navigator.pop(context);
+                          }),
+                      CustomButton(
+                          text: "No", onPressed: () => Navigator.pop(context))
+                    ],
+                  ),
+                ],
+              ));
+    }
   }
 }

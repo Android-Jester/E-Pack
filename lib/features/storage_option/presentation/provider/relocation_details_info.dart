@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class RelocationDetailsInfo extends ChangeNotifier {
-  int _relocationValue = 0;
+class StorageWeeksData extends ChangeNotifier {
+  int _storageWeeks = 0;
 
-  int get relocationValue => _relocationValue;
+  int get weeks => _storageWeeks;
 
-  setRelocationValue(int input) {
-    _relocationValue = input;
+  setWeeks(int input) {
+    _storageWeeks = input;
     notifyListeners();
   }
 }

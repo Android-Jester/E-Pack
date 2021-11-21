@@ -1,9 +1,10 @@
+import 'package:e_pack/core/presentation/config/colors.dart';
 import 'package:e_pack/core/presentation/config/config.dart';
-import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/presentation/widgets/sliver_deligate.dart';
 import 'package:e_pack/features/delivery_option/presentation/Screens/box_choices.dart';
 import 'package:e_pack/features/delivery_option/presentation/Screens/collect_location.dart';
 import 'package:e_pack/features/delivery_option/presentation/Screens/contact_info.dart';
+import 'package:e_pack/features/delivery_option/presentation/Screens/momo_information.dart';
 import 'package:e_pack/features/delivery_option/presentation/Screens/relocation_details.dart';
 import 'package:e_pack/features/delivery_option/presentation/Screens/room_type.dart';
 import 'package:e_pack/features/delivery_option/presentation/Screens/time_selection.dart';
@@ -19,12 +20,6 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   PageController? _controller = PageController();
   int currentPage = 0;
-  late List<Widget> pages;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -41,10 +36,11 @@ class _BodyState extends State<Body> {
       "Relocation Details",
       "Collection Info",
       "Destination Info",
+      "Momo Info"
     ];
 
     Config.init(context);
-    pages = [
+    List<Widget> pages = [
       TimeSelection(
         currentPage: currentPage,
         controller: _controller,
@@ -61,7 +57,7 @@ class _BodyState extends State<Body> {
         currentPage: currentPage,
         controller: _controller,
       ),
-      DeliveryInfo(
+      CollectionPage(
         currentPage: currentPage,
         controller: _controller,
       ),
@@ -69,6 +65,7 @@ class _BodyState extends State<Body> {
         currentPage: currentPage,
         controller: _controller,
       ),
+      MomoInformation()
     ];
 
     return Column(
@@ -76,7 +73,7 @@ class _BodyState extends State<Body> {
         SizedBox(height: itemHeight(10.0)),
         Expanded(
           child: Container(
-            height: Config.height! / 1.05,
+            height: Config.height,
             width: Config.width,
             child: NestedScrollView(
               body: PageView.builder(
@@ -89,8 +86,11 @@ class _BodyState extends State<Body> {
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) => [
                 SliverAppBar(
-                  pinned: false,
+                  pinned: true,
                   bottom: AppBar(
+                    leading: Container(
+                      color: Colors.transparent,
+                    ),
                     elevation: 1.0,
                     backgroundColor: (innerBoxIsScrolled)
                         ? kAccentColor

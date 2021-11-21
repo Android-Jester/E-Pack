@@ -1,4 +1,5 @@
 import 'package:e_pack/core/presentation/config/config.dart';
+import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/presentation/widgets/date_range_picker.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/time_info_notifier.dart';
@@ -39,14 +40,20 @@ class _TimeSelectionState extends State<TimeSelection>
             ),
             DateTimePicker(
               dateController: dateController!,
-              onSelectionChanged: (val) =>
-                  data.onDateChange(val: val.value.toString()),
+              onSelectionChanged: (val) {
+                data.onDateChange(
+                    val: dateController!.selectedDate!
+                        .add(Duration(
+                            hours: (DateTime.now().hour + 5), minutes: 30))
+                        .toString());
+              },
               initDate: DateTime.now(),
-              endDate: DateTime(2022, 01, 15, DateTime.now().hour,
-                  DateTime.now().minute, DateTime.now().second),
+              endDate: DateTime(2022, 01, 15, 18, 00),
             ),
             Container(
-              child: DropdownButton(
+              padding: EdgeInsets.symmetric(horizontal: itemWidth(60.0)),
+              child: DropdownButtonFormField(
+                decoration: inputDecoration,
                 value: data.semesterPeriod,
                 items: const [
                   DropdownMenuItem(
@@ -80,12 +87,11 @@ class _TimeSelectionState extends State<TimeSelection>
                 ),
               ),
             ),
-            PageButton(
-              true,
-              onPressed: () => (data.timeDateData != null)
+            PageButton(true, onPressed: () {
+              (data.timeDateData != null)
                   ? direction(widget.controller!, widget.currentPage!, true)
-                  : null,
-            ),
+                  : null;
+            }),
           ],
         ),
       );

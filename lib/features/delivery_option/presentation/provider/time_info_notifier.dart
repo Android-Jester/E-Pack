@@ -8,7 +8,8 @@ class TimeInfo extends ChangeNotifier {
   void onDateChange({String? val}) {
     dateTimeVal = val;
     _timeDate = TextEditingController(
-        text: " Time to pick up materials is $dateTimeVal in $_semesterPeriod");
+        text:
+            " Time to pick up materials is ${dateTimeVal!.substring(0, 16)} in $_semesterPeriod");
     notifyListeners();
   }
 

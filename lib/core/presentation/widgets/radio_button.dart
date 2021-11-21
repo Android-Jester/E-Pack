@@ -1,7 +1,6 @@
+import 'package:e_pack/core/presentation/config/colors.dart';
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:flutter/material.dart';
-
-import 'custom_button.dart';
 
 class PageButton extends StatelessWidget {
   final bool isForward;
@@ -15,9 +14,33 @@ class PageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    return CustomButton(
-      onPressed: onPressed,
-      text: (isForward) ? "Next" : "Previous",
+
+    return SizedBox(
+      width: itemWidth(200.0),
+      height: itemHeight(50.0),
+      child: TextButton(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateColor.resolveWith((states) {
+              if (states.contains(MaterialState.selected)) {
+                return kAccentColor;
+              } else if (states.contains(MaterialState.disabled)) {
+                return kAccentDarkColor;
+              } else {
+                return Colors.black;
+              }
+            }),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                side: const BorderSide(
+                  color: Colors.black,
+                  width: 1.5,
+                ),
+                borderRadius: BorderRadius.circular(itemWidth(20.0)),
+              ),
+            ),
+          ),
+          onPressed: onPressed,
+          child: Text((isForward) ? "Next" : "Previous")),
     );
   }
 }

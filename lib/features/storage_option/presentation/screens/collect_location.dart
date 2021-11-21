@@ -1,4 +1,5 @@
 import 'package:e_pack/core/presentation/config/config.dart';
+import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/presentation/widgets/button_row.dart';
 import 'package:e_pack/core/presentation/widgets/check_box_row.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
@@ -23,6 +24,31 @@ class CollectLocation extends StatefulWidget {
 }
 
 class _CollectLocationState extends State<CollectLocation> {
+  late FocusNode residenceNode;
+  late FocusNode phoneNode;
+  late FocusNode roomNode;
+  late FocusNode accessNotesNode;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    residenceNode = FocusNode();
+    phoneNode = FocusNode();
+    roomNode = FocusNode();
+    accessNotesNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    residenceNode.dispose();
+    phoneNode.dispose();
+    roomNode.dispose();
+    accessNotesNode.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Config.init(context);
@@ -43,35 +69,81 @@ class _CollectLocationState extends State<CollectLocation> {
                     padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0)),
                     child: Column(
                       children: [
-                        textWithLabel(
+                        TextWithLabel(
                           text: "Residence Name",
-                          controller: data.residenceNameController,
+                          textCon: data.residenceNameController,
                           type: TextInputType.name,
                           validate: (String? val) => data.validator(val!),
+                          node: residenceNode,
+                          nextNode: roomNode,
                         ),
-                        textWithLabel(
+                        TextWithLabel(
                           text: "Room or flat number",
-                          controller: data.roomNumController,
+                          textCon: data.roomNumController,
                           type: TextInputType.number,
                           validate: (String? val) =>
                               data.validator(val!, isNumeric: true),
+                          node: roomNode,
+                          nextNode: phoneNode,
                         ),
-                        textWithLabel(
-                            text: "Mobile",
-                            controller: data.mobileNumController,
-                            validate: (String? val) => data.validator(val!,
-                                isNumeric: true, isPhoneNumber: true),
-                            type: TextInputType.phone),
+                        TextWithLabel(
+                          text: "Mobile",
+                          textCon: data.mobileNumController,
+                          validate: (String? val) => data.validator(val!,
+                              isNumeric: true, isPhoneNumber: true),
+                          type: TextInputType.phone,
+                          node: phoneNode,
+                          nextNode: accessNotesNode,
+                        ),
                         const Divider(),
-                        textWithLabel(
-                          text: "Address Type",
-                          controller: data.addressTypeController,
-                          validate: (String? val) => data.validator(val!),
+                        Container(
+                          padding: EdgeInsets.only(top: itemHeight(10.0)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Address Type",
+                                style: TextStyle(fontSize: itemWidth(15.0)),
+                              ),
+                              SizedBox(
+                                height: itemHeight(2.5),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: itemWidth(30.0)),
+                                child: DropdownButtonFormField(
+                                  decoration: inputDecoration,
+                                  value: data.addressType,
+                                  items: const [
+                                    DropdownMenuItem(
+                                      child: Text("Hostel"),
+                                      value: "Hostel",
+                                    ),
+                                    DropdownMenuItem(
+                                      child: Text("Homestel"),
+                                      value: "Homestel",
+                                    ),
+                                    DropdownMenuItem(
+                                      child: Text("Flat"),
+                                      value: "Flat",
+                                    ),
+                                    DropdownMenuItem(
+                                      child: Text("Hall"),
+                                      value: "Hall",
+                                    ),
+                                  ],
+                                  onChanged: (value) =>
+                                      data.addressType = value.toString(),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        textWithLabel(
+                        TextWithLabel(
                           text: "Access Note",
                           validate: (String? val) => data.validator(val!),
-                          controller: data.accessNoteController,
+                          textCon: data.accessNoteController,
+                          node: accessNotesNode,
                         ),
                       ],
                     ),

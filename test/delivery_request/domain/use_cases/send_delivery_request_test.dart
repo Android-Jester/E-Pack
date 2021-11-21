@@ -29,7 +29,7 @@ void main() {
   const addressType = "Hostel";
   const accessNote = "jj";
   const destinationAddress = "P.O.Box TL 777";
-  const destinationRoomNumber = 214;
+  const destinationRoomNumber = "214";
   const contactName = "Duah Kwadwo Adjei";
   const contactPhoneNum = "0241119708";
   const momoFullName = contactName;
@@ -82,27 +82,26 @@ void main() {
       destinationRoomNumber: anyNamed("destinationRoomNumber"),
     )).thenAnswer((_) async => Right(tdeliveryRequest));
     //assert
-    final result = await request(
-        params: Params(
-            largeBoxSizeCount: largeBoxSizeCount,
-            mediumBoxSizeCount: mediumBoxSizeCount,
-            smallBoxSizeCount: smallBoxSizeCount,
-            timeCollect: timeCollect,
-            semesterPeriod: semesterPeriod,
-            relocateInfo: relocateInfo,
-            residenceName: residenceName,
-            collectRoomType: collectRoomType,
-            roomNumber: roomNumber,
-            phoneNumber: phoneNumber,
-            addressType: addressType,
-            accessNote: accessNote,
-            destinationAddress: destinationAddress,
-            destinationRoomNumber: destinationRoomNumber,
-            contactName: contactName,
-            contactPhoneNum: contactPhoneNum,
-            momoFullName: momoFullName,
-            momoPhoneNum: momoPhoneNum,
-            cost: cost));
+    final result = await request(Params(
+        largeBoxSizeCount: largeBoxSizeCount,
+        mediumBoxSizeCount: mediumBoxSizeCount,
+        smallBoxSizeCount: smallBoxSizeCount,
+        timeCollect: timeCollect,
+        semesterPeriod: semesterPeriod,
+        relocateInfo: relocateInfo,
+        residenceName: residenceName,
+        collectRoomType: collectRoomType,
+        roomNumber: roomNumber,
+        phoneNumber: phoneNumber,
+        addressType: addressType,
+        accessNote: accessNote,
+        destinationAddress: destinationAddress,
+        destinationRoomNumber: destinationRoomNumber,
+        contactName: contactName,
+        contactPhoneNum: contactPhoneNum,
+        momoFullName: momoFullName,
+        momoPhoneNum: momoPhoneNum,
+        cost: cost));
     expect(result, Right(tdeliveryRequest));
 
     //verify

@@ -1,20 +1,35 @@
 import 'package:e_pack/core/presentation/config/config.dart';
-import 'package:e_pack/core/presentation/provider/mobile_money_payment_info.dart';
 import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
+import 'package:e_pack/features/delivery_option/presentation/provider/mobile_money_payment_info.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MomoInformation extends StatefulWidget {
   static String id = "MomoUser";
-  final void Function()? function;
 
-  MomoInformation({Key? key, required this.function}) : super(key: key);
   @override
   State<MomoInformation> createState() => _MomoInformationState();
 }
 
 class _MomoInformationState extends State<MomoInformation> {
+  late FocusNode node;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    node = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    node.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Config.init(context);
@@ -28,22 +43,20 @@ class _MomoInformationState extends State<MomoInformation> {
             key: data.key,
             child: Column(
               children: [
-                textWithLabel(
-                  validate: (val) => data.validate(isNumber: false),
+                TextWithLabel(
+                  validate: (val) => data.validate(val!),
                   text: "Mobile Money Name",
-                  controller: data.momoUser,
+                  textCon: data.momoUser,
+                  type: TextInputType.name,
                 ),
-                textWithLabel(
-                    validate: (val) => data.validate(isNumber: true),
+                TextWithLabel(
+                    validate: (val) => data.validate(val!, isNumber: true),
                     text: "Mobile Money Number",
-                    controller: data.momoNum,
+                    textCon: data.momoNum,
                     type: TextInputType.phone),
                 CustomButton(
                     text: "Finalize",
-                    onPressed: () {
-                      data.validation(
-                          context: context, function: widget.function);
-                    })
+                    onPressed: () => data.validation(con: context))
               ],
             ),
           ),
