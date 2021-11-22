@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class RoomTypeData extends ChangeNotifier {
+class StorageRoomTypeData extends ChangeNotifier {
   int _roomType = 0;
 
   void setRoomType(int input) {
@@ -8,5 +8,6 @@ class RoomTypeData extends ChangeNotifier {
     notifyListeners();
   }
 
-  get roomType => _roomType;
+  String get roomTypeSelected => _roomType.toString();
+  int get roomType => _roomType;
 }

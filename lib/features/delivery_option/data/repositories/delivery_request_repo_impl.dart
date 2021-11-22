@@ -71,7 +71,6 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
     required String? momoPhoneNum,
     required double? cost,
   }) async {
-    print("Repository started");
     return await _getResponse(() async => DeliveryRequest(
         timeCollect: timeCollect,
         semesterPeriod: semesterPeriod,

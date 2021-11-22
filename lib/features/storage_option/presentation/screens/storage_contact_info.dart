@@ -5,21 +5,21 @@ import 'package:e_pack/features/storage_option/presentation/provider/storage_rec
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-class ContactInfo extends StatefulWidget {
+class StorageContactInfo extends StatefulWidget {
   final PageController? controller;
   final int? currentPage;
 
-  ContactInfo({
+  StorageContactInfo({
     Key? key,
     required this.controller,
     required this.currentPage,
   }) : super(key: key);
 
   @override
-  State<ContactInfo> createState() => _ContactInfoState();
+  State<StorageContactInfo> createState() => _ContactInfoState();
 }
 
-class _ContactInfoState extends State<ContactInfo> {
+class _ContactInfoState extends State<StorageContactInfo> {
   late FocusNode node;
 
   @override

@@ -9,21 +9,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CollectLocation extends StatefulWidget {
+class StorageCollectionInfo extends StatefulWidget {
   final PageController? controller;
   final int? currentPage;
 
-  CollectLocation({
+  StorageCollectionInfo({
     Key? key,
     required this.controller,
     required this.currentPage,
   }) : super(key: key);
 
   @override
-  State<CollectLocation> createState() => _CollectLocationState();
+  State<StorageCollectionInfo> createState() => _CollectLocationState();
 }
 
-class _CollectLocationState extends State<CollectLocation> {
+class _CollectLocationState extends State<StorageCollectionInfo> {
   late FocusNode residenceNode;
   late FocusNode phoneNode;
   late FocusNode roomNode;
@@ -52,7 +52,7 @@ class _CollectLocationState extends State<CollectLocation> {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    return Consumer<CollectionInfo>(
+    return Consumer<StorageCollectionData>(
       builder: (context, data, child) {
         return SingleChildScrollView(
           child: Container(

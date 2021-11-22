@@ -10,17 +10,11 @@ class StoragePeriodInfo extends ChangeNotifier {
 
   int get weeksStored => int.parse(weeksStoredBoxController!.text);
   void setCost(BuildContext context) {
-    _val = (double.parse(Provider.of<BoxSizeData>(context, listen: false)
-            .largeBoxController!
-            .text) +
-        double.parse(Provider.of<BoxSizeData>(context, listen: false)
-            .mediumBoxController!
-            .text) +
-        double.parse(Provider.of<BoxSizeData>(context, listen: false)
-            .smallBoxController!
-            .text) +
+    var provider = Provider.of<StorageBoxSizeData>(context, listen: false);
+    _val = (double.parse(provider.largeBoxController!.text) +
+        double.parse(provider.mediumBoxController!.text) +
+        double.parse(provider.smallBoxController!.text) +
         double.parse(weeksStoredBoxController!.text) * 5);
-    print(_val);
     notifyListeners();
   }
 

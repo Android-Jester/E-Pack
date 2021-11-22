@@ -78,7 +78,6 @@ class DeliveryDataRecieverImpl implements DeliveryDataReciever {
         momoFullName: momoFullName,
         momoPhoneNum: momoPhoneNum,
         cost: cost);
-    print(model);
     _getResponseFromServer(model);
   }
 }

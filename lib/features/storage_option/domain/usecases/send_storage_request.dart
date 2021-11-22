@@ -6,64 +6,64 @@ import 'package:e_pack/features/storage_option/domain/repositories/storage_reque
 import 'package:equatable/equatable.dart';
 
 class SendStorageRequest extends UseCase<StorageRequest, Params> {
-  final StorageRequestRepository? repo;
+  final StorageRequestRepository repo;
 
   SendStorageRequest(this.repo);
 
   @override
   Future<Either<Failure, StorageRequest>?> call(Params params) async {
-    return await repo!.sendStorageRequest(
+    return await repo.sendStorageRequest(
       // Time of Collection
-      params.timeCollect,
-      params.semesterPeriod,
+      timeCollect: params.timeCollect,
+      semesterPeriod: params.semesterPeriod,
 
       //Room Type
-      params.collectRoomType,
+      collectRoomType: params.collectRoomType,
 
       //Box Sizes
-      params.largeBoxSizeCount,
-      params.mediumBoxSizeCount,
-      params.smallBoxSizeCount,
+      largeBoxSizeCount: params.largeBoxSizeCount,
+      mediumBoxSizeCount: params.mediumBoxSizeCount,
+      smallBoxSizeCount: params.smallBoxSizeCount,
 
       //Period of Storage
-      params.storageWeeks,
+      storageWeeks: params.storageWeeks,
 
       //Collection Information
-      params.residenceName,
-      params.roomNumber,
-      params.phoneNumber,
-      params.addressType,
-      params.accessNote,
+      residenceName: params.residenceName,
+      roomNumber: params.roomNumber,
+      phoneNumber: params.phoneNumber,
+      addressType: params.addressType,
+      accessNote: params.accessNote,
 
       // Home Location and Contact Information
-      params.locationName,
-      params.localPhoneNum,
-      params.whatsPhoneNum,
-      params.contactTimes,
+      locationName: params.locationName,
+      localPhoneNum: params.localPhoneNum,
+      whatsPhoneNum: params.whatsPhoneNum,
+      contactTimes: params.contactTimes,
 
       // Payment Information
-      params.momoFullName,
-      params.momoPhoneNum,
-      params.cost,
+      momoFullName: params.momoFullName,
+      momoPhoneNum: params.momoPhoneNum,
+      cost: params.cost,
     );
   }
 }
 
 class Params extends Equatable {
   // Time of Collection
-  final String? timeCollect, semesterPeriod, collectRoomType;
-  final int? largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
-  final int? storageWeeks;
-  final String? residenceName;
-  final String? roomNumber;
-  final String? phoneNumber;
-  final String? addressType;
-  final String? accessNote;
-  final String? locationName;
-  final String? localPhoneNum, whatsPhoneNum;
-  final String? contactTimes;
-  final String? momoFullName, momoPhoneNum;
-  final double? cost;
+  final String timeCollect, semesterPeriod, collectRoomType;
+  final int largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
+  final int storageWeeks;
+  final String residenceName;
+  final String roomNumber;
+  final String phoneNumber;
+  final String addressType;
+  final String accessNote;
+  final String locationName;
+  final String localPhoneNum, whatsPhoneNum;
+  final String contactTimes;
+  final String momoFullName, momoPhoneNum;
+  final double cost;
 
   const Params({
     // Time of Collection
@@ -74,9 +74,9 @@ class Params extends Equatable {
     required this.collectRoomType,
 
     //Box Sizes
-    this.largeBoxSizeCount,
-    this.mediumBoxSizeCount,
-    this.smallBoxSizeCount,
+    this.largeBoxSizeCount = 0,
+    this.mediumBoxSizeCount = 0,
+    this.smallBoxSizeCount = 0,
 
     //Period of Storage
     required this.storageWeeks,

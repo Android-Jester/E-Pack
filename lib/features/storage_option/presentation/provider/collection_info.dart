@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CollectionInfo extends ChangeNotifier {
+class StorageCollectionData extends ChangeNotifier {
   TextEditingController residenceNameController = TextEditingController();
   TextEditingController roomNumController = TextEditingController();
   TextEditingController mobileNumController = TextEditingController();

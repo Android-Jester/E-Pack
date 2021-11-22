@@ -6,10 +6,10 @@ import 'package:e_pack/features/storage_option/presentation/provider/room_type_d
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class RoomType extends StatefulWidget {
+class StorageRoomType extends StatefulWidget {
   final PageController? controller;
   final int? currentPage;
-  RoomType({
+  StorageRoomType({
     Key? key,
     required this.controller,
     required this.currentPage,
@@ -19,11 +19,11 @@ class RoomType extends StatefulWidget {
   _RoomTypeState createState() => _RoomTypeState();
 }
 
-class _RoomTypeState extends State<RoomType> {
+class _RoomTypeState extends State<StorageRoomType> {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    return Consumer<RoomTypeData>(
+    return Consumer<StorageRoomTypeData>(
       builder: (context, data, child) {
         return Container(
           width: Config.width,

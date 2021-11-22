@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BoxSizeData extends ChangeNotifier {
+class StorageBoxSizeData extends ChangeNotifier {
   final TextEditingController? largeBoxController =
       TextEditingController(text: "0");
   final TextEditingController? mediumBoxController =

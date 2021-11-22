@@ -35,11 +35,8 @@ class StorageRecepientInfo extends ChangeNotifier {
       return "Please Fill this space";
     }
     if (isNumeric) {
-      if (int.parse(val) is num) {
-        if (isPhoneNumber) {
-          return (val.length > 10) ? "Please type 10 digits" : null;
-        }
-        return null;
+      if (isPhoneNumber) {
+        return (val.length > 10) ? "Please type 10 digits" : null;
       } else {
         return "Please type in a number and not a text";
       }

@@ -36,32 +36,35 @@ class TextWithLabel extends StatelessWidget {
             height: itemHeight(2.5),
           ),
           Padding(
-              padding: EdgeInsets.symmetric(horizontal: itemWidth(25.0)),
-              child: TextFormField(
-                  autofocus: true,
-                  focusNode: node,
-                  initialValue: " ",
-                  smartDashesType: (type == TextInputType.phone)
-                      ? SmartDashesType.enabled
-                      : SmartDashesType.disabled,
-                  keyboardType: type,
-                  textAlign: TextAlign.center,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  // inputFormatters: [
-                  //   FilteringTextInputFormatter.allow(
-                  //       RegExp("[a-z A-Z á-ú Á-Ú]")),
-                  //   (type != TextInputType.number || type != TextInputType.phone)
-                  //       ? FilteringTextInputFormatter.deny(RegExp("[0-9]"))
-                  //       : FilteringTextInputFormatter.deny(
-                  //           RegExp("[a-z A-Z á-ú Á-Ú]")),
-                  // ],
-                  onEditingComplete: () {
-                    (nextNode != null)
-                        ? FocusScope.of(context).requestFocus(nextNode)
-                        : print("null");
-                  },
-                  validator: validate,
-                  decoration: inputDecoration)),
+            padding: EdgeInsets.symmetric(horizontal: itemWidth(25.0)),
+            child: TextFormField(
+                autofocus: true,
+                focusNode: node,
+                controller: textCon,
+                obscureText: (text.contains("Password")),
+                smartDashesType: (type == TextInputType.phone)
+                    ? SmartDashesType.enabled
+                    : SmartDashesType.disabled,
+                keyboardType: type,
+                textAlign: TextAlign.center,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                // inputFormatters: [
+                //   FilteringTextInputFormatter.allow(
+                //       RegExp("[a-z A-Z á-ú Á-Ú]")),
+                //   (type != TextInputType.number || type != TextInputType.phone)
+                //       ? FilteringTextInputFormatter.deny(RegExp("[0-9]"))
+                //       : FilteringTextInputFormatter.deny(
+                //           RegExp("[a-z A-Z á-ú Á-Ú]")),
+                // ],
+                onEditingComplete: () {
+                  print(textCon.text);
+                  (nextNode != null)
+                      ? FocusScope.of(context).requestFocus(nextNode)
+                      : print("null");
+                },
+                validator: validate,
+                decoration: inputDecoration),
+          ),
         ],
       ),
     );

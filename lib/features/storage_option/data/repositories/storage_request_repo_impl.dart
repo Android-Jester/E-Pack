@@ -3,12 +3,11 @@ import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/core/error/exception.dart';
 import 'package:e_pack/core/network/network_info.dart';
 import 'package:e_pack/features/storage_option/data/datasources/storage_data_receiver.dart';
-import 'package:e_pack/features/storage_option/data/models/storage_request_model.dart';
 import 'package:e_pack/features/storage_option/domain/entities/storage_request.dart';
 import 'package:e_pack/features/storage_option/domain/repositories/storage_request_repo.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-typedef StorageRequestModel _GetModelInstance();
+typedef Future<StorageRequest> _GetModelInstance();
 
 class StorageRequestRepositoryImpl implements StorageRequestRepository {
   final StorageDataReceiver serverHost;
@@ -22,51 +21,76 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
       _GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
-        final model = responseModel();
-        serverHost.sendStorageRequest(model);
+        final model = await responseModel();
+        print("repository started");
+        serverHost.sendStorageRequest(
+          timeCollect: model.timeCollect,
+          semesterPeriod: model.semesterPeriod,
+          collectRoomType: model.collectRoomType,
+          storageWeeks: model.storageWeeks,
+          residenceName: model.residenceName,
+          roomNumber: model.roomNumber,
+          phoneNumber: model.phoneNumber,
+          addressType: model.addressType,
+          accessNote: model.accessNote,
+          locationName: model.locationName,
+          localPhoneNum: model.localPhoneNum,
+          whatsPhoneNum: model.whatsPhoneNum,
+          contactTimes: model.contactTimes,
+          momoFullName: model.momoFullName,
+          momoPhoneNum: model.momoPhoneNum,
+          cost: model.cost,
+          smallBoxSizeCount: model.smallBoxSizeCount,
+          mediumBoxSizeCount: model.mediumBoxSizeCount,
+          largeBoxSizeCount: model.largeBoxSizeCount,
+        );
         return Right(model);
       } on ServerException {
+        print("Server Failure due to no data result");
         return Left(ServerFailure());
       }
+    } else {
+      print("Server Failure due to no data");
+      return Left(ServerFailure());
     }
   }
 
   @override
-  Future<Either<Failure, StorageRequest>?>? sendStorageRequest(
+  Future<Either<Failure, StorageRequest>?>? sendStorageRequest({
     // Time of Collection
-    String? timeCollect,
-    String? semesterPeriod,
+    required String timeCollect,
+    required String semesterPeriod,
 
     // Room Type
-    String? collectRoomType,
+    required String collectRoomType,
 
     // Box Sizes
-    int? largeBoxSizeCount,
-    int? mediumBoxSizeCount,
-    int? smallBoxSizeCount,
+    required int largeBoxSizeCount,
+    required int mediumBoxSizeCount,
+    required int smallBoxSizeCount,
 
     //Period of Storage
-    int? storageWeeks,
+    required int storageWeeks,
 
     // Collection Information
-    String? residenceName,
-    int? roomNumber,
-    String? phoneNumber,
-    String? addressType,
-    String? accessNote,
+    required String residenceName,
+    required String roomNumber,
+    required String phoneNumber,
+    required String addressType,
+    required String accessNote,
 
     // Home Location and Contact Information
-    String? locationName,
-    String? localPhoneNum,
-    String? whatsPhoneNum,
-    int? contactTimes,
+    required String locationName,
+    required String localPhoneNum,
+    required String whatsPhoneNum,
+    required String contactTimes,
 
     // Payment Information
-    String? momoFullName,
-    String? momoPhoneNum,
-    double? cost,
-  ) async {
-    return await _getResponse(() => StorageRequestModel(
+    required String momoFullName,
+    required String momoPhoneNum,
+    required double cost,
+  }) async {
+    return await _getResponse(() async => StorageRequest(
         timeCollect: timeCollect,
         semesterPeriod: semesterPeriod,
         collectRoomType: collectRoomType,
@@ -82,6 +106,9 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
         contactTimes: contactTimes,
         momoFullName: momoFullName,
         momoPhoneNum: momoPhoneNum,
+        smallBoxSizeCount: smallBoxSizeCount,
+        mediumBoxSizeCount: mediumBoxSizeCount,
+        largeBoxSizeCount: largeBoxSizeCount,
         cost: cost));
   }
 }

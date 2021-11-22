@@ -3,38 +3,38 @@ import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/features/storage_option/domain/entities/storage_request.dart';
 
 abstract class StorageRequestRepository {
-  Future<Either<Failure, StorageRequest>?>? sendStorageRequest(
+  Future<Either<Failure, StorageRequest>?>? sendStorageRequest({
     // Time of Collection
-    String? timeCollect,
-    String? semesterPeriod,
+    required String timeCollect,
+    required String semesterPeriod,
 
     // Room Type
-    String? collectRoomType,
+    required String collectRoomType,
 
     // Box Sizes
-    int? largeBoxSizeCount,
-    int? mediumBoxSizeCount,
-    int? smallBoxSizeCount,
+    required int largeBoxSizeCount,
+    required int mediumBoxSizeCount,
+    required int smallBoxSizeCount,
 
     //Period of Storage
-    int? storageWeeks,
+    required int storageWeeks,
 
     // Collection Information
-    String? residenceName,
-    int? roomNumber,
-    String? phoneNumber,
-    String? addressType,
-    String? accessNote,
+    required String residenceName,
+    required String roomNumber,
+    required String phoneNumber,
+    required String addressType,
+    required String accessNote,
 
     // Home Location and Contact Information
-    String? locationName,
-    String? localPhoneNum,
-    String? whatsPhoneNum,
-    int? contactTimes,
+    required String locationName,
+    required String localPhoneNum,
+    required String whatsPhoneNum,
+    required String contactTimes,
 
     // Payment Information
-    String? momoFullName,
-    String? momoPhoneNum,
-    double? cost,
-  );
+    required String momoFullName,
+    required String momoPhoneNum,
+    required double cost,
+  });
 }

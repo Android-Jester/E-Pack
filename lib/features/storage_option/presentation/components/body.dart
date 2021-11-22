@@ -1,13 +1,13 @@
 import 'package:e_pack/core/presentation/config/colors.dart';
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/sliver_deligate.dart';
-import 'package:e_pack/features/delivery_option/presentation/Screens/momo_information.dart';
-import 'package:e_pack/features/storage_option/presentation/screens/box_choices.dart';
-import 'package:e_pack/features/storage_option/presentation/screens/collect_location.dart';
-import 'package:e_pack/features/storage_option/presentation/screens/contact_info.dart';
-import 'package:e_pack/features/storage_option/presentation/screens/room_type.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/storage_box_choices.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/storage_collection_info.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/storage_contact_info.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/storage_momo_payment.dart';
 import 'package:e_pack/features/storage_option/presentation/screens/storage_period.dart';
-import 'package:e_pack/features/storage_option/presentation/screens/time_selection.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/storage_room_type.dart';
+import 'package:e_pack/features/storage_option/presentation/screens/storage_time_of_collection.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
@@ -36,15 +36,15 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     Config.init(context);
     pages = [
-      TimeSelection(
+      StorageTimeSelection(
         controller: _controller,
         currentPage: currentPage,
       ),
-      RoomType(
+      StorageRoomType(
         controller: _controller,
         currentPage: currentPage,
       ),
-      BoxChoices(
+      StorageBoxChoices(
         controller: _controller,
         currentPage: currentPage,
       ),
@@ -52,15 +52,15 @@ class _BodyState extends State<Body> {
         controller: _controller,
         currentPage: currentPage,
       ),
-      CollectLocation(
+      StorageCollectionInfo(
         controller: _controller,
         currentPage: currentPage,
       ),
-      ContactInfo(
+      StorageContactInfo(
         controller: _controller,
         currentPage: currentPage,
       ),
-      MomoInformation()
+      StorageMomoPayment()
     ];
 
     List<String> title = [
@@ -82,7 +82,7 @@ class _BodyState extends State<Body> {
             onPageChanged: (value) => setState(() => currentPage = value),
             controller: _controller,
             itemCount: pages.length,
-            itemBuilder: (context, indexed) => pages[indexed],
+            itemBuilder: (context, i) => pages[i],
           ),
         ),
       ),

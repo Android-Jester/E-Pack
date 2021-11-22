@@ -6,10 +6,10 @@ import 'package:e_pack/features/storage_option/presentation/provider/box_size_da
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BoxChoices extends StatefulWidget {
+class StorageBoxChoices extends StatefulWidget {
   final PageController? controller;
   final int? currentPage;
-  BoxChoices({
+  StorageBoxChoices({
     Key? key,
     required this.controller,
     required this.currentPage,
@@ -19,10 +19,10 @@ class BoxChoices extends StatefulWidget {
   _BoxChoicesState createState() => _BoxChoicesState();
 }
 
-class _BoxChoicesState extends State<BoxChoices> {
+class _BoxChoicesState extends State<StorageBoxChoices> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<BoxSizeData>(
+    return Consumer<StorageBoxSizeData>(
       builder: (context, data, child) => Column(
         children: [
           Text(

@@ -4,13 +4,14 @@ import 'package:e_pack/features/storage_option/data/repositories/storage_request
 import 'package:e_pack/features/storage_option/domain/usecases/send_storage_request.dart';
 import 'package:e_pack/features/storage_option/presentation/provider/box_size_data.dart';
 import 'package:e_pack/features/storage_option/presentation/provider/collection_info.dart';
+import 'package:e_pack/features/storage_option/presentation/provider/room_type_data.dart';
 import 'package:e_pack/features/storage_option/presentation/provider/storage_period_data.dart';
 import 'package:e_pack/features/storage_option/presentation/provider/storage_recepient_info.dart';
 import 'package:e_pack/features/storage_option/presentation/provider/time_info_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MomoInformationProvider extends ChangeNotifier {
+class StorageMomoPaymentInfo extends ChangeNotifier {
   final TextEditingController _momoUser = TextEditingController();
   final TextEditingController _momoNum = TextEditingController();
 
@@ -22,19 +23,35 @@ class MomoInformationProvider extends ChangeNotifier {
   get key => _formKey;
 
   validation({required BuildContext context}) {
+    //Initialized Providers
+    var storageTimeProvider =
+        Provider.of<StorageTimeInfo>(context, listen: false);
+    var storageRoomTypeProvider =
+        Provider.of<StorageRoomTypeData>(context, listen: false);
+    var storagePeriodProvider =
+        Provider.of<StoragePeriodInfo>(context, listen: false);
+    var storageBoxSizeProvider =
+        Provider.of<StorageBoxSizeData>(context, listen: false);
+    var storageCollectionProvider =
+        Provider.of<StorageCollectionData>(context, listen: false);
+    var storageReceiptProvider =
+        Provider.of<StorageRecepientInfo>(context, listen: false);
+
+    // Initialized usecase
     var usecase = SendStorageRequest(
         StorageRequestRepositoryImpl(serverHost: StorageDataReceiverImpl()));
-    double _cost = (Provider.of<BoxSizeData>(context, listen: false)
-                .largeBoxSizeText *
-            5) +
-        (Provider.of<BoxSizeData>(context, listen: false).mediumBoxSizeText *
-            2) +
-        (Provider.of<BoxSizeData>(context, listen: false).smallBoxSizeText *
-            1.5);
+
+    // calculated cost
+    double _cost = (storageBoxSizeProvider.smallBoxSizeText +
+            storageBoxSizeProvider.mediumBoxSizeText +
+            storageBoxSizeProvider.largeBoxSizeText)
+        .toDouble();
+
+    //verifying data
     if (_formKey.currentState!.validate()) {
       showDialog(
           context: context,
-          builder: (BuildContext context) => SimpleDialog(
+          builder: (BuildContext con) => SimpleDialog(
                 title: Text("Have you completed everything?"),
                 children: <Widget>[
                   Row(
@@ -42,75 +59,44 @@ class MomoInformationProvider extends ChangeNotifier {
                     children: [
                       CustomButton(
                           text: "Yes",
-                          onPressed: () {
-                            usecase(Params(
-                              largeBoxSizeCount: Provider.of<BoxSizeData>(
-                                      context,
-                                      listen: false)
-                                  .largeBoxSizeText,
-                              mediumBoxSizeCount: Provider.of<BoxSizeData>(
-                                      context,
-                                      listen: false)
-                                  .mediumBoxSizeText,
-                              smallBoxSizeCount: Provider.of<BoxSizeData>(
-                                      context,
-                                      listen: false)
-                                  .smallBoxSizeText,
-                              timeCollect:
-                                  Provider.of<TimeInfo>(context, listen: false)
-                                      .dateTimeVal,
+                          onPressed: () async {
+                            print("started");
+                            //sending data to appwrite server and getting their results
+                            var exes = usecase.call(Params(
+                              timeCollect: storageTimeProvider.dateTimeVal,
                               semesterPeriod:
-                                  Provider.of<TimeInfo>(context, listen: false)
-                                      .semesterPeriod,
-                              collectRoomType: Provider.of<CollectionInfo>(
-                                      context,
-                                      listen: false)
-                                  .roomNumber
-                                  .toString(),
-                              storageWeeks: Provider.of<StoragePeriodInfo>(
-                                      context,
-                                      listen: false)
-                                  .weeksStored,
-                              residenceName: Provider.of<CollectionInfo>(
-                                      context,
-                                      listen: false)
-                                  .residenceName,
-                              roomNumber: Provider.of<StorageRecepientInfo>(
-                                      context,
-                                      listen: false)
-                                  .roomNumber,
-                              phoneNumber: Provider.of<CollectionInfo>(context,
-                                      listen: false)
-                                  .mobileNumber,
-                              addressType: Provider.of<CollectionInfo>(context,
-                                      listen: false)
-                                  .addressType,
-                              accessNote: Provider.of<CollectionInfo>(context,
-                                      listen: false)
-                                  .accessNote,
-                              locationName: Provider.of<StorageRecepientInfo>(
-                                      context,
-                                      listen: false)
-                                  .locationAddress,
-                              localPhoneNum: Provider.of<StorageRecepientInfo>(
-                                      context,
-                                      listen: false)
-                                  .phoneNumber,
-                              whatsPhoneNum: Provider.of<StorageRecepientInfo>(
-                                      context,
-                                      listen: false)
-                                  .whatsAppNumber,
-                              contactTimes: Provider.of<StorageRecepientInfo>(
-                                      context,
-                                      listen: false)
-                                  .contactTimes,
-                              momoFullName: _momoUser.text,
-                              momoPhoneNum: _momoNum.text,
+                                  storageTimeProvider.semesterPeriod,
+                              collectRoomType:
+                                  storageRoomTypeProvider.roomTypeSelected,
+                              largeBoxSizeCount:
+                                  storageBoxSizeProvider.largeBoxSizeText,
+                              mediumBoxSizeCount:
+                                  storageBoxSizeProvider.mediumBoxSizeText,
+                              smallBoxSizeCount:
+                                  storageBoxSizeProvider.smallBoxSizeText,
+                              storageWeeks: storagePeriodProvider.weeksStored,
+                              residenceName:
+                                  storageCollectionProvider.residenceName,
+                              roomNumber: storageCollectionProvider.roomNumber,
+                              phoneNumber:
+                                  storageCollectionProvider.mobileNumber,
+                              addressType:
+                                  storageCollectionProvider.addressType,
+                              accessNote: storageCollectionProvider.accessNote,
+                              locationName:
+                                  storageReceiptProvider.locationAddress,
+                              localPhoneNum: storageReceiptProvider.phoneNumber,
+                              whatsPhoneNum:
+                                  storageReceiptProvider.whatsAppNumber,
+                              contactTimes: storageReceiptProvider.contactTimes,
+                              momoFullName: momoUser.text,
+                              momoPhoneNum: momoNum.text,
                               cost: _cost,
                             ));
+                            print(await exes);
                           }),
                       CustomButton(
-                          text: "No", onPressed: () => Navigator.pop(context))
+                          text: "No", onPressed: () => Navigator.pop(con))
                     ],
                   ),
                 ],
@@ -118,13 +104,14 @@ class MomoInformationProvider extends ChangeNotifier {
     }
   }
 
-  validate({required bool isNumber}) {
-    if (_momoUser.text == null && _momoNum.text == null) {
-      return "There is no username or value";
-    } else {
+  validate(String val, {bool isNumber = false}) {
+    if (val == null || val == " ") {
       if (isNumber == true && _momoNum.text.length < 10) {
         return "The number is incomplete";
+      } else {
+        return "There is no username or value";
       }
+    } else {
       return null;
     }
   }

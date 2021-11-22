@@ -7,20 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-class TimeSelection extends StatefulWidget {
+class StorageTimeSelection extends StatefulWidget {
   final PageController? controller;
   late final int? currentPage;
 
-  TimeSelection({
+  StorageTimeSelection({
     this.controller,
     this.currentPage,
   });
 
   @override
-  State<TimeSelection> createState() => _TimeSelectionState();
+  State<StorageTimeSelection> createState() => _TimeSelectionState();
 }
 
-class _TimeSelectionState extends State<TimeSelection> {
+class _TimeSelectionState extends State<StorageTimeSelection> {
   DateRangePickerController? dateController = DateRangePickerController();
   String? semesterPeriod;
   String? dateTime;
@@ -28,7 +28,7 @@ class _TimeSelectionState extends State<TimeSelection> {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    return Consumer<TimeInfo>(builder: (context, data, child) {
+    return Consumer<StorageTimeInfo>(builder: (context, data, child) {
       return Container(
         child: Column(
           children: [

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class TimeInfo extends ChangeNotifier {
+class StorageTimeInfo extends ChangeNotifier {
   TextEditingController? _timeDate;
   String _semesterPeriod = "First Semester";
-  String? dateTimeVal;
+  String dateTimeVal = " ";
 
   void onDateChange({String? val}) {
-    dateTimeVal = val;
+    dateTimeVal = val!;
     _timeDate = TextEditingController(
         text:
-            " Time to pick up materials is ${dateTimeVal!.substring(0, 16)} in $_semesterPeriod");
+            " Time to pick up materials is ${dateTimeVal.substring(0, 16)} in $_semesterPeriod");
     notifyListeners();
   }
 
@@ -18,7 +18,6 @@ class TimeInfo extends ChangeNotifier {
 
   void setSemesterPeriod(String input) {
     _semesterPeriod = input;
-    print(_semesterPeriod);
     onDateChange(val: dateTimeVal);
     notifyListeners();
   }
