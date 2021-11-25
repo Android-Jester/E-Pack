@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:appwrite/appwrite.dart';
 import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/presentation/pages/home_screen.dart';
+import 'package:e_pack/core/presentation/pages/splash_screen.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
-import 'package:e_pack/features/log_in/presentation/pages/log_in.dart';
+import 'package:e_pack/features/delivery_option/presentation/delivery_option.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,6 @@ import 'features/log_in/presentation/provider/login_info_provider.dart';
 import 'features/sign_up/presentation/provider/login_info_provider.dart';
 
 void main() async {
-  await Account(AppWriteServer.initClient()).get();
   runApp(const MyApp());
 }
 
@@ -31,8 +31,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-            create: (BuildContext context) => HomeScreenData()),
+        ChangeNotifierProvider(create: (BuildContext context) => HomeScreenData()),
         ChangeNotifierProvider(create: (BuildContext context) => LoginInfo()),
         ChangeNotifierProvider(create: (BuildContext context) => SignupInfo()),
       ],
@@ -40,11 +39,31 @@ class _MyAppState extends State<MyApp> {
           ? MaterialApp(
               theme: lightTheme,
               routes: routes,
-              initialRoute: LogIn.id,
+              home: FutureBuilder(
+                  future: Account(AppWriteServer.initClient()).get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return HomeScreen();
+                    } else if (snapshot.hasError) {
+                      return DeliveryOption();
+                    } else {
+                      return Scaffold(body: Center(child: CircularProgressIndicator()));
+                    }
+                  }),
             )
           : CupertinoApp(
               routes: routes,
-              initialRoute: HomeScreen.id,
+              home: FutureBuilder(
+                  future: Account(AppWriteServer.initClient()).get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return HomeScreen();
+                    } else if (snapshot.hasError) {
+                      return SplashScreen();
+                    } else {
+                      return Scaffold(body: Center(child: CircularProgressIndicator()));
+                    }
+                  }),
             ),
     );
   }

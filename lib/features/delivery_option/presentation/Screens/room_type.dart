@@ -8,9 +8,11 @@ import 'package:provider/provider.dart';
 
 class RoomType extends StatefulWidget {
   final PageController? controller;
+  final ScrollController scroll;
   final int? currentPage;
   RoomType({
     Key? key,
+    required this.scroll,
     required this.controller,
     required this.currentPage,
   }) : super(key: key);
@@ -19,15 +21,10 @@ class RoomType extends StatefulWidget {
   _RoomTypeState createState() => _RoomTypeState();
 }
 
-class _RoomTypeState extends State<RoomType>
-    with AutomaticKeepAliveClientMixin {
+class _RoomTypeState extends State<RoomType> with AutomaticKeepAliveClientMixin {
   int selectedRadio = 0;
 
-  Widget selectionRow(
-      {required String? text,
-      required int? value,
-      required int groupValue,
-      required RoomTypeData data}) {
+  Widget selectionRow({required String? text, required int? value, required int groupValue, required RoomTypeData data}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: itemWidth(20.0)),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -108,10 +105,7 @@ class _RoomTypeState extends State<RoomType>
               ),
               SizedBox(height: itemHeight(25.0)),
               buttonRow(widget.controller!, widget.currentPage!,
-                  nextButton: () => (data.roomType == 0)
-                      ? null
-                      : direction(
-                          widget.controller!, widget.currentPage!, true))
+                  nextButton: () => (data.roomType == 0) ? null : direction(widget.controller!, widget.currentPage!, true))
             ],
           ),
         );

@@ -5,32 +5,24 @@ import 'package:flutter/services.dart';
 
 class TextWithLabel extends StatelessWidget {
   final String text;
-  final String? Function(String? val) validate;
+  final String? Function(String? val)? validate;
   final TextInputType type;
   final TextEditingController textCon;
   final FocusNode? node;
   final FocusNode? nextNode;
 
-  TextWithLabel(
-      {Key? key,
-      this.node,
-      this.nextNode,
-      required this.text,
-      required this.validate,
-      this.type = TextInputType.text,
-      required this.textCon})
+  TextWithLabel({Key? key, this.node, this.nextNode, required this.text, this.validate, this.type = TextInputType.text, required this.textCon})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: itemHeight(10.0)),
+      padding: EdgeInsets.only(top: itemHeight(10.0), left: itemWidth(6)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             text,
-            style: TextStyle(fontSize: itemWidth(15.0)),
           ),
           SizedBox(
             height: itemHeight(2.5),
@@ -42,9 +34,7 @@ class TextWithLabel extends StatelessWidget {
                 focusNode: node,
                 controller: textCon,
                 obscureText: (text.contains("Password")),
-                smartDashesType: (type == TextInputType.phone)
-                    ? SmartDashesType.enabled
-                    : SmartDashesType.disabled,
+                smartDashesType: (type == TextInputType.phone) ? SmartDashesType.enabled : SmartDashesType.disabled,
                 keyboardType: type,
                 textAlign: TextAlign.center,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -58,9 +48,7 @@ class TextWithLabel extends StatelessWidget {
                 // ],
                 onEditingComplete: () {
                   print(textCon.text);
-                  (nextNode != null)
-                      ? FocusScope.of(context).requestFocus(nextNode)
-                      : print("null");
+                  (nextNode != null) ? FocusScope.of(context).requestFocus(nextNode) : print("null");
                 },
                 validator: validate,
                 decoration: inputDecoration),

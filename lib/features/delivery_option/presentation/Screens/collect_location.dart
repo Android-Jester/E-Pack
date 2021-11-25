@@ -6,6 +6,7 @@ import 'package:e_pack/core/presentation/widgets/button_row.dart';
 import 'package:e_pack/core/presentation/widgets/check_box_row.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
+import 'package:e_pack/features/delivery_option/presentation/components/body.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/collection_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,17 +15,14 @@ import 'package:provider/provider.dart';
 class CollectionPage extends StatefulWidget {
   final PageController? controller;
   final int currentPage;
+  final ScrollController scroll;
 
-  CollectionPage({
-    required this.controller,
-    required this.currentPage,
-  });
+  CollectionPage({required this.controller, required this.currentPage, required this.scroll});
   @override
   State<CollectionPage> createState() => _CollectionPageState();
 }
 
-class _CollectionPageState extends State<CollectionPage>
-    with AutomaticKeepAliveClientMixin {
+class _CollectionPageState extends State<CollectionPage> with AutomaticKeepAliveClientMixin {
   late FocusNode residenceNode;
   late FocusNode phoneNode;
   late FocusNode roomNode;
@@ -107,8 +105,7 @@ class _CollectionPageState extends State<CollectionPage>
                           height: itemHeight(2.5),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: itemWidth(30.0)),
+                          padding: EdgeInsets.symmetric(horizontal: itemWidth(30.0)),
                           child: DropdownButtonFormField(
                             decoration: inputDecoration,
                             value: data.addressType,
@@ -130,8 +127,7 @@ class _CollectionPageState extends State<CollectionPage>
                                 value: "Hall",
                               ),
                             ],
-                            onChanged: (value) =>
-                                data.addressType = value.toString(),
+                            onChanged: (value) => data.addressType = value.toString(),
                           ),
                         ),
                       ],
@@ -151,23 +147,13 @@ class _CollectionPageState extends State<CollectionPage>
                       style: TextStyle(fontSize: itemWidth(17.0)),
                     ),
                   ),
+                  checkboxRow(text: "Granting Access", boolean: data.isGranted, function: (val) => data.setGranted(val!), context: context),
                   checkboxRow(
-                      text: "Granting Access",
-                      boolean: data.isGranted,
-                      function: (val) => data.setGranted(val!),
-                      context: context),
-                  checkboxRow(
-                      context: context,
-                      text: "I agree to terms and conditions",
-                      boolean: data.isAgreed,
-                      function: (val) => data.setAgree(val!)),
-                  buttonRow(widget.controller!, widget.currentPage,
-                      nextButton: () => (data.isGranted && data.isAgreed)
-                          ? direction(
-                              widget.controller!, widget.currentPage, true)
-                          : () {
-                              print("disabled");
-                            })
+                      context: context, text: "I agree to terms and conditions", boolean: data.isAgreed, function: (val) => data.setAgree(val!)),
+                  buttonRow(widget.controller!, widget.currentPage, nextButton: () {
+                    smoothScrollToTop(widget.scroll);
+                    (data.isGranted && data.isAgreed) ? direction(widget.controller!, widget.currentPage, true) : null;
+                  })
                 ],
               ),
             ),

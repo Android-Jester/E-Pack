@@ -2,15 +2,18 @@ import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/box_selection.dart';
 import 'package:e_pack/core/presentation/widgets/button_row.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
+import 'package:e_pack/features/delivery_option/presentation/components/body.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/box_size_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BoxChoices extends StatefulWidget {
   final PageController? controller;
+  final ScrollController scroll;
   final int? currentPage;
   BoxChoices({
     Key? key,
+    required this.scroll,
     required this.controller,
     required this.currentPage,
   }) : super(key: key);
@@ -19,8 +22,7 @@ class BoxChoices extends StatefulWidget {
   _BoxChoicesState createState() => _BoxChoicesState();
 }
 
-class _BoxChoicesState extends State<BoxChoices>
-    with AutomaticKeepAliveClientMixin {
+class _BoxChoicesState extends State<BoxChoices> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
@@ -70,16 +72,13 @@ class _BoxChoicesState extends State<BoxChoices>
                 height: Config.height! / 6,
                 padding: EdgeInsets.symmetric(horizontal: itemWidth(2.0)),
                 child: const Center(
-                  child: Text(
-                      " Size of Large Box: 18”x18”x24” \n Size of Medium Box: 18”x18”x16” \n Size of Small Box: 16”x12”x12” "),
+                  child: Text(" Size of Large Box: 18”x18”x24” \n Size of Medium Box: 18”x18”x16” \n Size of Small Box: 16”x12”x12” "),
                 ),
               ),
               SizedBox(height: itemHeight(20.0)),
-              buttonRow(widget.controller!, widget.currentPage!,
-                  nextButton: () {
-                if (data.largeBoxSizeText != 0 ||
-                    data.mediumBoxSizeText != 0 ||
-                    data.smallBoxSizeText != 0) {
+              buttonRow(widget.controller!, widget.currentPage!, nextButton: () {
+                if (data.largeBoxSizeText != 0 || data.mediumBoxSizeText != 0 || data.smallBoxSizeText != 0) {
+                  smoothScrollToTop(widget.scroll);
                   direction(widget.controller!, widget.currentPage!, true);
                 }
               })

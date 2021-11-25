@@ -8,6 +8,9 @@ class LoginInfo extends ChangeNotifier {
 
   get key => _formKey;
 
+  bool isLoading = false;
+  bool isLoaded = false;
+
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
 

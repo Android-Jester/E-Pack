@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MomoInformation extends StatefulWidget {
+  final ScrollController scroll;
   static String id = "MomoUser";
+
+  MomoInformation(this.scroll);
 
   @override
   State<MomoInformation> createState() => _MomoInformationState();
@@ -54,9 +57,7 @@ class _MomoInformationState extends State<MomoInformation> {
                     text: "Mobile Money Number",
                     textCon: data.momoNum,
                     type: TextInputType.phone),
-                CustomButton(
-                    text: "Finalize",
-                    onPressed: () => data.validation(con: context))
+                CustomButton(text: "Finalize", onPressed: () => data.validation(con: context))
               ],
             ),
           ),

@@ -14,10 +14,9 @@ class PageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-
     return SizedBox(
       width: itemWidth(200.0),
-      height: itemHeight(50.0),
+      height: itemHeight(45.0),
       child: TextButton(
           style: ButtonStyle(
             foregroundColor: MaterialStateColor.resolveWith((states) {
@@ -40,24 +39,18 @@ class PageButton extends StatelessWidget {
             ),
           ),
           onPressed: onPressed,
-          child: Text((isForward) ? "Next" : "Previous")),
+          child: Text(
+            (isForward) ? "Next" : "Previous",
+            style: Theme.of(context).textTheme.bodyText2,
+          )),
     );
   }
 }
 
-void direction(PageController controller, int pageCount,
-    [bool isForward = false]) {
+void direction(PageController controller, int pageCount, [bool isForward = false]) {
   controller.animateToPage(
     (isForward) ? pageCount + 1 : pageCount - 1,
     duration: const Duration(milliseconds: 50),
     curve: Curves.easeIn,
   );
 }
-
-// void backward(PageController controller, int pageCount) {
-//   controller.animateToPage(
-//     pageCount - 1,
-//     duration: const Duration(milliseconds: 50),
-//     curve: Curves.easeIn,
-//   );
-// }

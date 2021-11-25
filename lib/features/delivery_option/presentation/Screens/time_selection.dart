@@ -2,6 +2,7 @@ import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/presentation/widgets/date_range_picker.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
+import 'package:e_pack/features/delivery_option/presentation/components/body.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/time_info_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,18 +11,18 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 class TimeSelection extends StatefulWidget {
   final PageController? controller;
   late final int? currentPage;
-
+  final ScrollController scroll;
   TimeSelection({
     this.controller,
     this.currentPage,
+    required this.scroll,
   });
 
   @override
   State<TimeSelection> createState() => _TimeSelectionState();
 }
 
-class _TimeSelectionState extends State<TimeSelection>
-    with AutomaticKeepAliveClientMixin {
+class _TimeSelectionState extends State<TimeSelection> with AutomaticKeepAliveClientMixin {
   DateRangePickerController? dateController = DateRangePickerController();
 
   @override
@@ -41,11 +42,7 @@ class _TimeSelectionState extends State<TimeSelection>
             DateTimePicker(
               dateController: dateController!,
               onSelectionChanged: (val) {
-                data.onDateChange(
-                    val: dateController!.selectedDate!
-                        .add(Duration(
-                            hours: (DateTime.now().hour + 5), minutes: 30))
-                        .toString());
+                data.onDateChange(val: dateController!.selectedDate!.add(Duration(hours: (DateTime.now().hour + 5), minutes: 30)).toString());
               },
               initDate: DateTime.now(),
               endDate: DateTime(2022, 01, 15, 18, 00),
@@ -88,9 +85,8 @@ class _TimeSelectionState extends State<TimeSelection>
               ),
             ),
             PageButton(true, onPressed: () {
-              (data.timeDateData != null)
-                  ? direction(widget.controller!, widget.currentPage!, true)
-                  : null;
+              smoothScrollToTop(widget.scroll);
+              (data.timeDateData != null) ? direction(widget.controller!, widget.currentPage!, true) : null;
             }),
           ],
         ),

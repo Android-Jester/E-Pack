@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 
 class AuthenticatingUser extends UseCase<AuthUser, Params> {
   final AuthRepo repo;
-
   AuthenticatingUser({required this.repo});
   @override
   Future<Either<Failure, AuthUser>?> call(Params params) {

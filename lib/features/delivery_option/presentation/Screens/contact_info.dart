@@ -3,15 +3,16 @@ import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/delivery_recepient_info.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/relocation_details_info.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ContactInfo extends StatefulWidget {
   final PageController? controller;
   final int currentPage;
+  final ScrollController scroll;
 
   ContactInfo({
+    required this.scroll,
     required this.controller,
     required this.currentPage,
   });
@@ -20,8 +21,7 @@ class ContactInfo extends StatefulWidget {
   State<ContactInfo> createState() => _ContactInfoState();
 }
 
-class _ContactInfoState extends State<ContactInfo>
-    with AutomaticKeepAliveClientMixin {
+class _ContactInfoState extends State<ContactInfo> with AutomaticKeepAliveClientMixin {
   FocusNode node = FocusNode();
 
   @override
@@ -37,8 +37,8 @@ class _ContactInfoState extends State<ContactInfo>
   Widget build(BuildContext context) {
     var controller = widget.controller;
     var currentPage = widget.currentPage;
-    var choice = Provider.of<RelocationDetailsInfo>(context, listen: false)
-        .relocationValue;
+    var scroll = widget.scroll;
+    var choice = Provider.of<RelocationDetailsInfo>(context, listen: false).relocationValue;
     Config.init(context);
     return Consumer<DeliveryRecepientInfo>(builder: (context, data, widget) {
       return SingleChildScrollView(
@@ -70,8 +70,7 @@ class _ContactInfoState extends State<ContactInfo>
                                 height: itemHeight(0.1),
                               )
                             : TextWithLabel(
-                                validate: (val) =>
-                                    data.validator(val!, isNumeric: true),
+                                validate: (val) => data.validator(val!, isNumeric: true),
                                 text: "Room Number",
                                 textCon: data.roomNumberController,
                                 type: TextInputType.number),
@@ -81,8 +80,7 @@ class _ContactInfoState extends State<ContactInfo>
                             textCon: data.contactNameController,
                             type: TextInputType.name),
                         TextWithLabel(
-                            validate: (val) => data.validator(val!,
-                                isNumeric: true, isPhoneNumber: true),
+                            validate: (val) => data.validator(val!, isNumeric: true, isPhoneNumber: true),
                             text: "Contact Phone Number",
                             textCon: data.contactNumberController,
                             type: TextInputType.phone),
@@ -94,7 +92,7 @@ class _ContactInfoState extends State<ContactInfo>
               CustomButton(
                   text: "Book Now",
                   onPressed: () {
-                    data.validation(context, controller!, currentPage);
+                    data.validation(context, controller!, currentPage, scroll);
                   }),
             ],
           ),

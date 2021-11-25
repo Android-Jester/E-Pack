@@ -20,6 +20,12 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   PageController? _controller = PageController();
   int currentPage = 0;
+  ScrollController _scrollControl = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -29,99 +35,99 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> title = [
-      "Time Selection",
-      "Appartment Type",
-      "Box Sizes",
-      "Relocation Details",
-      "Collection Info",
-      "Destination Info",
-      "Momo Info"
-    ];
+    List<String> title = ["Time Selection", "Appartment Type", "Box Sizes", "Relocation Details", "Collection Info", "Destination Info", "Momo Info"];
 
     Config.init(context);
     List<Widget> pages = [
       TimeSelection(
         currentPage: currentPage,
         controller: _controller,
+        scroll: _scrollControl,
       ),
       RoomType(
         currentPage: currentPage,
         controller: _controller,
+        scroll: _scrollControl,
       ),
       BoxChoices(
         currentPage: currentPage,
         controller: _controller,
+        scroll: _scrollControl,
       ),
       RelocationDetails(
         currentPage: currentPage,
         controller: _controller,
+        scroll: _scrollControl,
       ),
       CollectionPage(
         currentPage: currentPage,
         controller: _controller,
+        scroll: _scrollControl,
       ),
       ContactInfo(
         currentPage: currentPage,
         controller: _controller,
+        scroll: _scrollControl,
       ),
-      MomoInformation()
+      MomoInformation(_scrollControl)
     ];
 
-    return Column(
-      children: [
-        SizedBox(height: itemHeight(10.0)),
-        Expanded(
-          child: Container(
-            height: Config.height,
-            width: Config.width,
-            child: NestedScrollView(
-              body: PageView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                onPageChanged: (value) => setState(() => currentPage = value),
-                controller: _controller,
-                itemCount: pages.length,
-                itemBuilder: (context, indexed) => pages[indexed],
+    return Container(
+      height: Config.height,
+      width: Config.width,
+      child: NestedScrollView(
+        floatHeaderSlivers: true,
+        controller: _scrollControl,
+        body: PageView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          onPageChanged: (value) => setState(() => currentPage = value),
+          controller: _controller,
+          itemCount: pages.length,
+          itemBuilder: (context, indexed) => pages[indexed],
+        ),
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
+          SliverAppBar(
+            pinned: true,
+            bottom: AppBar(
+              leading: Container(
+                color: Colors.transparent,
               ),
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) => [
-                SliverAppBar(
-                  pinned: true,
-                  bottom: AppBar(
-                    leading: Container(
-                      color: Colors.transparent,
-                    ),
-                    elevation: 1.0,
-                    backgroundColor: (innerBoxIsScrolled)
-                        ? kAccentColor
-                        : Colors.transparent,
-                    title: Text(
-                      title[currentPage],
-                    ),
-                    centerTitle: true,
-                  ),
-                  centerTitle: true,
-                  elevation: 1.0,
-                  title: Text("Delivery Option"),
-                  backgroundColor: kPrimaryColor,
-                  floating: false,
-                  expandedHeight: itemHeight(150),
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Image.asset(
-                      "assets/images/box.jpg",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: Delegate(currentPage: currentPage, pages: pages),
-                )
-              ],
+              elevation: 1.0,
+              backgroundColor: (innerBoxIsScrolled) ? kAccentColor : Colors.transparent,
+              title: Text(
+                title[currentPage],
+              ),
+              centerTitle: true,
+            ),
+            centerTitle: true,
+            elevation: 1.0,
+            title: Text("Delivery Option"),
+            backgroundColor: kPrimaryColor,
+            floating: false,
+            expandedHeight: itemHeight(150),
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.asset(
+                "assets/images/box.jpg",
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-      ],
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: Delegate(currentPage: currentPage, pages: pages),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+smoothScrollToTop(ScrollController scroll) {
+  if (scroll.hasClients) {
+    scroll.animateTo(
+      0,
+      duration: Duration(microseconds: 300),
+      curve: Curves.ease,
     );
   }
 }
