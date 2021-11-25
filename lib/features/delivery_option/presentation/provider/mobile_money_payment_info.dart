@@ -1,4 +1,5 @@
 import 'package:e_pack/core/presentation/widgets/custom_button.dart';
+import 'package:e_pack/core/presentation/widgets/error_dialog.dart';
 import 'package:e_pack/features/delivery_option/data/datasources/delivery_data_reciever.dart';
 import 'package:e_pack/features/delivery_option/data/repositories/delivery_request_repo_impl.dart';
 import 'package:e_pack/features/delivery_option/domain/usecases/send_delivery_request.dart';
@@ -20,7 +21,7 @@ class MomoInformationProvider extends ChangeNotifier {
 
   final _formKey = GlobalKey<FormState>();
 
-  builder(BuildContext con) {
+  builder(BuildContext con, PageController controller, int currentPage) {
     double _cost = (Provider.of<BoxSizeData>(con, listen: false).largeBoxSizeText * 5) +
         (Provider.of<BoxSizeData>(con, listen: false).mediumBoxSizeText * 2) +
         (Provider.of<BoxSizeData>(con, listen: false).smallBoxSizeText * 1.5);
@@ -58,12 +59,21 @@ class MomoInformationProvider extends ChangeNotifier {
                         print("start");
                         // Navigator.popAndPushNamed(context, Finalize.id);
                       }),
-                  CustomButton(text: "No", onPressed: () => Navigator.pop(con))
+                  CustomButton(
+                      text: "No",
+                      onPressed: () {
+                        controller.animateToPage(currentPage - 1, duration: Duration(seconds: 3), curve: Curves.bounceInOut);
+                        Navigator.pop(con);
+                      })
                 ],
               ),
             );
           } else if (snapshot.hasError) {
-            return const Dialog();
+            return ErrorDialog(retry: () {
+              builder(con, controller, currentPage);
+            }, dispose: () {
+              Navigator.pop(context);
+            });
           } else {
             return const Dialog(
               child: CircularProgressIndicator(),
@@ -74,11 +84,11 @@ class MomoInformationProvider extends ChangeNotifier {
 
   get key => _formKey;
 
-  validation({required BuildContext con}) {
+  validation({required BuildContext con, required PageController controller, required int currentPage}) {
     if (_formKey.currentState!.validate()) {
       showDialog(
         context: con,
-        builder: (BuildContext context) => builder(con),
+        builder: (BuildContext context) => builder(con, controller, currentPage),
       );
     }
   }

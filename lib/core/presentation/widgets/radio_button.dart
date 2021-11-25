@@ -15,7 +15,7 @@ class PageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Config.init(context);
     return SizedBox(
-      width: itemWidth(200.0),
+      width: itemWidth(150.0),
       height: itemHeight(45.0),
       child: TextButton(
           style: ButtonStyle(

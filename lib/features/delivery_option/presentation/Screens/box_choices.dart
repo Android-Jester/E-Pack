@@ -1,4 +1,5 @@
 import 'package:e_pack/core/presentation/config/config.dart';
+import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
 import 'package:e_pack/core/presentation/widgets/box_selection.dart';
 import 'package:e_pack/core/presentation/widgets/button_row.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
@@ -28,9 +29,9 @@ class _BoxChoicesState extends State<BoxChoices> with AutomaticKeepAliveClientMi
     Config.init(context);
     return Consumer<BoxSizeData>(
       builder: (context, data, child) => SingleChildScrollView(
-        child: Container(
+        child: ContainerWrapper(
+          padding: EdgeInsets.symmetric(vertical: itemWidth(35.0)),
           width: Config.width,
-          height: Config.height,
           child: Column(
             children: [
               Text(

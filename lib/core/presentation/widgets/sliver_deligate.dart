@@ -9,29 +9,26 @@ class Delegate extends SliverPersistentHeaderDelegate {
   Delegate({required this.currentPage, required this.pages});
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     Config.init(context);
     // TODO: implement build
     return SizedBox(
       height: maxExtent - shrinkOffset,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: itemHeight(15.0)),
-        child: BuildDotsRow(
-            currentPage: currentPage, index: currentPage, length: pages.length),
+        padding: EdgeInsets.symmetric(vertical: itemHeight(10.0)).copyWith(bottom: itemWidth(0)),
+        child: BuildDotsRow(currentPage: currentPage, index: currentPage, length: pages.length),
       ),
     );
   }
 
   @override
   // TODO: implement maxExtent
-  double get maxExtent => itemHeight(50.0);
+  double get maxExtent => itemHeight(15.0);
 
   @override
   // TODO: implement minExtent
-  double get minExtent => itemHeight(30.0);
+  double get minExtent => itemHeight(2.0);
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      true;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => true;
 }

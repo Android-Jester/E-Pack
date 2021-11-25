@@ -1,3 +1,4 @@
+import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/features/delivery_option/presentation/components/body.dart';
 import 'package:flutter/material.dart';
@@ -40,23 +41,41 @@ class DeliveryRecepientInfo extends ChangeNotifier {
     if (_formKey.currentState!.validate()) {
       showDialog(
           context: context,
-          builder: (BuildContext context) => SimpleDialog(
-                title: Text("Have you completed everything?"),
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      CustomButton(
-                          text: "Yes",
-                          onPressed: () {
-                            controller.animateToPage(currentPage + 1, duration: Duration(milliseconds: 1), curve: Curves.bounceIn);
-                            Navigator.pop(context);
-                          }),
-                      CustomButton(text: "No", onPressed: () => Navigator.pop(context))
-                    ],
-                  ),
-                ],
-              ));
+          builder: (BuildContext context) {
+            Config.init(context);
+            return Dialog(
+                child: Container(
+                    height: itemHeight(250),
+                    child: Column(
+                      children: <Widget>[
+                        Text("Have you completed everything?"),
+                        SizedBox(
+                          width: itemWidth(30.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                child: CustomButton(
+                                    width: itemWidth(70.0),
+                                    text: "Yes",
+                                    onPressed: () {
+                                      controller
+                                          .animateToPage(currentPage + 1, duration: Duration(milliseconds: 1), curve: Curves.bounceIn)
+                                          .then((value) => Navigator.pop(context));
+                                    }),
+                              ),
+                              Expanded(
+                                  child: CustomButton(
+                                width: itemWidth(70.0),
+                                text: "No",
+                                onPressed: () => Navigator.pop(context),
+                              ))
+                            ],
+                          ),
+                        ),
+                      ],
+                    )));
+          });
     }
   }
 }

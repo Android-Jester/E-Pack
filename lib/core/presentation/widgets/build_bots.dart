@@ -1,3 +1,4 @@
+import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:flutter/material.dart';
 
 class BuildDotsRow extends StatelessWidget {
@@ -14,18 +15,22 @@ class BuildDotsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-        length,
-        (index) => AnimatedContainer(
-          duration: const Duration(seconds: 1),
-          margin: const EdgeInsets.only(right: 5),
-          height: 6.0,
-          width: currentPage == index ? 20 : 6,
-          decoration: BoxDecoration(
-            color: currentPage == index ? Colors.blue : const Color(0xFFD8D8D8),
-            borderRadius: BorderRadius.circular(3),
+    Config.init(context);
+    return SizedBox(
+      height: itemWidth(10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+          length,
+          (index) => AnimatedContainer(
+            duration: const Duration(seconds: 1),
+            margin: const EdgeInsets.only(right: 5),
+            height: 6.0,
+            width: currentPage == index ? 20 : 6,
+            decoration: BoxDecoration(
+              color: currentPage == index ? Colors.blue : const Color(0xFFD8D8D8),
+              borderRadius: BorderRadius.circular(3),
+            ),
           ),
         ),
       ),

@@ -69,25 +69,30 @@ class _BodyState extends State<Body> {
         controller: _controller,
         scroll: _scrollControl,
       ),
-      MomoInformation(_scrollControl)
+      MomoInformation(
+        _scrollControl,
+        currentPage,
+        _controller!,
+      )
     ];
 
     return Container(
-      height: Config.height,
       width: Config.width,
       child: NestedScrollView(
         floatHeaderSlivers: true,
         controller: _scrollControl,
-        body: PageView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          onPageChanged: (value) => setState(() => currentPage = value),
-          controller: _controller,
-          itemCount: pages.length,
-          itemBuilder: (context, indexed) => pages[indexed],
+        body: SafeArea(
+          child: PageView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            onPageChanged: (value) => setState(() => currentPage = value),
+            controller: _controller,
+            itemCount: pages.length,
+            itemBuilder: (context, indexed) => pages[indexed],
+          ),
         ),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
           SliverAppBar(
-            pinned: true,
+            snap: true,
             bottom: AppBar(
               leading: Container(
                 color: Colors.transparent,
@@ -103,7 +108,8 @@ class _BodyState extends State<Body> {
             elevation: 1.0,
             title: Text("Delivery Option"),
             backgroundColor: kPrimaryColor,
-            floating: false,
+            floating: true,
+            pinned: true,
             expandedHeight: itemHeight(150),
             flexibleSpace: FlexibleSpaceBar(
               background: Image.asset(
@@ -113,7 +119,7 @@ class _BodyState extends State<Body> {
             ),
           ),
           SliverPersistentHeader(
-            pinned: true,
+            pinned: false,
             delegate: Delegate(currentPage: currentPage, pages: pages),
           )
         ],

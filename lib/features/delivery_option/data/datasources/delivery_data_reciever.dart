@@ -4,7 +4,7 @@ import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/features/delivery_option/data/models/delivery_request_model.dart';
 
 abstract class DeliveryDataReciever {
-  Future? sendDeliveryRequest(
+  Future<Document> sendDeliveryRequest(
       {required String? timeCollect,
       required String? semesterPeriod,
       required int? largeBoxSizeCount,
@@ -29,16 +29,8 @@ abstract class DeliveryDataReciever {
 class DeliveryDataRecieverImpl implements DeliveryDataReciever {
   Database database = Database(AppWriteServer.initClient());
 
-  Future<Document>? _getResponseFromServer(DeliveryRequestModel model) async {
-    Future<Document> result = database.createDocument(
-      collectionId: '6185f5ac8eb3e',
-      data: model.toJson(),
-    );
-    return result;
-  }
-
   @override
-  Future? sendDeliveryRequest(
+  Future<Document> sendDeliveryRequest(
       {required String? timeCollect,
       required String? semesterPeriod,
       required int? largeBoxSizeCount,
@@ -78,6 +70,9 @@ class DeliveryDataRecieverImpl implements DeliveryDataReciever {
         momoFullName: momoFullName,
         momoPhoneNum: momoPhoneNum,
         cost: cost);
-    _getResponseFromServer(model);
+    return database.createDocument(
+      collectionId: '6185f5ac8eb3e',
+      data: model.toJson(),
+    );
   }
 }

@@ -15,12 +15,11 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
 
   DeliveryRequestRepositoryImpl({required this.serverHost});
 
-  Future<Either<Failure, DeliveryRequest>>? _getResponse(
-      _GetModelInstance responseModel) async {
+  Future<Either<Failure, DeliveryRequest>>? _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
-        serverHost.sendDeliveryRequest(
+        await serverHost.sendDeliveryRequest(
             timeCollect: model.timeCollect,
             semesterPeriod: model.semesterPeriod,
             relocateInfo: model.relocateInfo,

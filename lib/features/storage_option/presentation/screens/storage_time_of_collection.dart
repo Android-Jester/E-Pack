@@ -42,14 +42,11 @@ class _TimeSelectionState extends State<StorageTimeSelection> {
             DateTimePicker(
               dateController: dateController!,
               onSelectionChanged: (val) {
-                data.onDateChange(
-                    val: dateController!.selectedDate!
-                        .add(Duration(
-                            hours: (DateTime.now().hour + 5), minutes: 30))
-                        .toString());
+                data.onDateChange(val: dateController!.selectedDate!.add(Duration(hours: (DateTime.now().hour + 5), minutes: 30)).toString());
               },
               initDate: DateTime.now(),
               endDate: DateTime(2022, 01, 15, 18, 00),
+              color: Colors.white,
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: itemWidth(60.0)),
@@ -90,9 +87,7 @@ class _TimeSelectionState extends State<StorageTimeSelection> {
             ),
             PageButton(
               true,
-              onPressed: () => (data.timeDateData != null)
-                  ? direction(widget.controller!, widget.currentPage!, true)
-                  : null,
+              onPressed: () => (data.timeDateData != null) ? direction(widget.controller!, widget.currentPage!, true) : null,
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:e_pack/core/presentation/config/config.dart';
+import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
 import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/delivery_recepient_info.dart';
@@ -42,7 +43,7 @@ class _ContactInfoState extends State<ContactInfo> with AutomaticKeepAliveClient
     Config.init(context);
     return Consumer<DeliveryRecepientInfo>(builder: (context, data, widget) {
       return SingleChildScrollView(
-        child: Container(
+        child: ContainerWrapper(
           height: Config.height,
           width: Config.width,
           child: Column(
@@ -89,11 +90,15 @@ class _ContactInfoState extends State<ContactInfo> with AutomaticKeepAliveClient
                   ),
                 ),
               ),
-              CustomButton(
-                  text: "Book Now",
-                  onPressed: () {
-                    data.validation(context, controller!, currentPage, scroll);
-                  }),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: itemWidth(20.0)),
+                child: CustomButton(
+                    width: Config.width!,
+                    text: "Book Now",
+                    onPressed: () {
+                      data.validation(context, controller!, currentPage, scroll);
+                    }),
+              ),
             ],
           ),
         ),

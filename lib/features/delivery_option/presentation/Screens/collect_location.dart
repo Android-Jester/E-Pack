@@ -2,6 +2,7 @@
 
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/config/theme.dart';
+import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
 import 'package:e_pack/core/presentation/widgets/button_row.dart';
 import 'package:e_pack/core/presentation/widgets/check_box_row.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
@@ -59,7 +60,7 @@ class _CollectionPageState extends State<CollectionPage> with AutomaticKeepAlive
     return Consumer<CollectionInfo>(
       builder: (context, data, _) {
         return SingleChildScrollView(
-          child: Container(
+          child: ContainerWrapper(
             width: Config.width,
             height: Config.height,
             child: Form(
@@ -135,7 +136,7 @@ class _CollectionPageState extends State<CollectionPage> with AutomaticKeepAlive
                   ),
                   TextWithLabel(
                     text: "Access Note",
-                    validate: (val) => data.validator(val!, isNumeric: true),
+                    // validate: (val) => data.validator(val!, isNumeric: true),
                     textCon: data.accessNoteController,
                     node: accessNotesNode,
                   ),
