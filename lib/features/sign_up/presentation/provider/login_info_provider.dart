@@ -1,3 +1,5 @@
+import 'package:e_pack/core/presentation/pages/home_screen.dart';
+import 'package:e_pack/core/presentation/widgets/state_dialogs.dart';
 import 'package:e_pack/features/sign_up/data/datasources/register_server.dart';
 import 'package:e_pack/features/sign_up/data/repositories/registration_repo_impl.dart';
 import 'package:e_pack/features/sign_up/domain/usecases/register_user.dart';
@@ -29,9 +31,24 @@ class SignupInfo extends ChangeNotifier {
     return null;
   }
 
-  validate() {
+  Widget builder() {
+    var usecase = RegisteringUser(repo: RegisterRepoImpl(authServer: RegisterServerImpl()));
+    return FutureBuilder(
+        future: usecase(Params(email: email, password: password, name: name)),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return SuccessDialog(text: "Signed Up Successfully", routeid: HomeScreen.id);
+          } else if (snapshot.hasError) {
+            return ErrorDialog(retry: () => builder(), dispose: () => Navigator.pop(context));
+          } else {
+            return LoadingDialog();
+          }
+        });
+  }
+
+  validate(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      RegisteringUser(repo: RegisterRepoImpl(authServer: RegisterServerImpl()));
+      showDialog(context: context, builder: (con) => builder());
     }
   }
 }

@@ -11,6 +11,7 @@ import 'package:e_pack/features/storage_option/presentation/screens/storage_time
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
+  Body({Key? key}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -18,8 +19,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final PageController? _controller = PageController();
   int currentPage = 0;
-
-  late List<Widget> pages;
+  ScrollController _scrollControl = ScrollController();
 
   @override
   void initState() {
@@ -35,32 +35,42 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    pages = [
+    List<Widget> pages = [
       StorageTimeSelection(
         controller: _controller,
         currentPage: currentPage,
+        scroll: _scrollControl,
       ),
       StorageRoomType(
         controller: _controller,
         currentPage: currentPage,
+        scroll: _scrollControl,
       ),
       StorageBoxChoices(
         controller: _controller,
         currentPage: currentPage,
+        scroll: _scrollControl,
       ),
       StoragePeriod(
         controller: _controller,
         currentPage: currentPage,
+        scroll: _scrollControl,
       ),
       StorageCollectionInfo(
         controller: _controller,
         currentPage: currentPage,
+        scroll: _scrollControl,
       ),
       StorageContactInfo(
         controller: _controller,
         currentPage: currentPage,
+        scroll: _scrollControl,
       ),
-      StorageMomoPayment()
+      StorageMomoPayment(
+        controller: _controller!,
+        currentPage: currentPage,
+        scroll: _scrollControl,
+      )
     ];
 
     List<String> title = [
@@ -73,10 +83,13 @@ class _BodyState extends State<Body> {
       "Mobile Money Payment"
     ];
 
-    return NestedScrollView(
-      body: SingleChildScrollView(
-        child: Container(
-          height: Config.height,
+    return Container(
+      width: Config.width,
+      child: NestedScrollView(
+        floatHeaderSlivers: true,
+        controller: _scrollControl,
+        physics: BouncingScrollPhysics(),
+        body: SafeArea(
           child: PageView.builder(
             physics: NeverScrollableScrollPhysics(),
             onPageChanged: (value) => setState(() => currentPage = value),
@@ -85,37 +98,50 @@ class _BodyState extends State<Body> {
             itemBuilder: (context, i) => pages[i],
           ),
         ),
-      ),
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
-        SliverAppBar(
-          bottom: AppBar(
-            elevation: 1.0,
-            backgroundColor:
-                (innerBoxIsScrolled) ? kAccentColor : Colors.transparent,
-            title: Text(
-              title[currentPage],
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
+          SliverAppBar(
+            snap: true,
+            bottom: AppBar(
+              leading: Container(
+                color: Colors.transparent,
+              ),
+              elevation: 1.0,
+              backgroundColor: (innerBoxIsScrolled) ? kAccentColor : Colors.transparent,
+              title: Text(
+                title[currentPage],
+              ),
+              centerTitle: true,
             ),
             centerTitle: true,
-          ),
-          centerTitle: true,
-          elevation: 1.0,
-          title: Text("Storage Option"),
-          backgroundColor: kPrimaryColor,
-          floating: false,
-          expandedHeight: itemHeight(150),
-          flexibleSpace: FlexibleSpaceBar(
-            background: Image.asset(
-              "assets/images/box.jpg",
-              fit: BoxFit.cover,
+            elevation: 1.0,
+            title: Text("Storage Option"),
+            backgroundColor: kPrimaryColor,
+            floating: true,
+            pinned: true,
+            expandedHeight: itemHeight(150),
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.asset(
+                "assets/images/box.jpg",
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-        SliverPersistentHeader(
-          pinned: true,
-          floating: true,
-          delegate: Delegate(currentPage: currentPage, pages: pages),
-        )
-      ],
+          SliverPersistentHeader(
+            pinned: false,
+            delegate: Delegate(currentPage: currentPage, pages: pages),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+smoothScrollToTop(ScrollController scroll) {
+  if (scroll.hasClients) {
+    scroll.animateTo(
+      0,
+      duration: Duration(microseconds: 300),
+      curve: Curves.ease,
     );
   }
 }

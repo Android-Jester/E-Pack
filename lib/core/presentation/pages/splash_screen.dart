@@ -16,12 +16,14 @@ class SplashScreen extends StatelessWidget {
       child: Column(
         children: [
           CustomButton(
+            width: itemWidth(400),
             text: "Login",
             onPressed: () => Navigator.popAndPushNamed(context, LogIn.id),
             color: Colors.black.withOpacity(0.7),
           ),
           SizedBox(height: itemHeight(15.0)),
           CustomButton(
+            width: itemWidth(400),
             text: "Sign Up",
             onPressed: () => Navigator.popAndPushNamed(context, SignUp.id),
             color: Colors.white.withOpacity(0.5),

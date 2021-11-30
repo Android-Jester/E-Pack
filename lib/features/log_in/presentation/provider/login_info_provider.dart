@@ -1,3 +1,5 @@
+import 'package:e_pack/core/presentation/pages/home_screen.dart';
+import 'package:e_pack/core/presentation/widgets/state_dialogs.dart';
 import 'package:e_pack/features/log_in/data/datasources/auth_server.dart';
 import 'package:e_pack/features/log_in/data/repositories/authentication_repo_impl.dart';
 import 'package:e_pack/features/log_in/domain/usecases/auth_user.dart';
@@ -25,9 +27,40 @@ class LoginInfo extends ChangeNotifier {
     return null;
   }
 
-  validate() {
+  Widget builder() {
+    var usecase = AuthenticatingUser(repo: AuthRepoImpl(authServer: AuthServerImpl()));
+    return FutureBuilder(
+        future: usecase(Params(email: email, password: password)),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return SuccessDialog(
+              routeid: HomeScreen.id,
+              text: "Logged In Successfully",
+            );
+          } else {
+            if (snapshot.hasError) {
+              return ErrorDialog(
+                retry: () {
+                  builder();
+                  Navigator.pop(context);
+                },
+                dispose: () => Navigator.pop(context),
+              );
+            } else {
+              return LoadingDialog();
+            }
+          }
+        });
+  }
+
+  validate(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       AuthenticatingUser(repo: AuthRepoImpl(authServer: AuthServerImpl()));
+      showDialog(
+          context: context,
+          builder: (con) {
+            return builder();
+          });
     }
   }
 }

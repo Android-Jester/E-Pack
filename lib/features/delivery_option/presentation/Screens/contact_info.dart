@@ -71,7 +71,7 @@ class _ContactInfoState extends State<ContactInfo> with AutomaticKeepAliveClient
                                 height: itemHeight(0.1),
                               )
                             : TextWithLabel(
-                                validate: (val) => data.validator(val!, isNumeric: true),
+                                validate: (val) => data.numValidator(val!),
                                 text: "Room Number",
                                 textCon: data.roomNumberController,
                                 type: TextInputType.number),

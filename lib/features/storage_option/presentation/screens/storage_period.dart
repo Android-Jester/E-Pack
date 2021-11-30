@@ -1,7 +1,9 @@
 import 'package:e_pack/core/presentation/config/config.dart';
+import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
 import 'package:e_pack/core/presentation/widgets/box_selection.dart';
 import 'package:e_pack/core/presentation/widgets/button_row.dart';
 import 'package:e_pack/core/presentation/widgets/radio_button.dart';
+import 'package:e_pack/features/storage_option/presentation/components/body.dart';
 import 'package:e_pack/features/storage_option/presentation/provider/storage_period_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +11,9 @@ import 'package:provider/provider.dart';
 class StoragePeriod extends StatefulWidget {
   final PageController? controller;
   final int? currentPage;
+  final ScrollController scroll;
   StoragePeriod({
+    required this.scroll,
     Key? key,
     required this.controller,
     required this.currentPage,
@@ -19,13 +23,12 @@ class StoragePeriod extends StatefulWidget {
   State<StoragePeriod> createState() => _StoragePeriodState();
 }
 
-class _StoragePeriodState extends State<StoragePeriod>
-    with AutomaticKeepAliveClientMixin {
+class _StoragePeriodState extends State<StoragePeriod> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
     return Consumer<StoragePeriodInfo>(
-        builder: (context, data, child) => Container(
+        builder: (context, data, child) => ContainerWrapper(
             width: 100,
             height: 100,
             child: Column(
@@ -50,16 +53,13 @@ class _StoragePeriodState extends State<StoragePeriod>
                 SizedBox(
                   height: itemHeight(10.0),
                 ),
-                BoxSelection(
-                    textEditingController: data.weeksStoredBoxController,
-                    text: "No of Weeks Stored: \$"),
+                BoxSelection(textEditingController: data.weeksStoredBoxController, text: "No of Weeks Stored: \$"),
                 SizedBox(height: itemHeight(50.0)),
                 SizedBox(height: itemHeight(15.0)),
-                buttonRow(widget.controller!, widget.currentPage!,
-                    nextButton: () => (data.weeksStored == 0)
-                        ? null
-                        : direction(
-                            widget.controller!, widget.currentPage!, true))
+                buttonRow(widget.controller!, widget.currentPage!, nextButton: () {
+                  smoothScrollToTop(widget.scroll);
+                  (data.weeksStored == 0) ? null : direction(widget.controller!, widget.currentPage!, true);
+                })
               ],
             )));
   }

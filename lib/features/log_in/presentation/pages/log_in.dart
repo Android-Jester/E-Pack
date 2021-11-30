@@ -1,11 +1,8 @@
 import 'package:e_pack/core/presentation/config/config.dart';
-import 'package:e_pack/core/presentation/pages/home_screen.dart';
 import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
-import 'package:e_pack/features/log_in/data/datasources/auth_server.dart';
-import 'package:e_pack/features/log_in/data/repositories/authentication_repo_impl.dart';
-import 'package:e_pack/features/log_in/domain/usecases/auth_user.dart';
 import 'package:e_pack/features/log_in/presentation/provider/login_info_provider.dart';
+import 'package:e_pack/features/sign_up/presentation/pages/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:provider/provider.dart';
@@ -41,47 +38,6 @@ class _BodyState extends State<Body> {
     passwordNode = FocusNode();
   }
 
-  Widget builder(LoginInfo data) {
-    var usecase = AuthenticatingUser(repo: AuthRepoImpl(authServer: AuthServerImpl()));
-    return FutureBuilder(
-        future: usecase(Params(email: data.email, password: data.password)),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return SimpleDialog(
-              children: [
-                Text("Ready to start"),
-                Row(
-                  children: [
-                    CustomButton(
-                        text: "Yes",
-                        onPressed: () async {
-                          Future.delayed(Duration(seconds: 2), () {});
-                          // await usecase(Params(email: data.email, password: data.password));
-                          Navigator.popAndPushNamed(context, HomeScreen.id);
-                        }),
-                    CustomButton(text: "No", onPressed: () => Navigator.pop(context)),
-                  ],
-                ),
-              ],
-            );
-          } else if (snapshot.hasError) {
-            return const SimpleDialog(
-              children: [
-                Center(
-                  child: CircleAvatar(backgroundColor: Colors.red, child: Icon(Icons.close)),
-                )
-              ],
-            );
-          } else {
-            return Dialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(itemWidth(15.0)),
-                ),
-                child: CircularProgressIndicator());
-          }
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     Config.init(context);
@@ -110,8 +66,13 @@ class _BodyState extends State<Body> {
                             "Log In".toUpperCase(),
                             style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: itemWidth(25.0), color: Colors.white),
                           ),
-                          Text(
-                            "sign Up".toUpperCase(),
+                          GestureDetector(
+                            child: Container(
+                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                              padding: EdgeInsets.symmetric(vertical: itemHeight(8.0), horizontal: itemWidth(8.0)),
+                              child: Text("sign Up".toUpperCase()),
+                            ),
+                            onTap: () => Navigator.popAndPushNamed(context, SignUp.id),
                           ),
                         ],
                       ),
@@ -152,28 +113,15 @@ class _BodyState extends State<Body> {
                           specialCharCount: 1,
                           width: 400,
                           height: 150,
-                          onSuccess: () {
-                            return builder(data);
-                          },
+                          onSuccess: () {},
                         ),
                       )
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: itemHeight(30.0)),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: itemWidth(20), vertical: itemHeight(20)),
-                child: CustomButton(
-                    text: "Log in",
-                    onPressed: () async {
-                      showDialog(
-                          context: context,
-                          builder: (con) {
-                            return builder(data);
-                          });
-                    }),
-              ),
+              SizedBox(height: itemHeight(15.0)),
+              CustomButton(width: itemWidth(350), text: "Log in", onPressed: () => data.validate(context)),
             ],
           );
         }),

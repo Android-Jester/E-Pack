@@ -12,10 +12,11 @@ class Delegate extends SliverPersistentHeaderDelegate {
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     Config.init(context);
     // TODO: implement build
-    return SizedBox(
+    return Container(
+      color: Colors.white,
       height: maxExtent - shrinkOffset,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: itemHeight(10.0)).copyWith(bottom: itemWidth(0)),
+        padding: EdgeInsets.symmetric(vertical: itemHeight(10.0)).copyWith(bottom: itemWidth(6)),
         child: BuildDotsRow(currentPage: currentPage, index: currentPage, length: pages.length),
       ),
     );
@@ -23,11 +24,11 @@ class Delegate extends SliverPersistentHeaderDelegate {
 
   @override
   // TODO: implement maxExtent
-  double get maxExtent => itemHeight(15.0);
+  double get maxExtent => itemHeight(20.0);
 
   @override
   // TODO: implement minExtent
-  double get minExtent => itemHeight(2.0);
+  double get minExtent => itemHeight(5.0);
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => true;

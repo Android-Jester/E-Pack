@@ -1,6 +1,7 @@
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/features/delivery_option/presentation/components/body.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 
 class DeliveryRecepientInfo extends ChangeNotifier {
@@ -9,7 +10,7 @@ class DeliveryRecepientInfo extends ChangeNotifier {
   final TextEditingController? _destinationAddressController = TextEditingController();
   final TextEditingController? _roomNumberController = TextEditingController();
   final TextEditingController? _contactNameController = TextEditingController();
-  final TextEditingController? _contactNumberController = TextEditingController();
+  final TextEditingController? _contactNumberController = MaskedTextController(mask: '(000) 000-0000');
 
   get key => _formKey;
   get destinationAddressController => _destinationAddressController;
@@ -28,13 +29,25 @@ class DeliveryRecepientInfo extends ChangeNotifier {
     }
     if (isNumeric) {
       if (isPhoneNumber) {
-        return (val.length == 11) ? null : "Please type 10 digits";
+        return (val.length == 14) ? null : "Please type 10 digits";
       } else {
         return "Please type in a number and not a text";
       }
     }
     return null;
   }
+
+  String? numValidator(String val) {
+    return (val.isNotEmpty && int.parse(val) is num) ? null : "Please Fill this space";
+  }
+  //     if (isPhoneNumber) {
+  //       return (val.length == 14) ? null : "Please type 10 digits";
+  //     } else {
+  //       return "Please type in a number and not a text";
+  //     }
+  //   }
+  //   return ;
+  // }
 
   validation(BuildContext context, PageController controller, int currentPage, ScrollController scroll) {
     smoothScrollToTop(scroll);
@@ -44,37 +57,69 @@ class DeliveryRecepientInfo extends ChangeNotifier {
           builder: (BuildContext context) {
             Config.init(context);
             return Dialog(
-                child: Container(
-                    height: itemHeight(250),
-                    child: Column(
-                      children: <Widget>[
-                        Text("Have you completed everything?"),
-                        SizedBox(
-                          width: itemWidth(30.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Expanded(
-                                child: CustomButton(
-                                    width: itemWidth(70.0),
-                                    text: "Yes",
-                                    onPressed: () {
-                                      controller
-                                          .animateToPage(currentPage + 1, duration: Duration(milliseconds: 1), curve: Curves.bounceIn)
-                                          .then((value) => Navigator.pop(context));
-                                    }),
-                              ),
-                              Expanded(
-                                  child: CustomButton(
-                                width: itemWidth(70.0),
-                                text: "No",
-                                onPressed: () => Navigator.pop(context),
-                              ))
-                            ],
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(itemWidth(30.0))),
+              child: Container(
+                height: itemHeight(140),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Have you completed everything?"),
+                    SizedBox(height: itemHeight(20)),
+                    Padding(
+                      padding: EdgeInsets.only(left: itemWidth(20)),
+                      child: Row(
+                        children: [
+                          CustomButton(
+                            width: itemWidth(120),
+                            text: "Yes",
+                            onPressed: () {
+                              controller
+                                  .animateToPage(currentPage + 1, duration: Duration(milliseconds: 1), curve: Curves.bounceIn)
+                                  .then((value) => Navigator.pop(context));
+                            },
                           ),
-                        ),
-                      ],
-                    )));
+                          SizedBox(width: itemWidth(36)),
+                          CustomButton(
+                            width: itemWidth(120),
+                            text: "No",
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
+
+            // return Dialog(
+            //     child: Container(
+            //         height: itemHeight(250),
+            //         child: Column(
+            //           children: <Widget>[
+            //             Text("Have you completed everything?"),
+            //             SizedBox(
+            //               width: itemWidth(30.0),
+            //               child: Row(
+            //                 children: [
+            //                   CustomButton(
+            //                       width: itemWidth(60.0),
+            //                       text: "Yes",
+            //                       onPressed: () {
+            //                         controller
+            //                             .animateToPage(currentPage + 1, duration: Duration(milliseconds: 1), curve: Curves.bounceIn)
+            //                             .then((value) => Navigator.pop(context));
+            //                       }),
+            //                   CustomButton(
+            //                     width: itemWidth(60.0),
+            //                     text: "No",
+            //                     onPressed: () => Navigator.pop(context),
+            //                   )
+            //                 ],
+            //               ),
+            //             ),
+            //           ],
+            //         )));
           });
     }
   }

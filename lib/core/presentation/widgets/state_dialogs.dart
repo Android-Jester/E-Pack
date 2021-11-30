@@ -58,3 +58,53 @@ class ErrorDialog extends StatelessWidget {
     );
   }
 }
+
+class LoadingDialog extends StatelessWidget {
+  const LoadingDialog({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(itemWidth(15.0)),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(itemWidth(50.0)),
+          child: CircularProgressIndicator(),
+        ));
+  }
+}
+
+class SuccessDialog extends StatelessWidget {
+  final String text;
+  final String routeid;
+  const SuccessDialog({
+    required this.text,
+    required this.routeid,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(itemWidth(30.0))),
+      child: Container(
+        height: itemHeight(140),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(text),
+            SizedBox(height: itemHeight(20)),
+            CustomButton(
+              width: itemWidth(200),
+              text: "Let's Go",
+              onPressed: () => Navigator.popAndPushNamed(context, routeid),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

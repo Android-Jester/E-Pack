@@ -23,7 +23,7 @@ class AuthRepoImpl implements AuthRepo {
         final model = await responseModel();
         //sending the model to datasource
 
-        await authServer.loginUser(email: model.email, password: model.password);
+        await authServer.loginUser(email: model.email, password: model.password).timeout(Duration(minutes: 2));
         return Right(model);
       } on ServerException {
         print("Exception");

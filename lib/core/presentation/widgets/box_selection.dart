@@ -28,8 +28,7 @@ class _boxSelectionState extends State<BoxSelection> {
             setState(() {
               (isLeft)
                   ? (value > 0)
-                      ? widget.textEditingController!.text =
-                          (value - 1).toString()
+                      ? widget.textEditingController!.text = (value - 1).toString()
                       : null
                   : widget.textEditingController!.text = (value + 1).toString();
             });
@@ -43,14 +42,19 @@ class _boxSelectionState extends State<BoxSelection> {
     int value = int.parse(widget.textEditingController!.text);
     Config.init(context);
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0))
-          .copyWith(top: itemWidth(10.0)),
+      padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0)).copyWith(top: itemWidth(10.0)),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(widget.text!),
+            SizedBox(
+              width: itemWidth(180),
+              child: Text(
+                widget.text!,
+                softWrap: true,
+              ),
+            ),
             Row(
               children: [
                 button(value: value),

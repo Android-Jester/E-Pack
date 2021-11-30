@@ -21,14 +21,18 @@ class TextWithLabel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            text,
+          Padding(
+            padding: EdgeInsets.only(left: itemWidth(10.0)),
+            child: Text(
+              text,
+              style: TextStyle(fontSize: itemHeight(14.0)),
+            ),
           ),
           SizedBox(
             height: itemHeight(2.5),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: itemWidth(25.0)),
+            padding: EdgeInsets.symmetric(horizontal: itemWidth(20.0)),
             child: TextFormField(
                 autofocus: true,
                 focusNode: node,
@@ -38,23 +42,40 @@ class TextWithLabel extends StatelessWidget {
                 keyboardType: type,
                 textAlign: TextAlign.center,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                // inputFormatters: [
-                //   FilteringTextInputFormatter.allow(
-                //       RegExp("[a-z A-Z á-ú Á-Ú]")),
-                //   (type != TextInputType.number || type != TextInputType.phone)
-                //       ? FilteringTextInputFormatter.deny(RegExp("[0-9]"))
-                //       : FilteringTextInputFormatter.deny(
-                //           RegExp("[a-z A-Z á-ú Á-Ú]")),
-                // ],
                 onEditingComplete: () {
-                  print(textCon.text);
-                  (nextNode != null) ? FocusScope.of(context).requestFocus(nextNode) : print("null");
+                  (nextNode != null) ? FocusScope.of(context).requestFocus(nextNode) : FocusScope.of(context).unfocus();
                 },
+                style: TextStyle(fontSize: itemHeight(14.0)),
                 validator: validate,
-                decoration: inputDecoration),
+                decoration: inputDecoration.copyWith()),
           ),
         ],
       ),
     );
   }
 }
+// Stack(children: <Widget>[
+// Container(
+// width: MediaQuery.of(context).size.width,
+// height: 58.0,
+// margin: EdgeInsets.symmetric(vertical: 6.0),
+// // height: 50.0,
+// decoration: BoxDecoration(
+// color: Colors.white,
+// borderRadius: BorderRadius.circular(24.0),
+// boxShadow: [BoxShadow(spreadRadius: 0.5, blurRadius: 10, color: Color.fromRGBO(5, 27, 178, 0.32), offset: Offset(0, 5))]),
+// ),
+// buildTextField(context),
+// Container(
+// height: 70.0,
+// width: 70.0,
+// decoration: BoxDecoration(
+// shape: BoxShape.circle,
+// color: Colors.white,
+// boxShadow: [BoxShadow(spreadRadius: 0.5, offset: Offset(0, 5), color: Color.fromRGBO(5, 27, 178, 0.32), blurRadius: 10)]),
+// child: Padding(
+// padding: EdgeInsets.all(12.0),
+// child: Icon(icon),
+// ),
+// )
+// ]);

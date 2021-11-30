@@ -6,7 +6,7 @@ class AppWriteServer {
   }
   static initClient() {
     return Client()
-        .setEndpoint('http://f5fa-154-160-25-208.ngrok.io/v1') // Your Appwrite Endpoint
+        .setEndpoint('http://192.168.8.169:8080/v1') // Your Appwrite Endpoint
         .setProject('6185f55c9f9b2') //Project Used
         .setSelfSigned(status: true);
   }

@@ -5,7 +5,6 @@ import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/presentation/pages/home_screen.dart';
 import 'package:e_pack/core/presentation/pages/splash_screen.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
-import 'package:e_pack/features/delivery_option/presentation/delivery_option.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +44,7 @@ class _MyAppState extends State<MyApp> {
                     if (snapshot.hasData) {
                       return HomeScreen();
                     } else if (snapshot.hasError) {
-                      return DeliveryOption();
+                      return SplashScreen();
                     } else {
                       return Scaffold(body: Center(child: CircularProgressIndicator()));
                     }

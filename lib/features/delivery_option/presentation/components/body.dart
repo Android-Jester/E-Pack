@@ -79,6 +79,7 @@ class _BodyState extends State<Body> {
     return Container(
       width: Config.width,
       child: NestedScrollView(
+        physics: BouncingScrollPhysics(),
         floatHeaderSlivers: true,
         controller: _scrollControl,
         body: SafeArea(
@@ -87,7 +88,7 @@ class _BodyState extends State<Body> {
             onPageChanged: (value) => setState(() => currentPage = value),
             controller: _controller,
             itemCount: pages.length,
-            itemBuilder: (context, indexed) => pages[indexed],
+            itemBuilder: (context, index) => pages[index],
           ),
         ),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
