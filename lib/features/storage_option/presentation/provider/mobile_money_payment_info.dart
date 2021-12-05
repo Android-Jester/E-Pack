@@ -5,6 +5,7 @@ import 'package:e_pack/core/presentation/widgets/state_dialogs.dart';
 import 'package:e_pack/features/storage_option/data/datasources/storage_data_receiver.dart';
 import 'package:e_pack/features/storage_option/data/repositories/storage_request_repo_impl.dart';
 import 'package:e_pack/features/storage_option/domain/usecases/send_storage_request.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ import 'time_info_notifier.dart';
 
 class StorageMomoPaymentInfo extends ChangeNotifier {
   final TextEditingController _momoUser = TextEditingController();
-  final TextEditingController _momoNum = TextEditingController();
+  final TextEditingController _momoNum = MaskedTextController(mask: "(000)-000-0000");
 
   TextEditingController get momoUser => _momoUser;
   TextEditingController get momoNum => _momoNum;
@@ -126,7 +127,7 @@ class StorageMomoPaymentInfo extends ChangeNotifier {
     if (val == " ") {
       return "There is no username or value";
     } else {
-      return (isNumber == true && val.length < 10) ? "The number is incomplete" : null;
+      return (isNumber == true && val.length < 14 || isNumber == true && val.length > 14) ? "The number is incomplete" : null;
     }
   }
 }

@@ -19,7 +19,7 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
-        await serverHost.sendDeliveryRequest(
+        serverHost.sendDeliveryRequest(
             timeCollect: model.timeCollect,
             semesterPeriod: model.semesterPeriod,
             relocateInfo: model.relocateInfo,

@@ -72,7 +72,7 @@ class _ContactInfoState extends State<StorageContactInfo> {
                   TextWithLabel(
                       text: "Contact Times per week",
                       textCon: data.contactTimesController,
-                      validate: (val) => data.validator(val!, isPhoneNumber: true, isNumeric: true),
+                      validate: (val) => data.validator(val!, isNumeric: true),
                       type: TextInputType.number),
                   TextWithLabel(text: "Notes", textCon: data.notesController, validate: (val) => data.validator(val!), type: TextInputType.multiline),
                   Spacer(),

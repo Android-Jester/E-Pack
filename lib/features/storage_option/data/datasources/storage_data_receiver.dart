@@ -4,7 +4,7 @@ import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/features/storage_option/data/models/storage_request_model.dart';
 
 abstract class StorageDataReceiver {
-  Future? sendStorageRequest({
+  Future<Document> sendStorageRequest({
     required String timeCollect,
     required String semesterPeriod,
     required String collectRoomType,
@@ -30,17 +30,8 @@ abstract class StorageDataReceiver {
 class StorageDataReceiverImpl implements StorageDataReceiver {
   Database database = Database(AppWriteServer.initClient());
 
-  Future<Document>? _getResponseFromServer(StorageRequestModel model) async {
-    Future<Document> result = database.createDocument(
-      collectionId: '6185f59c8c38e',
-      data: model.toJson(),
-    );
-
-    return result;
-  }
-
   @override
-  Future? sendStorageRequest({
+  Future<Document> sendStorageRequest({
     required String timeCollect,
     required String semesterPeriod,
     required String collectRoomType,
@@ -81,6 +72,9 @@ class StorageDataReceiverImpl implements StorageDataReceiver {
         momoFullName: momoFullName,
         momoPhoneNum: momoPhoneNum,
         cost: cost);
-    _getResponseFromServer(model);
+    return database.createDocument(
+      collectionId: '6185f59c8c38e',
+      data: model.toJson(),
+    );
   }
 }

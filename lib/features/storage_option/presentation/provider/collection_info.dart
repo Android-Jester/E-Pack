@@ -1,9 +1,10 @@
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 
 class StorageCollectionData extends ChangeNotifier {
   TextEditingController residenceNameController = TextEditingController();
   TextEditingController roomNumController = TextEditingController();
-  TextEditingController mobileNumController = TextEditingController();
+  TextEditingController mobileNumController = MaskedTextController(mask: "(000)-000-0000");
   TextEditingController accessNoteController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isGranted = false;
@@ -35,20 +36,16 @@ class StorageCollectionData extends ChangeNotifier {
     }
   }
 
-  String? validator(String val,
-      {bool isNumeric = false, bool isPhoneNumber = false}) {
+  String? validator(String val, {bool isNumeric = false, bool isPhoneNumber = false}) {
     if (val.isEmpty) {
       return "Please Fill this space";
     }
     if (isNumeric) {
       if (isPhoneNumber) {
-        return (val.length > 10 && val.length < 10)
-            ? "Please type 10 digits"
-            : null;
+        return (val.length > 14 && val.length < 14) ? "Please type 10 digits" : null;
       }
     } else {
       return null;
     }
-    return null;
   }
 }
