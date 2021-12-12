@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'colors.dart';
 import 'config.dart';
@@ -27,6 +28,7 @@ inputDecoration(
 ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: kBackgroundLightColor,
   primaryColor: kPrimaryColor,
+  // appBarTheme: AppBarTheme(color: kPrimaryColor, systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: kPrimaryColor)),
   colorScheme: const ColorScheme(
       primary: kPrimaryColor,
       primaryVariant: kPrimaryVariantColor,

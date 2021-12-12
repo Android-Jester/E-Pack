@@ -1,30 +1,26 @@
+import 'package:e_pack/core/presentation/widgets/page_button.dart';
+import 'package:e_pack/features/storage_option/presentation/components/body.dart';
 import 'package:flutter/material.dart';
 
 class StorageTimeInfo extends ChangeNotifier {
   TextEditingController? _timeDate;
-  String _semesterPeriod = "First Semester";
   String dateTimeVal = " ";
 
-  void onDateChange({String? val}) {
-    dateTimeVal = val!;
-    _timeDate = TextEditingController(
-        text:
-            " Time to pick up materials is ${dateTimeVal.substring(0, 16)} in $_semesterPeriod");
+  void onDateChange({DateTime? val}) {
+    dateTimeVal = val.toString();
+    _timeDate = TextEditingController(text: " Time to pick up materials is ${dateTimeVal.substring(0, 16)}");
     notifyListeners();
   }
 
   get timeDateData => _timeDate;
-  get semesterPeriod => _semesterPeriod;
 
-  void setSemesterPeriod(String input) {
-    _semesterPeriod = input;
-    onDateChange(val: dateTimeVal);
-    notifyListeners();
-  }
-
-  validation() {
-    if (_timeDate!.text.isEmpty && _semesterPeriod.isEmpty) {
-      return "Please enter the date and time";
+  validation(PageController controller, ScrollController scroll, int currentPage) {
+    if (_timeDate!.text.isEmpty) {
+      if (timeDateData != null) {
+        smoothScrollToTop(scroll);
+        direction(controller, currentPage, true);
+      }
+      return "Please enter the Date";
     }
   }
 }

@@ -5,7 +5,6 @@ import 'package:e_pack/features/delivery_option/domain/entities/delivery_request
 abstract class DeliveryRequestRepository {
   Future<Either<Failure, DeliveryRequest>?>? sendDeliveryRequest({
     required String? timeCollect,
-    required String? semesterPeriod,
     required int? largeBoxSizeCount,
     required int? mediumBoxSizeCount,
     required int? smallBoxSizeCount,

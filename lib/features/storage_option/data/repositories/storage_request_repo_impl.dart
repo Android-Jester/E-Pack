@@ -17,17 +17,14 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
     networkInfo = NetworkInfoImpl(InternetConnectionChecker());
   }
 
-  Future<Either<Failure, StorageRequest>?> _getResponse(
-      _GetModelInstance responseModel) async {
+  Future<Either<Failure, StorageRequest>?> _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
         print("repository started");
         serverHost.sendStorageRequest(
           timeCollect: model.timeCollect,
-          semesterPeriod: model.semesterPeriod,
           collectRoomType: model.collectRoomType,
-          storageWeeks: model.storageWeeks,
           residenceName: model.residenceName,
           roomNumber: model.roomNumber,
           phoneNumber: model.phoneNumber,
@@ -59,7 +56,6 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
   Future<Either<Failure, StorageRequest>?>? sendStorageRequest({
     // Time of Collection
     required String timeCollect,
-    required String semesterPeriod,
 
     // Room Type
     required String collectRoomType,
@@ -70,7 +66,6 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
     required int smallBoxSizeCount,
 
     //Period of Storage
-    required int storageWeeks,
 
     // Collection Information
     required String residenceName,
@@ -92,9 +87,7 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
   }) async {
     return await _getResponse(() async => StorageRequest(
         timeCollect: timeCollect,
-        semesterPeriod: semesterPeriod,
         collectRoomType: collectRoomType,
-        storageWeeks: storageWeeks,
         residenceName: residenceName,
         roomNumber: roomNumber,
         phoneNumber: phoneNumber,

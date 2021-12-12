@@ -6,7 +6,6 @@ abstract class StorageRequestRepository {
   Future<Either<Failure, StorageRequest>?>? sendStorageRequest({
     // Time of Collection
     required String timeCollect,
-    required String semesterPeriod,
 
     // Room Type
     required String collectRoomType,
@@ -17,7 +16,6 @@ abstract class StorageRequestRepository {
     required int smallBoxSizeCount,
 
     //Period of Storage
-    required int storageWeeks,
 
     // Collection Information
     required String residenceName,

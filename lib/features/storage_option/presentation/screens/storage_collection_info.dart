@@ -5,15 +5,13 @@ import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
 import 'package:e_pack/core/presentation/widgets/button_row.dart';
 import 'package:e_pack/core/presentation/widgets/check_box_row.dart';
-import 'package:e_pack/core/presentation/widgets/page_button.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
-import 'package:e_pack/features/storage_option/presentation/components/body.dart';
 import 'package:e_pack/features/storage_option/presentation/provider/collection_info.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class StorageCollectionInfo extends StatefulWidget {
-  final PageController? controller;
+  final PageController controller;
   final int currentPage;
   final ScrollController scroll;
 
@@ -61,93 +59,17 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
               key: data.key,
               child: Column(
                 children: [
-                  SizedBox(
-                    height: itemHeight(5.0),
-                  ),
-                  TextWithLabel(
-                    text: "Name of Residence",
-                    validate: (val) => data.validator(val!),
-                    textCon: data.residenceNameController,
-                    type: TextInputType.name,
-                    node: residenceNode,
-                    nextNode: roomNode,
-                  ),
-                  TextWithLabel(
-                    text: "Room or Flat Number",
-                    validate: (val) => data.validator(val!, isNumeric: true),
-                    textCon: data.roomNumController,
-                    type: TextInputType.number,
-                    node: roomNode,
-                    nextNode: phoneNode,
-                  ),
-                  TextWithLabel(
-                    text: "Mobile Number",
-                    validate: (val) => data.validator(val!, isNumeric: true),
-                    textCon: data.mobileNumController,
-                    type: TextInputType.phone,
-                    node: phoneNode,
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: itemHeight(10.0)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Address Type",
-                          style: TextStyle(fontSize: itemWidth(15.0)),
-                        ),
-                        SizedBox(
-                          height: itemHeight(2.5),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: itemWidth(30.0)),
-                          child: DropdownButtonFormField(
-                            decoration: inputDecoration(context),
-                            value: data.addressType,
-                            items: const [
-                              DropdownMenuItem(
-                                child: Text("Hostel"),
-                                value: "Hostel",
-                              ),
-                              DropdownMenuItem(
-                                child: Text("Homestel"),
-                                value: "Homestel",
-                              ),
-                              DropdownMenuItem(
-                                child: Text("Flat"),
-                                value: "Flat",
-                              ),
-                              DropdownMenuItem(
-                                child: Text("Hall"),
-                                value: "Hall",
-                              ),
-                            ],
-                            onChanged: (value) => data.addressType = value.toString(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  TextWithLabel(
-                    text: "Access Note",
-                    // validate: (val) => data.validator(val!, isNumeric: true),
-                    textCon: data.accessNoteController,
-                    node: accessNotesNode,
-                  ),
-                  SizedBox(height: itemHeight(10.0)),
+                  formColumn(data),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: itemWidth(25.0)),
+                    padding: EdgeInsets.symmetric(horizontal: itemWidth(15.0)),
                     child: Text(
                       "Please enter any instruction that may confirm to the third party on our team's arriving to pack your items",
                       style: TextStyle(fontSize: itemWidth(17.0)),
                     ),
                   ),
-                  checkboxRow(text: "Granting Access", boolean: data.isGranted, function: (val) => data.setGranted(val!), context: context),
-                  checkboxRow(
-                      context: context, text: "I agree to terms and conditions", boolean: data.isAgreed, function: (val) => data.setAgree(val!)),
-                  buttonRow(widget.controller!, widget.currentPage, nextButton: () {
-                    smoothScrollToTop(widget.scroll);
-                    (data.isGranted && data.isAgreed) ? direction(widget.controller!, widget.currentPage, true) : null;
+                  checkBoxColumn(data),
+                  buttonRow(widget.controller, widget.currentPage, nextButton: () {
+                    data.validation(widget.scroll, widget.controller, widget.currentPage);
                   })
                 ],
               ),
@@ -155,6 +77,102 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
           ),
         );
       },
+    );
+  }
+
+  Widget formColumn(StorageCollectionData data) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: itemWidth(25)),
+      child: Column(children: [
+        TextWithLabel(
+          text: "Name of Residence",
+          validate: (val) => data.validator(val!),
+          textCon: data.residenceNameController,
+          type: TextInputType.name,
+          node: residenceNode,
+          nextNode: roomNode,
+        ),
+        TextWithLabel(
+          text: "Room or Flat Number",
+          validate: (val) => data.validator(val!, isNumeric: true),
+          textCon: data.roomNumController,
+          type: TextInputType.number,
+          node: roomNode,
+          nextNode: phoneNode,
+        ),
+        TextWithLabel(
+          text: "Mobile Number",
+          validate: (val) => data.validator(val!, isNumeric: true),
+          textCon: data.mobileNumController,
+          type: TextInputType.phone,
+          node: phoneNode,
+        ),
+        Container(
+          padding: EdgeInsets.only(top: itemHeight(10.0)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Address Type",
+                style: TextStyle(fontSize: itemWidth(15.0)),
+              ),
+              SizedBox(height: itemHeight(2.5)),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: itemWidth(30.0)),
+                child: DropdownButtonFormField(
+                  decoration: inputDecoration(context),
+                  value: data.addressType,
+                  items: const [
+                    DropdownMenuItem(
+                      child: Text("Hostel"),
+                      value: "Hostel",
+                    ),
+                    DropdownMenuItem(
+                      child: Text("Homestel"),
+                      value: "Homestel",
+                    ),
+                    DropdownMenuItem(
+                      child: Text("Flat"),
+                      value: "Flat",
+                    ),
+                    DropdownMenuItem(
+                      child: Text("Hall"),
+                      value: "Hall",
+                    ),
+                  ],
+                  onChanged: (value) => data.addressType = value.toString(),
+                ),
+              ),
+            ],
+          ),
+        ),
+        TextWithLabel(
+          text: "Access Note",
+          // validate: (val) => data.validator(val!, isNumeric: true),
+          textCon: data.accessNoteController,
+          node: accessNotesNode,
+        ),
+      ]),
+    );
+  }
+
+  Widget checkBoxColumn(StorageCollectionData data) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: itemHeight(5)),
+      child: Column(
+        children: [
+          CheckBoxRow(
+            text: "Granting Access",
+            checkValue: data.isGranted,
+            function: (val) => data.setGranted(val!),
+          ),
+          CheckBoxRow(
+            text: "I agree to terms and conditions",
+            function: (val) => data.setAgree(val!),
+            checkValue: data.isAgreed,
+          ),
+        ],
+      ),
     );
   }
 

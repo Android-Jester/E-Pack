@@ -3,12 +3,10 @@ import 'package:e_pack/features/storage_option/domain/entities/storage_request.d
 class StorageRequestModel extends StorageRequest {
   StorageRequestModel({
     required String timeCollect,
-    required String semesterPeriod,
     required String collectRoomType,
     int largeBoxSizeCount = 0,
     int mediumBoxSizeCount = 0,
     int smallBoxSizeCount = 0,
-    required int storageWeeks,
     required String residenceName,
     required String roomNumber,
     required String phoneNumber,
@@ -24,15 +22,12 @@ class StorageRequestModel extends StorageRequest {
   }) : super(
 // time collection
           timeCollect: timeCollect,
-          semesterPeriod: semesterPeriod,
 
           collectRoomType: collectRoomType,
 
           largeBoxSizeCount: largeBoxSizeCount,
           mediumBoxSizeCount: mediumBoxSizeCount,
           smallBoxSizeCount: smallBoxSizeCount,
-
-          storageWeeks: storageWeeks,
 
           residenceName: residenceName,
           roomNumber: roomNumber,
@@ -77,12 +72,10 @@ class StorageRequestModel extends StorageRequest {
   Map<String, dynamic> toJson() {
     return {
       "timeCollect": timeCollect,
-      "semesterPeriod": semesterPeriod,
       "collectRoomType": collectRoomType,
       "largeBoxSizeCount": largeBoxSizeCount,
       "mediumBoxSizeCount": mediumBoxSizeCount,
       "smallBoxSizeCount": smallBoxSizeCount,
-      "storageWeeks": storageWeeks,
       "residenceName": residenceName,
       "roomNumber": roomNumber,
       "phoneNumber": phoneNumber,

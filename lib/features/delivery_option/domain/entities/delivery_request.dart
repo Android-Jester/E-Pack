@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class DeliveryRequest extends Equatable {
-  final String? timeCollect, semesterPeriod;
+  final String? timeCollect;
   final String? collectRoomType;
   final int? largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
   final int? relocateInfo;
@@ -19,7 +19,6 @@ class DeliveryRequest extends Equatable {
   DeliveryRequest({
     // Time Collection
     required this.timeCollect,
-    required this.semesterPeriod,
 
     //Box Sizes
     this.largeBoxSizeCount,
@@ -53,7 +52,6 @@ class DeliveryRequest extends Equatable {
   List<Object?> get props => [
         // Time Collection
         timeCollect,
-        semesterPeriod,
 
         //Box Sizes
         largeBoxSizeCount,

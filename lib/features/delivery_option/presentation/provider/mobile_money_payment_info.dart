@@ -32,7 +32,6 @@ class MomoInformationProvider extends ChangeNotifier {
     showDialog(
       builder: (context) => FutureBuilder(
           future: usecase.call(Params(
-              semesterPeriod: Provider.of<TimeInfo>(con, listen: false).semesterPeriod,
               timeCollect: Provider.of<TimeInfo>(con, listen: false).dateTimeVal,
               largeBoxSizeCount: Provider.of<BoxSizeData>(con, listen: false).largeBoxSizeText,
               mediumBoxSizeCount: Provider.of<BoxSizeData>(con, listen: false).mediumBoxSizeText,

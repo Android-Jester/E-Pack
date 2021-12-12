@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 import 'box_size_data.dart';
 import 'collection_info.dart';
 import 'room_type_data.dart';
-import 'storage_period_data.dart';
 import 'storage_recepient_info.dart';
 import 'time_info_notifier.dart';
 
@@ -26,20 +25,21 @@ class StorageMomoPaymentInfo extends ChangeNotifier {
   final _formKey = GlobalKey<FormState>();
 
   builder(BuildContext con, PageController controller, int currentPage) {
+
     double _cost = (Provider.of<StorageBoxSizeData>(con, listen: false).largeBoxSizeText * 5) +
         (Provider.of<StorageBoxSizeData>(con, listen: false).mediumBoxSizeText * 2) +
         (Provider.of<StorageBoxSizeData>(con, listen: false).smallBoxSizeText * 1.5);
+
     var usecase = SendStorageRequest(StorageRequestRepositoryImpl(serverHost: StorageDataReceiverImpl()));
-    print("Started Future");
+
     showDialog(
+      context: con,
       builder: (context) => FutureBuilder(
           future: usecase.call(Params(
-              semesterPeriod: Provider.of<StorageTimeInfo>(con, listen: false).semesterPeriod,
               timeCollect: Provider.of<StorageTimeInfo>(con, listen: false).dateTimeVal,
               largeBoxSizeCount: Provider.of<StorageBoxSizeData>(con, listen: false).largeBoxSizeText,
               mediumBoxSizeCount: Provider.of<StorageBoxSizeData>(con, listen: false).mediumBoxSizeText,
               smallBoxSizeCount: Provider.of<StorageBoxSizeData>(con, listen: false).smallBoxSizeText,
-              storageWeeks: Provider.of<StoragePeriodInfo>(con, listen: false).weeksStored,
               residenceName: Provider.of<StorageCollectionData>(con, listen: false).residenceName,
               roomNumber: Provider.of<StorageCollectionData>(con, listen: false).roomNumber,
               phoneNumber: Provider.of<StorageCollectionData>(con, listen: false).mobileNumber,
@@ -59,19 +59,16 @@ class StorageMomoPaymentInfo extends ChangeNotifier {
                 dateTimeVal: Provider.of<StorageTimeInfo>(con, listen: false).dateTimeVal,
               );
             } else if (snapshot.hasError) {
-              return ErrorDialog(retry: () {
-                Navigator.pop(context);
-                builder(con, controller, currentPage);
-              }, dispose: () {
-                Navigator.pop(context);
-              });
+              return ErrorDialog(
+                  retry: () {
+                    Navigator.pop(context);
+                    builder(con, controller, currentPage);
+                  },
+                  dispose: () => Navigator.pop(context));
             } else {
-              return const Dialog(
-                child: CircularProgressIndicator(),
-              );
+              return LoadingDialog();
             }
           }),
-      context: con,
     );
   }
 

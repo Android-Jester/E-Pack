@@ -30,15 +30,15 @@ class StorageRecepientInfo extends ChangeNotifier {
   String? validator(String val, {bool isNumeric = false, bool isPhoneNumber = false}) {
     if (val.isEmpty) {
       return "Please Fill this space";
-    }
-    if (isNumeric) {
+    } else if (isNumeric) {
       if (isPhoneNumber) {
         return (val.length > 14 || val.length < 14) ? "Please type 10 digits" : null;
       }
     } else if (isNumeric && val.contains("[a~z]")) {
       return "Please type in a number and not a text";
+    } else {
+      return null;
     }
-    return null;
   }
 
   validation(BuildContext context, PageController controller, int currentPage) {

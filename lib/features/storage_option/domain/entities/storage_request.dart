@@ -2,9 +2,8 @@ import 'package:equatable/equatable.dart';
 
 class StorageRequest extends Equatable {
   // Time of Collection
-  final String timeCollect, semesterPeriod, collectRoomType;
+  final String timeCollect, collectRoomType;
   final int largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
-  final int storageWeeks;
   final String residenceName;
   final String roomNumber;
   final String phoneNumber;
@@ -19,7 +18,6 @@ class StorageRequest extends Equatable {
   const StorageRequest({
     // Time of Collection
     required this.timeCollect,
-    required this.semesterPeriod,
 
     //Room Type
     required this.collectRoomType,
@@ -30,7 +28,6 @@ class StorageRequest extends Equatable {
     this.smallBoxSizeCount = 0,
 
     //Period of Storage
-    required this.storageWeeks,
 
     //Collection Information
     required this.residenceName,
@@ -55,7 +52,6 @@ class StorageRequest extends Equatable {
   List<Object?> get props => [
         // Time of Collection
         timeCollect,
-        semesterPeriod,
 
         //Room Type
         collectRoomType,
@@ -66,7 +62,6 @@ class StorageRequest extends Equatable {
         smallBoxSizeCount,
 
         //Period of Storage
-        storageWeeks,
 
         //Collection Information
         residenceName,

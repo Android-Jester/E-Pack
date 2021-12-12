@@ -28,14 +28,12 @@ class _ContactInfoState extends State<StorageContactInfo> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     node = FocusNode();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     node.dispose();
   }

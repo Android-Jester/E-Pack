@@ -3,7 +3,6 @@ import 'package:e_pack/features/delivery_option/domain/entities/delivery_request
 class DeliveryRequestModel extends DeliveryRequest {
   DeliveryRequestModel(
       {required String? timeCollect,
-      required String? semesterPeriod,
       int? largeBoxSizeCount,
       int? mediumBoxSizeCount,
       int? smallBoxSizeCount,
@@ -23,7 +22,6 @@ class DeliveryRequestModel extends DeliveryRequest {
       required double? cost})
       : super(
           timeCollect: timeCollect,
-          semesterPeriod: semesterPeriod,
           largeBoxSizeCount: largeBoxSizeCount,
           mediumBoxSizeCount: mediumBoxSizeCount,
           smallBoxSizeCount: smallBoxSizeCount,
@@ -47,7 +45,6 @@ class DeliveryRequestModel extends DeliveryRequest {
     return {
       // Time Collection
       "timeCollect": timeCollect,
-      "semPeriod": semesterPeriod,
 
       // Box Sizes
       "largeBoxSizeCount": (largeBoxSizeCount as num),

@@ -6,7 +6,6 @@ import 'package:e_pack/features/delivery_option/data/models/delivery_request_mod
 abstract class DeliveryDataReciever {
   Future<Document> sendDeliveryRequest(
       {required String? timeCollect,
-      required String? semesterPeriod,
       required int? largeBoxSizeCount,
       required int? mediumBoxSizeCount,
       required int? smallBoxSizeCount,
@@ -32,7 +31,6 @@ class DeliveryDataRecieverImpl implements DeliveryDataReciever {
   @override
   Future<Document> sendDeliveryRequest(
       {required String? timeCollect,
-      required String? semesterPeriod,
       required int? largeBoxSizeCount,
       required int? mediumBoxSizeCount,
       required int? smallBoxSizeCount,
@@ -55,7 +53,6 @@ class DeliveryDataRecieverImpl implements DeliveryDataReciever {
         smallBoxSizeCount: smallBoxSizeCount,
         mediumBoxSizeCount: mediumBoxSizeCount,
         timeCollect: timeCollect,
-        semesterPeriod: semesterPeriod,
         relocateInfo: relocateInfo,
         residenceName: residenceName,
         collectRoomType: collectRoomType,

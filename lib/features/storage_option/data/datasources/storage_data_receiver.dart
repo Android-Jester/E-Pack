@@ -6,12 +6,10 @@ import 'package:e_pack/features/storage_option/data/models/storage_request_model
 abstract class StorageDataReceiver {
   Future<Document> sendStorageRequest({
     required String timeCollect,
-    required String semesterPeriod,
     required String collectRoomType,
     int largeBoxSizeCount = 0,
     int mediumBoxSizeCount = 0,
     int smallBoxSizeCount = 0,
-    required int storageWeeks,
     required String residenceName,
     required String roomNumber,
     required String phoneNumber,
@@ -33,12 +31,10 @@ class StorageDataReceiverImpl implements StorageDataReceiver {
   @override
   Future<Document> sendStorageRequest({
     required String timeCollect,
-    required String semesterPeriod,
     required String collectRoomType,
     int largeBoxSizeCount = 0,
     int mediumBoxSizeCount = 0,
     int smallBoxSizeCount = 0,
-    required int storageWeeks,
     required String residenceName,
     required String roomNumber,
     required String phoneNumber,
@@ -57,9 +53,7 @@ class StorageDataReceiverImpl implements StorageDataReceiver {
         mediumBoxSizeCount: mediumBoxSizeCount,
         smallBoxSizeCount: smallBoxSizeCount,
         timeCollect: timeCollect,
-        semesterPeriod: semesterPeriod,
         collectRoomType: collectRoomType,
-        storageWeeks: storageWeeks,
         residenceName: residenceName,
         roomNumber: roomNumber,
         phoneNumber: phoneNumber,

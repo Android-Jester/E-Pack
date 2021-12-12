@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:e_pack/core/presentation/config/theme.dart';
+import 'package:e_pack/core/presentation/pages/home_screen.dart';
 import 'package:e_pack/core/presentation/pages/splash_screen.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,7 +44,7 @@ class _MyAppState extends State<MyApp> {
                   future: Account(AppWriteServer.initClient()).get(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return SplashScreen();
+                      return HomeScreen();
                     } else if (snapshot.hasError) {
                       return SplashScreen();
                     } else {

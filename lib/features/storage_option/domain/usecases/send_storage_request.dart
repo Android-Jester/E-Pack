@@ -15,7 +15,6 @@ class SendStorageRequest extends UseCase<StorageRequest, Params> {
     return await repo.sendStorageRequest(
       // Time of Collection
       timeCollect: params.timeCollect,
-      semesterPeriod: params.semesterPeriod,
 
       //Room Type
       collectRoomType: params.collectRoomType,
@@ -26,7 +25,6 @@ class SendStorageRequest extends UseCase<StorageRequest, Params> {
       smallBoxSizeCount: params.smallBoxSizeCount,
 
       //Period of Storage
-      storageWeeks: params.storageWeeks,
 
       //Collection Information
       residenceName: params.residenceName,
@@ -51,9 +49,8 @@ class SendStorageRequest extends UseCase<StorageRequest, Params> {
 
 class Params extends Equatable {
   // Time of Collection
-  final String timeCollect, semesterPeriod, collectRoomType;
+  final String timeCollect, collectRoomType;
   final int largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
-  final int storageWeeks;
   final String residenceName;
   final String roomNumber;
   final String phoneNumber;
@@ -68,7 +65,6 @@ class Params extends Equatable {
   const Params({
     // Time of Collection
     required this.timeCollect,
-    required this.semesterPeriod,
 
     //Room Type
     required this.collectRoomType,
@@ -79,7 +75,6 @@ class Params extends Equatable {
     this.smallBoxSizeCount = 0,
 
     //Period of Storage
-    required this.storageWeeks,
 
     //Collection Information
     required this.residenceName,
@@ -104,7 +99,6 @@ class Params extends Equatable {
   List<Object?> get props => [
         // Time of Collection
         timeCollect,
-        semesterPeriod,
 
         //Room Type
         collectRoomType,
@@ -115,7 +109,6 @@ class Params extends Equatable {
         smallBoxSizeCount,
 
         //Period of Storage
-        storageWeeks,
 
         //Collection Information
         residenceName,

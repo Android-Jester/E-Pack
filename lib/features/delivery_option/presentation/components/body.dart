@@ -40,7 +40,7 @@ class _BodyState extends State<Body> {
     List<Widget> pages = [
       TimeSelection(
         currentPage: currentPage,
-        controller: _controller,
+        controller: _controller!,
         scroll: _scrollControl,
       ),
       RoomType(

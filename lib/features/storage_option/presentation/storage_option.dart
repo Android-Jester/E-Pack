@@ -6,7 +6,6 @@ import 'provider/box_size_data.dart';
 import 'provider/collection_info.dart';
 import 'provider/mobile_money_payment_info.dart';
 import 'provider/room_type_data.dart';
-import 'provider/storage_period_data.dart';
 import 'provider/storage_recepient_info.dart';
 import 'provider/time_info_notifier.dart';
 
@@ -21,7 +20,7 @@ class StorageOption extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => StorageTimeInfo()),
         ChangeNotifierProvider(create: (_) => StorageRoomTypeData()),
-        ChangeNotifierProvider(create: (_) => StoragePeriodInfo()),
+        // ChangeNotifierProvider(create: (_) => StoragePeriodInfo()),
         ChangeNotifierProvider(create: (_) => StorageBoxSizeData()),
         ChangeNotifierProvider(create: (_) => StorageCollectionData()),
         ChangeNotifierProvider(create: (_) => StorageRecepientInfo()),

@@ -1,3 +1,5 @@
+import 'package:e_pack/core/presentation/widgets/page_button.dart';
+import 'package:e_pack/features/storage_option/presentation/components/body.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 
@@ -46,6 +48,13 @@ class StorageCollectionData extends ChangeNotifier {
       }
     } else {
       return null;
+    }
+  }
+
+  void validation(ScrollController scroll, PageController controller, int currentPage) {
+    if (_formKey.currentState!.validate() && isGranted && isAgreed) {
+      smoothScrollToTop(scroll);
+      direction(controller, currentPage, true);
     }
   }
 }

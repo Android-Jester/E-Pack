@@ -4,7 +4,6 @@ import 'package:e_pack/features/storage_option/presentation/screens/storage_box_
 import 'package:e_pack/features/storage_option/presentation/screens/storage_collection_info.dart';
 import 'package:e_pack/features/storage_option/presentation/screens/storage_contact_info.dart';
 import 'package:e_pack/features/storage_option/presentation/screens/storage_momo_payment.dart';
-import 'package:e_pack/features/storage_option/presentation/screens/storage_period.dart';
 import 'package:e_pack/features/storage_option/presentation/screens/storage_room_type.dart';
 import 'package:e_pack/features/storage_option/presentation/screens/storage_time_of_collection.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final PageController? _controller = PageController();
+  final PageController _controller = PageController();
   int currentPage = 0;
   ScrollController _scrollControl = ScrollController();
 
@@ -28,7 +27,7 @@ class _BodyState extends State<Body> {
   @override
   void dispose() {
     super.dispose();
-    _controller!.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -50,11 +49,11 @@ class _BodyState extends State<Body> {
         currentPage: currentPage,
         scroll: _scrollControl,
       ),
-      StoragePeriod(
-        controller: _controller,
-        currentPage: currentPage,
-        scroll: _scrollControl,
-      ),
+      // StoragePeriod(
+      //   controller: _controller,
+      //   currentPage: currentPage,
+      //   scroll: _scrollControl,
+      // ),
       StorageCollectionInfo(
         controller: _controller,
         currentPage: currentPage,
@@ -76,7 +75,7 @@ class _BodyState extends State<Body> {
       "Time Selection",
       "Appartment Type",
       "Box Sizes",
-      "Storage Period",
+      // "Storage Period",
       "Collection Info",
       "Contact Info",
       "Mobile Money Payment"
@@ -108,12 +107,16 @@ class _BodyState extends State<Body> {
               backgroundColor: (innerBoxIsScrolled) ? Theme.of(context).colorScheme.secondary : Colors.transparent,
               title: Text(
                 title[currentPage],
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(color: Colors.white),
               ),
               centerTitle: true,
             ),
             centerTitle: true,
             elevation: 1.0,
-            title: Text("Storage Option"),
+            title: Text(
+              "Storage Option",
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(color: Colors.white),
+            ),
             backgroundColor: Theme.of(context).colorScheme.primary,
             floating: true,
             pinned: true,

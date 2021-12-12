@@ -16,7 +16,6 @@ class SendDeliveryRequest extends UseCase<DeliveryRequest, Params> {
     return await repo.sendDeliveryRequest(
       // Time Collection
       timeCollect: params.timeCollect,
-      semesterPeriod: params.semesterPeriod,
 
       //Box Sizes
       largeBoxSizeCount: params.largeBoxSizeCount,
@@ -49,7 +48,7 @@ class SendDeliveryRequest extends UseCase<DeliveryRequest, Params> {
 }
 
 class Params extends Equatable {
-  final String? timeCollect, semesterPeriod;
+  final String? timeCollect;
   final String? collectRoomType;
   final int? largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
   final int? relocateInfo;
@@ -67,7 +66,6 @@ class Params extends Equatable {
   Params({
     // Time Collection
     required this.timeCollect,
-    required this.semesterPeriod,
 
     //Box Sizes
     this.largeBoxSizeCount,
@@ -101,7 +99,6 @@ class Params extends Equatable {
   List<Object?> get props => [
         // Time Collection
         timeCollect,
-        semesterPeriod,
 
         //Box Sizes
         largeBoxSizeCount,

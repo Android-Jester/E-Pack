@@ -21,7 +21,6 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
         final model = await responseModel();
         serverHost.sendDeliveryRequest(
             timeCollect: model.timeCollect,
-            semesterPeriod: model.semesterPeriod,
             relocateInfo: model.relocateInfo,
             residenceName: model.residenceName,
             collectRoomType: model.collectRoomType,
@@ -51,7 +50,6 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
   @override
   Future<Either<Failure, DeliveryRequest>?>? sendDeliveryRequest({
     required String? timeCollect,
-    required String? semesterPeriod,
     required int? largeBoxSizeCount,
     required int? mediumBoxSizeCount,
     required int? smallBoxSizeCount,
@@ -72,7 +70,6 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
   }) async {
     return await _getResponse(() async => DeliveryRequest(
         timeCollect: timeCollect,
-        semesterPeriod: semesterPeriod,
         relocateInfo: relocateInfo,
         residenceName: residenceName,
         collectRoomType: collectRoomType,
