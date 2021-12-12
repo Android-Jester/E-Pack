@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class StorageBoxChoices extends StatefulWidget {
-  final PageController? controller;
+  final PageController controller;
   final ScrollController scroll;
-  final int? currentPage;
+  final int currentPage;
   StorageBoxChoices({
     Key? key,
     required this.scroll,
@@ -58,10 +58,10 @@ class _BoxChoicesState extends State<StorageBoxChoices> with AutomaticKeepAliveC
               boxesColumn(data),
               boxSizeInfo(),
               SizedBox(height: itemHeight(20.0)),
-              buttonRow(widget.controller!, widget.currentPage!, nextButton: () {
+              buttonRow(widget.controller, widget.currentPage, nextButton: () {
                 if (data.largeBoxSizeText != 0 || data.mediumBoxSizeText != 0 || data.smallBoxSizeText != 0) {
                   smoothScrollToTop(widget.scroll);
-                  direction(widget.controller!, widget.currentPage!, true);
+                  direction(widget.controller, widget.currentPage, true);
                 } else {
                   showDialog(
                     context: context,

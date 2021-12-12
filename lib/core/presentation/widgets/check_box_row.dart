@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 
-Widget checkboxRow({}) {
-  return ;
-}
-
-
 class CheckBoxRow extends StatelessWidget {
   final String text;
   final bool checkValue;
   final void Function(bool? val)? function;
 
-
   CheckBoxRow({
     required this.text,
     required this.function,
     required this.checkValue,
-});
+  });
 
   @override
   Widget build(BuildContext context) {

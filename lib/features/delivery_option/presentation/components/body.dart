@@ -17,7 +17,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  PageController? _controller = PageController();
+  PageController _controller = PageController();
   int currentPage = 0;
   ScrollController _scrollControl = ScrollController();
 
@@ -58,7 +58,7 @@ class _BodyState extends State<Body> {
         controller: _controller,
         scroll: _scrollControl,
       ),
-      CollectionPage(
+      CollectionData(
         currentPage: currentPage,
         controller: _controller,
         scroll: _scrollControl,
