@@ -6,22 +6,41 @@ import 'colors.dart';
 import 'config.dart';
 
 var border = OutlineInputBorder(
+  borderSide: BorderSide(color: Colors.black54),
   borderRadius: BorderRadius.circular(
     itemHeight(10),
   ),
 );
 
-var inputDecoration = InputDecoration(
-    border: border,
-    errorBorder: border,
-    disabledBorder: border,
-    focusedBorder: border,
-    focusedErrorBorder: border);
+inputDecoration(
+  BuildContext context,
+) =>
+    InputDecoration(
+        filled: true,
+        fillColor: Colors.purple[200],
+        border: border,
+        errorBorder: border,
+        disabledBorder: border,
+        focusedBorder: border,
+        focusedErrorBorder: border);
 
 ThemeData lightTheme = ThemeData(
-  scaffoldBackgroundColor: kBackgroundColor,
+  scaffoldBackgroundColor: kBackgroundLightColor,
   primaryColor: kPrimaryColor,
-  secondaryHeaderColor: kAccentColor,
+  colorScheme: const ColorScheme(
+      primary: kPrimaryColor,
+      primaryVariant: kPrimaryVariantColor,
+      secondary: kSecondaryColor,
+      secondaryVariant: kSecondaryVariantColor,
+      surface: kSurfaceColor,
+      background: kBackgroundLightColor,
+      error: kErrorLightColor,
+      onPrimary: kPrimaryColor,
+      onSecondary: kSecondaryColor,
+      onSurface: kSurfaceColor,
+      onBackground: kBackgroundLightColor,
+      onError: kErrorLightColor,
+      brightness: Brightness.light),
   fontFamily: "Roboto",
   textTheme: const TextTheme(
     headline1: TextStyle(
@@ -52,24 +71,46 @@ ThemeData lightTheme = ThemeData(
 );
 
 ThemeData darkTheme = ThemeData(
-  scaffoldBackgroundColor: kBackgroundColor,
+  scaffoldBackgroundColor: kBackgroundDarkColor,
   primaryColor: kPrimaryDarkColor,
-  secondaryHeaderColor: kAccentDarkColor,
+  colorScheme: const ColorScheme(
+      primary: kPrimaryDarkColor,
+      primaryVariant: kPrimaryVariantDarkColor,
+      secondary: kSecondaryDarkColor,
+      secondaryVariant: kSecondaryVariantDarkColor,
+      surface: kSurfaceColor,
+      background: kBackgroundDarkColor,
+      error: kErrorDarkColor,
+      onPrimary: kPrimaryDarkColor,
+      onSecondary: kSecondaryDarkColor,
+      onSurface: kSurfaceColor,
+      onBackground: kBackgroundLightColor,
+      onError: kErrorLightColor,
+      brightness: Brightness.light),
   fontFamily: "Roboto",
   textTheme: const TextTheme(
     headline1: TextStyle(
-      fontSize: 34.0,
-      color: Colors.white,
+      fontSize: 35.0,
+      color: Colors.black,
       fontWeight: FontWeight.bold,
     ),
     headline2: TextStyle(
-      fontSize: 20.0,
-      color: Colors.white,
-      fontWeight: FontWeight.w600,
+      fontSize: 30.0,
+      color: Colors.black,
+      fontWeight: FontWeight.w500,
+    ),
+    headline3: TextStyle(
+      fontSize: 25.0,
+      color: Colors.black,
+      fontWeight: FontWeight.w500,
     ),
     bodyText1: TextStyle(
+      color: Colors.black,
       fontSize: 17.0,
-      color: Colors.white,
+    ),
+    bodyText2: TextStyle(
+      fontSize: 20.0,
+      color: Colors.black,
       fontWeight: FontWeight.w400,
     ),
   ),

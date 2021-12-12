@@ -1,4 +1,3 @@
-import 'package:e_pack/core/presentation/config/colors.dart';
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/sliver_deligate.dart';
 import 'package:e_pack/features/storage_option/presentation/screens/storage_box_choices.dart';
@@ -106,7 +105,7 @@ class _BodyState extends State<Body> {
                 color: Colors.transparent,
               ),
               elevation: 1.0,
-              backgroundColor: (innerBoxIsScrolled) ? kAccentColor : Colors.transparent,
+              backgroundColor: (innerBoxIsScrolled) ? Theme.of(context).colorScheme.secondary : Colors.transparent,
               title: Text(
                 title[currentPage],
               ),
@@ -115,7 +114,7 @@ class _BodyState extends State<Body> {
             centerTitle: true,
             elevation: 1.0,
             title: Text("Storage Option"),
-            backgroundColor: kPrimaryColor,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             floating: true,
             pinned: true,
             expandedHeight: itemHeight(150),

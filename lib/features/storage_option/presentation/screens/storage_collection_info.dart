@@ -5,7 +5,7 @@ import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
 import 'package:e_pack/core/presentation/widgets/button_row.dart';
 import 'package:e_pack/core/presentation/widgets/check_box_row.dart';
-import 'package:e_pack/core/presentation/widgets/radio_button.dart';
+import 'package:e_pack/core/presentation/widgets/page_button.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
 import 'package:e_pack/features/storage_option/presentation/components/body.dart';
 import 'package:e_pack/features/storage_option/presentation/provider/collection_info.dart';
@@ -50,11 +50,6 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
 
   @override
   Widget build(BuildContext context) {
-    var border = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(
-        itemHeight(10),
-      ),
-    );
     Config.init(context);
     return Consumer<StorageCollectionData>(
       builder: (context, data, _) {
@@ -107,7 +102,7 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: itemWidth(30.0)),
                           child: DropdownButtonFormField(
-                            decoration: inputDecoration,
+                            decoration: inputDecoration(context),
                             value: data.addressType,
                             items: const [
                               DropdownMenuItem(

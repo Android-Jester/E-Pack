@@ -6,12 +6,14 @@ class ContainerWrapper extends StatelessWidget {
   final EdgeInsets padding;
   final double? width;
   final double? height;
+  // final Color color;
 
   const ContainerWrapper({
     this.width,
     this.height,
     Key? key,
     required this.child,
+    // required this.color,
     this.padding = EdgeInsets.zero,
   }) : super(key: key);
 

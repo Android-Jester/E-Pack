@@ -20,11 +20,8 @@ class SelectionButton extends StatelessWidget {
       padding: EdgeInsets.all(itemHeight(10.0)),
       child: OutlinedButton(
         style: ButtonStyle(
-            backgroundColor:
-                MaterialStateColor.resolveWith((states) => Colors.blue),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(itemWidth(20.0)))))),
+            backgroundColor: MaterialStateColor.resolveWith((states) => Theme.of(context).colorScheme.secondary),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(itemWidth(20.0)))))),
         onPressed: onPressed,
         child: Container(
           width: Config.width,

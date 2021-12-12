@@ -2,7 +2,7 @@ import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
 import 'package:e_pack/core/presentation/widgets/date_range_picker.dart';
-import 'package:e_pack/core/presentation/widgets/radio_button.dart';
+import 'package:e_pack/core/presentation/widgets/page_button.dart';
 import 'package:e_pack/features/delivery_option/presentation/components/body.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/time_info_notifier.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +54,7 @@ class _TimeSelectionState extends State<TimeSelection> with AutomaticKeepAliveCl
               Container(
                 padding: EdgeInsets.symmetric(horizontal: itemWidth(60.0)),
                 child: DropdownButtonFormField(
-                  decoration: inputDecoration,
+                  decoration: inputDecoration(context),
                   value: data.semesterPeriod,
                   items: const [
                     DropdownMenuItem(

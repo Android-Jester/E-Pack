@@ -1,4 +1,3 @@
-import 'package:e_pack/core/presentation/config/colors.dart';
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/sliver_deligate.dart';
 import 'package:e_pack/features/delivery_option/presentation/Screens/box_choices.dart';
@@ -96,10 +95,10 @@ class _BodyState extends State<Body> {
             snap: true,
             bottom: AppBar(
               leading: Container(
-                color: Colors.transparent,
+                color: Theme.of(context).colorScheme.primaryVariant,
               ),
               elevation: 1.0,
-              backgroundColor: (innerBoxIsScrolled) ? kAccentColor : Colors.transparent,
+              backgroundColor: (innerBoxIsScrolled) ? Theme.of(context).colorScheme.secondaryVariant : Colors.transparent,
               title: Text(
                 title[currentPage],
               ),
@@ -108,7 +107,7 @@ class _BodyState extends State<Body> {
             centerTitle: true,
             elevation: 1.0,
             title: Text("Delivery Option"),
-            backgroundColor: kPrimaryColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             floating: true,
             pinned: true,
             expandedHeight: itemHeight(150),

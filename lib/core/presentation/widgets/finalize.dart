@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:e_pack/core/presentation/config/colors.dart';
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/pages/home_screen.dart';
 import 'package:e_pack/core/presentation/widgets/custom_button.dart';
@@ -15,7 +14,7 @@ class Finalize extends StatelessWidget {
     Config.init(context);
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(itemWidth(30.0))),
-      backgroundColor: kBackgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       child: Container(
         height: itemHeight(350),
         width: itemWidth(240),
@@ -48,7 +47,7 @@ class Finalize extends StatelessWidget {
             CustomButton(
               width: itemWidth(260.0),
               text: 'Another Request',
-              color: kAccentColor,
+              color: Theme.of(context).colorScheme.secondary,
               onPressed: () => Navigator.popAndPushNamed(context, HomeScreen.id),
             ),
           ],

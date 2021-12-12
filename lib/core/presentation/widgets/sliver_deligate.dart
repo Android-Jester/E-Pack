@@ -13,7 +13,7 @@ class Delegate extends SliverPersistentHeaderDelegate {
     Config.init(context);
     // TODO: implement build
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       height: maxExtent - shrinkOffset,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: itemHeight(10.0)).copyWith(bottom: itemWidth(6)),

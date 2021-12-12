@@ -25,7 +25,7 @@ class ErrorDialog extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: itemWidth(40),
-                backgroundColor: Colors.red,
+                backgroundColor: Theme.of(context).colorScheme.error,
                 child: Icon(
                   Icons.close,
                   color: Colors.white,
@@ -40,6 +40,7 @@ class ErrorDialog extends StatelessWidget {
                 height: 12,
               ),
               CustomButton(
+                color: Theme.of(context).colorScheme.primaryVariant,
                 width: itemWidth(250),
                 text: "Retry",
                 onPressed: retry,
@@ -49,7 +50,7 @@ class ErrorDialog extends StatelessWidget {
                 width: itemWidth(250),
                 text: "Cancel",
                 onPressed: dispose,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.secondaryVariant,
               ),
             ],
           ),

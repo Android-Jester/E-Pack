@@ -1,4 +1,3 @@
-import 'package:e_pack/core/presentation/config/colors.dart';
 import 'package:e_pack/core/presentation/provider/home_screen_data.dart';
 import 'package:e_pack/core/presentation/widgets/selection_button.dart';
 import 'package:e_pack/features/delivery_option/presentation/delivery_option.dart';
@@ -15,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Config.init(context);
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Consumer<HomeScreenData>(
         builder: (context, data, child) => Column(
           children: [
@@ -53,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                 height: Config.height,
                 width: Config.width,
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                decoration: BoxDecoration(color: kBackgroundColor, borderRadius: BorderRadius.circular(20.0)),
+                decoration: BoxDecoration(color: Theme.of(context).colorScheme.background, borderRadius: BorderRadius.circular(20.0)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -105,8 +104,9 @@ class HomeScreen extends StatelessWidget {
               ),
               height: Config.height! / 4.2,
               width: Config.width,
-              decoration: const BoxDecoration(
-                  color: Color(0xFF5f7f35), borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondaryVariant,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
             ),
           ],
         ),

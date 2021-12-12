@@ -28,7 +28,7 @@ class BuildDotsRow extends StatelessWidget {
             height: 6.0,
             width: currentPage == index ? 20 : 6,
             decoration: BoxDecoration(
-              color: currentPage == index ? Colors.blue : const Color(0xFFD8D8D8),
+              color: currentPage == index ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.circular(3),
             ),
           ),

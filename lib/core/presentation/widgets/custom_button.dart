@@ -24,9 +24,9 @@ class CustomButton extends StatelessWidget {
               if (states.contains(MaterialState.selected)) {
                 return Colors.grey;
               } else if (states.contains(MaterialState.disabled)) {
-                return kBackgroundColor;
+                return Theme.of(context).colorScheme.background;
               } else {
-                return kPrimaryColor;
+                return Theme.of(context).colorScheme.primary;
               }
             }),
           ),
@@ -36,26 +36,5 @@ class CustomButton extends StatelessWidget {
           ),
           onPressed: (isDisabled) ? null : onPressed),
     );
-    return TextButton(
-        style: ButtonStyle(
-          foregroundColor: MaterialStateColor.resolveWith((states) => Colors.grey),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              side: const BorderSide(
-                color: Colors.black,
-                width: 1.5,
-              ),
-              borderRadius: BorderRadius.circular(itemWidth(20.0)),
-            ),
-          ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0)),
-          child: Text(
-            text!,
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-        ),
-        onPressed: (isDisabled) ? null : onPressed);
   }
 }

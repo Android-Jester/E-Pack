@@ -2,7 +2,7 @@ import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
 import 'package:e_pack/core/presentation/widgets/box_selection.dart';
 import 'package:e_pack/core/presentation/widgets/button_row.dart';
-import 'package:e_pack/core/presentation/widgets/radio_button.dart';
+import 'package:e_pack/core/presentation/widgets/page_button.dart';
 import 'package:e_pack/features/delivery_option/presentation/components/body.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/box_size_data.dart';
 import 'package:flutter/material.dart';

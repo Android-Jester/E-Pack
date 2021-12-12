@@ -1,4 +1,3 @@
-import 'package:e_pack/core/presentation/config/colors.dart';
 import 'package:e_pack/core/presentation/config/config.dart';
 import 'package:flutter/material.dart';
 
@@ -21,9 +20,7 @@ class PageButton extends StatelessWidget {
           style: ButtonStyle(
             foregroundColor: MaterialStateColor.resolveWith((states) {
               if (states.contains(MaterialState.selected)) {
-                return kAccentColor;
-              } else if (states.contains(MaterialState.disabled)) {
-                return kAccentDarkColor;
+                return Theme.of(context).colorScheme.secondary;
               } else {
                 return Colors.black;
               }

@@ -47,35 +47,10 @@ class TextWithLabel extends StatelessWidget {
                 },
                 style: TextStyle(fontSize: itemHeight(14.0)),
                 validator: validate,
-                decoration: inputDecoration.copyWith()),
+                decoration: inputDecoration(context)),
           ),
         ],
       ),
     );
   }
 }
-// Stack(children: <Widget>[
-// Container(
-// width: MediaQuery.of(context).size.width,
-// height: 58.0,
-// margin: EdgeInsets.symmetric(vertical: 6.0),
-// // height: 50.0,
-// decoration: BoxDecoration(
-// color: Colors.white,
-// borderRadius: BorderRadius.circular(24.0),
-// boxShadow: [BoxShadow(spreadRadius: 0.5, blurRadius: 10, color: Color.fromRGBO(5, 27, 178, 0.32), offset: Offset(0, 5))]),
-// ),
-// buildTextField(context),
-// Container(
-// height: 70.0,
-// width: 70.0,
-// decoration: BoxDecoration(
-// shape: BoxShape.circle,
-// color: Colors.white,
-// boxShadow: [BoxShadow(spreadRadius: 0.5, offset: Offset(0, 5), color: Color.fromRGBO(5, 27, 178, 0.32), blurRadius: 10)]),
-// child: Padding(
-// padding: EdgeInsets.all(12.0),
-// child: Icon(icon),
-// ),
-// )
-// ]);

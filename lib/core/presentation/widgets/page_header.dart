@@ -20,8 +20,7 @@ class PageHeader extends StatelessWidget {
     return Container(
       width: Config.width,
       decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("assets/images/box.jpg"), fit: BoxFit.cover),
+        image: DecorationImage(image: AssetImage("assets/images/box.jpg"), fit: BoxFit.cover),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5.0)),
       ),
       child: Column(
@@ -32,11 +31,9 @@ class PageHeader extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(top: itemHeight(25.0)),
               child: CircleAvatar(
-                backgroundColor: Colors.white,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 radius: itemWidth(30.0),
-                child: IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.arrow_back_ios_new)),
+                child: IconButton(onPressed: () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios_new)),
               ),
             ),
           ),
@@ -51,10 +48,7 @@ class PageHeader extends StatelessWidget {
           Spacer(),
           Padding(
             padding: EdgeInsets.only(bottom: itemHeight(8.0)),
-            child: BuildDotsRow(
-                currentPage: currentPage,
-                index: currentPage,
-                length: pages.length),
+            child: BuildDotsRow(currentPage: currentPage, index: currentPage, length: pages.length),
           ),
         ],
       ),
