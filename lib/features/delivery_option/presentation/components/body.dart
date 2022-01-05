@@ -10,16 +10,16 @@ import 'package:e_pack/features/delivery_option/presentation/Screens/time_select
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
-  Body({Key? key}) : super(key: key);
+  const Body({Key? key}) : super(key: key);
 
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
   int currentPage = 0;
-  ScrollController _scrollControl = ScrollController();
+  final ScrollController _scrollControl = ScrollController();
 
   @override
   void initState() {
@@ -29,18 +29,26 @@ class _BodyState extends State<Body> {
   @override
   void dispose() {
     super.dispose();
-    _controller!.dispose();
+    _controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> title = ["Time Selection", "Appartment Type", "Box Sizes", "Relocation Details", "Collection Info", "Destination Info", "Momo Info"];
+    List<String> title = [
+      "Time Selection",
+      "Appartment Type",
+      "Box Sizes",
+      "Relocation Details",
+      "Collection Info",
+      "Destination Info",
+      "Momo Info"
+    ];
 
     Config.init(context);
     List<Widget> pages = [
       TimeSelection(
         currentPage: currentPage,
-        controller: _controller!,
+        controller: _controller,
         scroll: _scrollControl,
       ),
       RoomType(
@@ -71,7 +79,7 @@ class _BodyState extends State<Body> {
       MomoInformation(
         _scrollControl,
         currentPage,
-        _controller!,
+        _controller,
       )
     ];
 
@@ -90,7 +98,8 @@ class _BodyState extends State<Body> {
             itemBuilder: (context, index) => pages[index],
           ),
         ),
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) =>
+            [
           SliverAppBar(
             snap: true,
             bottom: AppBar(
@@ -98,7 +107,9 @@ class _BodyState extends State<Body> {
                 color: Theme.of(context).colorScheme.primaryVariant,
               ),
               elevation: 1.0,
-              backgroundColor: (innerBoxIsScrolled) ? Theme.of(context).colorScheme.secondaryVariant : Colors.transparent,
+              backgroundColor: (innerBoxIsScrolled)
+                  ? Theme.of(context).colorScheme.secondaryVariant
+                  : Colors.transparent,
               title: Text(
                 title[currentPage],
               ),
