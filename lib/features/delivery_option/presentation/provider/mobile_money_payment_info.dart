@@ -9,6 +9,7 @@ import 'package:e_pack/features/delivery_option/presentation/provider/box_size_d
 import 'package:e_pack/features/delivery_option/presentation/provider/collection_info.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/relocation_details_info.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/time_info_notifier.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,7 @@ import 'delivery_recepient_info.dart';
 
 class MomoInformationProvider extends ChangeNotifier {
   final TextEditingController _momoUser = TextEditingController();
-  final TextEditingController _momoNum = TextEditingController();
+  final TextEditingController _momoNum = MaskedTextController(mask: "(000)-000-0000");
 
   TextEditingController get momoUser => _momoUser;
   TextEditingController get momoNum => _momoNum;

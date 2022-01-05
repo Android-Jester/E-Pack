@@ -65,7 +65,7 @@ class _BodyState extends State<Body> {
         scroll: _scrollControl,
       ),
       StorageMomoPayment(
-        controller: _controller!,
+        controller: _controller,
         currentPage: currentPage,
         scroll: _scrollControl,
       )

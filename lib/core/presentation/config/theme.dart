@@ -1,13 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'colors.dart';
 import 'config.dart';
 
 var border = OutlineInputBorder(
-  borderSide: BorderSide(color: Colors.black54),
+  borderSide: const BorderSide(color: Colors.black54),
   borderRadius: BorderRadius.circular(
     itemHeight(10),
   ),
@@ -16,14 +15,7 @@ var border = OutlineInputBorder(
 inputDecoration(
   BuildContext context,
 ) =>
-    InputDecoration(
-        filled: true,
-        fillColor: Colors.purple[200],
-        border: border,
-        errorBorder: border,
-        disabledBorder: border,
-        focusedBorder: border,
-        focusedErrorBorder: border);
+    InputDecoration(filled: true, border: border, errorBorder: border, disabledBorder: border, focusedBorder: border, focusedErrorBorder: border);
 
 ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: kBackgroundLightColor,

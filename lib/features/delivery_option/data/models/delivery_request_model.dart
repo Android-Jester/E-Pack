@@ -41,6 +41,25 @@ class DeliveryRequestModel extends DeliveryRequest {
           cost: cost,
         );
 
+  factory DeliveryRequestModel.fromJson(Map<String, dynamic> json) {
+    return DeliveryRequestModel(
+        timeCollect: json["timecollect"],
+        relocateInfo: json["relocateInfo"],
+        residenceName: json["residenceName"],
+        collectRoomType: json["collectRoomType"],
+        roomNumber: json["roomNumber"],
+        phoneNumber: json["phoneNumber"],
+        addressType: json["addressType"],
+        accessNote: json["accessNote"],
+        destinationAddress: json["destinationAddress"],
+        destinationRoomNumber: json["destinationRoomNumber"],
+        contactName: json["contactName"],
+        contactPhoneNum: json["contactPhoneNum"],
+        momoFullName: json["momoFullName"],
+        momoPhoneNum: json["momoPhoneNum"],
+        cost: json["cost"]);
+  }
+
   Map<String, dynamic> toJson() {
     return {
       // Time Collection

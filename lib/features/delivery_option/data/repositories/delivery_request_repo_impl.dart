@@ -3,41 +3,25 @@ import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/core/error/exception.dart';
 import 'package:e_pack/core/network/network_info.dart';
 import 'package:e_pack/features/delivery_option/data/datasources/delivery_data_reciever.dart';
+import 'package:e_pack/features/delivery_option/data/models/delivery_request_model.dart';
 import 'package:e_pack/features/delivery_option/domain/entities/delivery_request.dart';
 import 'package:e_pack/features/delivery_option/domain/repositories/delivery_request_repo.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-typedef Future<DeliveryRequest> _GetModelInstance();
+typedef Future<DeliveryRequestModel> _GetModelInstance();
 
 class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
   final DeliveryDataReciever serverHost;
-  NetworkInfo networkInfo = NetworkInfoImpl(InternetConnectionChecker());
+  final NetworkInfo networkInfo = NetworkInfoImpl(InternetConnectionChecker());
 
   DeliveryRequestRepositoryImpl({required this.serverHost});
 
-  Future<Either<Failure, DeliveryRequest>>? _getResponse(_GetModelInstance responseModel) async {
+  Future<Either<Failure, DeliveryRequest>>? _getResponse(
+      _GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
-        serverHost.sendDeliveryRequest(
-            timeCollect: model.timeCollect,
-            relocateInfo: model.relocateInfo,
-            residenceName: model.residenceName,
-            collectRoomType: model.collectRoomType,
-            roomNumber: model.roomNumber,
-            phoneNumber: model.phoneNumber,
-            addressType: model.addressType,
-            accessNote: model.accessNote,
-            destinationAddress: model.destinationAddress,
-            destinationRoomNumber: model.destinationRoomNumber,
-            contactName: model.contactName,
-            contactPhoneNum: model.contactPhoneNum,
-            momoFullName: model.momoFullName,
-            momoPhoneNum: model.momoPhoneNum,
-            smallBoxSizeCount: model.smallBoxSizeCount,
-            mediumBoxSizeCount: model.mediumBoxSizeCount,
-            largeBoxSizeCount: model.largeBoxSizeCount,
-            cost: model.cost);
+        serverHost.sendDeliveryRequest(model: model);
         return Right(model);
       } on ServerException {
         return Left(ServerFailure());
@@ -68,7 +52,7 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
     required String? momoPhoneNum,
     required double? cost,
   }) async {
-    return await _getResponse(() async => DeliveryRequest(
+    return await _getResponse(() async => DeliveryRequestModel(
         timeCollect: timeCollect,
         relocateInfo: relocateInfo,
         residenceName: residenceName,

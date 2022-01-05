@@ -16,11 +16,12 @@ class TimeInfo extends ChangeNotifier {
 
   validation(PageController controller, ScrollController scroll, int currentPage) {
     if (_timeDate!.text.isEmpty) {
+      return "Please enter the Date";
+    } else {
       if (timeDateData != null) {
         smoothScrollToTop(scroll);
         direction(controller, currentPage, true);
       }
-      return "Please enter the Date";
     }
   }
 }

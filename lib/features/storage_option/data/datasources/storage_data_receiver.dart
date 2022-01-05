@@ -1,27 +1,12 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:e_pack/core/error/exception.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/features/storage_option/data/models/storage_request_model.dart';
 
 abstract class StorageDataReceiver {
   Future<Document> sendStorageRequest({
-    required String timeCollect,
-    required String collectRoomType,
-    int largeBoxSizeCount = 0,
-    int mediumBoxSizeCount = 0,
-    int smallBoxSizeCount = 0,
-    required String residenceName,
-    required String roomNumber,
-    required String phoneNumber,
-    required String addressType,
-    required String accessNote,
-    required String locationName,
-    required String localPhoneNum,
-    required String whatsPhoneNum,
-    required String contactTimes,
-    required String momoFullName,
-    required String momoPhoneNum,
-    required double cost,
+    required StorageRequestModel model,
   });
 }
 
@@ -30,45 +15,15 @@ class StorageDataReceiverImpl implements StorageDataReceiver {
 
   @override
   Future<Document> sendStorageRequest({
-    required String timeCollect,
-    required String collectRoomType,
-    int largeBoxSizeCount = 0,
-    int mediumBoxSizeCount = 0,
-    int smallBoxSizeCount = 0,
-    required String residenceName,
-    required String roomNumber,
-    required String phoneNumber,
-    required String addressType,
-    required String accessNote,
-    required String locationName,
-    required String localPhoneNum,
-    required String whatsPhoneNum,
-    required String contactTimes,
-    required String momoFullName,
-    required String momoPhoneNum,
-    required double cost,
+    required StorageRequestModel model,
   }) {
-    var model = StorageRequestModel(
-        largeBoxSizeCount: largeBoxSizeCount,
-        mediumBoxSizeCount: mediumBoxSizeCount,
-        smallBoxSizeCount: smallBoxSizeCount,
-        timeCollect: timeCollect,
-        collectRoomType: collectRoomType,
-        residenceName: residenceName,
-        roomNumber: roomNumber,
-        phoneNumber: phoneNumber,
-        addressType: addressType,
-        accessNote: accessNote,
-        locationName: locationName,
-        localPhoneNum: localPhoneNum,
-        whatsPhoneNum: whatsPhoneNum,
-        contactTimes: contactTimes,
-        momoFullName: momoFullName,
-        momoPhoneNum: momoPhoneNum,
-        cost: cost);
-    return database.createDocument(
+    return database
+        .createDocument(
       collectionId: '6185f59c8c38e',
       data: model.toJson(),
-    );
+    )
+        .catchError((e) {
+      throw ServerException(e);
+    });
   }
 }
