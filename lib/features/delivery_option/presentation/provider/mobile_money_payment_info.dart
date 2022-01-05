@@ -17,7 +17,8 @@ import 'delivery_recepient_info.dart';
 
 class MomoInformationProvider extends ChangeNotifier {
   final TextEditingController _momoUser = TextEditingController();
-  final TextEditingController _momoNum = MaskedTextController(mask: "(000)-000-0000");
+  final TextEditingController _momoNum =
+      MaskedTextController(mask: "(000)-000-0000");
 
   TextEditingController get momoUser => _momoUser;
   TextEditingController get momoNum => _momoNum;
@@ -25,36 +26,54 @@ class MomoInformationProvider extends ChangeNotifier {
   final _formKey = GlobalKey<FormState>();
 
   builder(BuildContext con, PageController controller, int currentPage) {
-    double _cost = (Provider.of<BoxSizeData>(con, listen: false).largeBoxSizeText * 5) +
-        (Provider.of<BoxSizeData>(con, listen: false).mediumBoxSizeText * 2) +
-        (Provider.of<BoxSizeData>(con, listen: false).smallBoxSizeText * 1.5);
-    var usecase = SendDeliveryRequest(repo: DeliveryRequestRepositoryImpl(serverHost: DeliveryDataRecieverImpl()));
-    print("Started Future");
+    // Gets the dependency of each area
+    var boxSizes = Provider.of<BoxSizeData>(con, listen: false);
+    var timeInfo = Provider.of<TimeInfo>(con, listen: false);
+    var relocate = Provider.of<RelocationDetailsInfo>(con, listen: false);
+    var collection = Provider.of<CollectionInfo>(con, listen: false);
+    var finalInfo = Provider.of<DeliveryRecepientInfo>(con, listen: false);
+
+    // Calculate the Cost
+    double _cost = (boxSizes.largeBoxSizeText * 5) +
+        (boxSizes.mediumBoxSizeText * 2) +
+        (boxSizes.smallBoxSizeText * 1.5);
+
+    // Sets the value of the parameter
+    Params params = Params(
+      timeCollect: timeInfo.dateTimeVal,
+      largeBoxSizeCount: boxSizes.largeBoxSizeText,
+      mediumBoxSizeCount: boxSizes.mediumBoxSizeText,
+      smallBoxSizeCount: boxSizes.smallBoxSizeText,
+      relocateInfo: relocate.relocationValue,
+      residenceName: collection.residenceName,
+      roomNumber: collection.roomNumber,
+      phoneNumber: collection.mobileNumber,
+      addressType: collection.addressType,
+      accessNote: collection.accessNote,
+      destinationAddress: finalInfo.destinationAddress,
+      destinationRoomNumber: finalInfo.roomNumber,
+      contactName: finalInfo.contactName,
+      contactPhoneNum: finalInfo.contactNumber,
+      momoPhoneNum: _momoNum.text,
+      momoFullName: _momoUser.text,
+      cost: _cost,
+      collectRoomType: collection.roomNumber,
+    );
+
+    // Initialize the Usecase
+    var usecase = SendDeliveryRequest(
+        repo: DeliveryRequestRepositoryImpl(
+            serverHost: DeliveryDataRecieverImpl()));
+
+    //shows a dialog of whether the operation was successful or a failure
     showDialog(
       builder: (context) => FutureBuilder(
-          future: usecase.call(Params(
-              timeCollect: Provider.of<TimeInfo>(con, listen: false).dateTimeVal,
-              largeBoxSizeCount: Provider.of<BoxSizeData>(con, listen: false).largeBoxSizeText,
-              mediumBoxSizeCount: Provider.of<BoxSizeData>(con, listen: false).mediumBoxSizeText,
-              smallBoxSizeCount: Provider.of<BoxSizeData>(con, listen: false).smallBoxSizeText,
-              relocateInfo: Provider.of<RelocationDetailsInfo>(con, listen: false).relocationValue,
-              residenceName: Provider.of<CollectionInfo>(con, listen: false).residenceName,
-              roomNumber: Provider.of<CollectionInfo>(con, listen: false).roomNumber,
-              phoneNumber: Provider.of<CollectionInfo>(con, listen: false).mobileNumber,
-              addressType: Provider.of<CollectionInfo>(con, listen: false).addressType,
-              accessNote: Provider.of<CollectionInfo>(con, listen: false).accessNote,
-              destinationAddress: Provider.of<DeliveryRecepientInfo>(con, listen: false).destinationAddress,
-              destinationRoomNumber: Provider.of<DeliveryRecepientInfo>(con, listen: false).roomNumber,
-              contactName: Provider.of<DeliveryRecepientInfo>(con, listen: false).contactName,
-              contactPhoneNum: Provider.of<DeliveryRecepientInfo>(con, listen: false).contactNumber,
-              momoPhoneNum: _momoNum.text,
-              momoFullName: _momoUser.text,
-              cost: _cost,
-              collectRoomType: Provider.of<CollectionInfo>(con, listen: false).roomNumber)),
+          future: usecase.call(params),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Finalize(
-                dateTimeVal: Provider.of<TimeInfo>(con, listen: false).dateTimeVal!,
+                dateTimeVal:
+                    Provider.of<TimeInfo>(con, listen: false).dateTimeVal!,
               );
             } else if (snapshot.hasError) {
               return ErrorDialog(retry: () {
@@ -75,14 +94,19 @@ class MomoInformationProvider extends ChangeNotifier {
 
   get key => _formKey;
 
-  validation({required BuildContext con, required PageController controller, required int currentPage}) {
+  // Validates the TextFields
+  validation(
+      {required BuildContext con,
+      required PageController controller,
+      required int currentPage}) {
     if (_formKey.currentState!.validate()) {
       showDialog(
           context: con,
           builder: (context) {
             Config.init(context);
             return Dialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(itemWidth(30.0))),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(itemWidth(30.0))),
               child: Container(
                 height: itemHeight(140),
                 child: Column(
@@ -107,7 +131,9 @@ class MomoInformationProvider extends ChangeNotifier {
                             width: itemWidth(120),
                             text: "No",
                             onPressed: () => controller
-                                .animateToPage(0, duration: Duration(milliseconds: 1), curve: Curves.bounceIn)
+                                .animateToPage(0,
+                                    duration: Duration(milliseconds: 1),
+                                    curve: Curves.bounceIn)
                                 .then((value) => Navigator.pop(context)),
                           ),
                         ],
@@ -121,11 +147,14 @@ class MomoInformationProvider extends ChangeNotifier {
     }
   }
 
+  // Sets conditions for validation to be true
   validate(String val, {bool isNumber = false}) {
     if (val == " ") {
       return "There is no username or value";
     } else {
-      return (isNumber == true && val.length < 10) ? "The number is incomplete" : null;
+      return (isNumber == true && val.length < 10)
+          ? "The number is incomplete"
+          : null;
     }
   }
 }

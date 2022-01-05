@@ -17,7 +17,8 @@ import 'time_info_notifier.dart';
 
 class StorageMomoPaymentInfo extends ChangeNotifier {
   final TextEditingController _momoUser = TextEditingController();
-  final TextEditingController _momoNum = MaskedTextController(mask: "(000)-000-0000");
+  final TextEditingController _momoNum =
+      MaskedTextController(mask: "(000)-000-0000");
 
   TextEditingController get momoUser => _momoUser;
   TextEditingController get momoNum => _momoNum;
@@ -25,38 +26,47 @@ class StorageMomoPaymentInfo extends ChangeNotifier {
   final _formKey = GlobalKey<FormState>();
 
   builder(BuildContext con, PageController controller, int currentPage) {
+    var timeInfo = Provider.of<StorageTimeInfo>(con, listen: false);
+    var boxSizes = Provider.of<StorageBoxSizeData>(con, listen: false);
+    var collection = Provider.of<StorageCollectionData>(con, listen: false);
+    var finalInfo = Provider.of<StorageRecepientInfo>(con, listen: false);
+    var roomType = Provider.of<StorageRoomTypeData>(con, listen: false);
 
-    double _cost = (Provider.of<StorageBoxSizeData>(con, listen: false).largeBoxSizeText * 5) +
-        (Provider.of<StorageBoxSizeData>(con, listen: false).mediumBoxSizeText * 2) +
-        (Provider.of<StorageBoxSizeData>(con, listen: false).smallBoxSizeText * 1.5);
+    double _cost = (boxSizes.largeBoxSizeText * 5) +
+        (boxSizes.mediumBoxSizeText * 2) +
+        (boxSizes.smallBoxSizeText * 1.5);
 
-    var usecase = SendStorageRequest(StorageRequestRepositoryImpl(serverHost: StorageDataReceiverImpl()));
+    Params params = Params(
+        timeCollect: timeInfo.dateTimeVal,
+        largeBoxSizeCount: boxSizes.largeBoxSizeText,
+        mediumBoxSizeCount: boxSizes.mediumBoxSizeText,
+        smallBoxSizeCount: boxSizes.smallBoxSizeText,
+        residenceName: collection.residenceName,
+        roomNumber: collection.roomNumber,
+        phoneNumber: collection.mobileNumber,
+        addressType: collection.addressType,
+        accessNote: collection.accessNote,
+        locationName: finalInfo.locationAddress,
+        contactTimes: finalInfo.contactTimes,
+        localPhoneNum: finalInfo.phoneNumber,
+        whatsPhoneNum: finalInfo.whatsAppNumber,
+        momoPhoneNum: _momoNum.text,
+        momoFullName: _momoUser.text,
+        cost: _cost,
+        collectRoomType: roomType.roomType.toString());
+
+    var usecase = SendStorageRequest(
+        StorageRequestRepositoryImpl(serverHost: StorageDataReceiverImpl()));
 
     showDialog(
       context: con,
       builder: (context) => FutureBuilder(
-          future: usecase.call(Params(
-              timeCollect: Provider.of<StorageTimeInfo>(con, listen: false).dateTimeVal,
-              largeBoxSizeCount: Provider.of<StorageBoxSizeData>(con, listen: false).largeBoxSizeText,
-              mediumBoxSizeCount: Provider.of<StorageBoxSizeData>(con, listen: false).mediumBoxSizeText,
-              smallBoxSizeCount: Provider.of<StorageBoxSizeData>(con, listen: false).smallBoxSizeText,
-              residenceName: Provider.of<StorageCollectionData>(con, listen: false).residenceName,
-              roomNumber: Provider.of<StorageCollectionData>(con, listen: false).roomNumber,
-              phoneNumber: Provider.of<StorageCollectionData>(con, listen: false).mobileNumber,
-              addressType: Provider.of<StorageCollectionData>(con, listen: false).addressType,
-              accessNote: Provider.of<StorageCollectionData>(con, listen: false).accessNote,
-              locationName: Provider.of<StorageRecepientInfo>(con, listen: false).locationAddress,
-              contactTimes: Provider.of<StorageRecepientInfo>(con, listen: false).contactTimes,
-              localPhoneNum: Provider.of<StorageRecepientInfo>(con, listen: false).phoneNumber,
-              whatsPhoneNum: Provider.of<StorageRecepientInfo>(con, listen: false).whatsAppNumber,
-              momoPhoneNum: _momoNum.text,
-              momoFullName: _momoUser.text,
-              cost: _cost,
-              collectRoomType: Provider.of<StorageRoomTypeData>(con, listen: false).roomType.toString())),
+          future: usecase.call(params),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Finalize(
-                dateTimeVal: Provider.of<StorageTimeInfo>(con, listen: false).dateTimeVal,
+                dateTimeVal: Provider.of<StorageTimeInfo>(con, listen: false)
+                    .dateTimeVal,
               );
             } else if (snapshot.hasError) {
               return ErrorDialog(
@@ -74,14 +84,18 @@ class StorageMomoPaymentInfo extends ChangeNotifier {
 
   get key => _formKey;
 
-  validation({required BuildContext con, required PageController controller, required int currentPage}) {
+  validation(
+      {required BuildContext con,
+      required PageController controller,
+      required int currentPage}) {
     if (_formKey.currentState!.validate()) {
       showDialog(
           context: con,
           builder: (context) {
             Config.init(context);
             return Dialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(itemWidth(30.0))),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(itemWidth(30.0))),
               child: Container(
                 height: itemHeight(140),
                 child: Column(
@@ -106,7 +120,9 @@ class StorageMomoPaymentInfo extends ChangeNotifier {
                             width: itemWidth(120),
                             text: "No",
                             onPressed: () => controller
-                                .animateToPage(0, duration: Duration(milliseconds: 1), curve: Curves.bounceIn)
+                                .animateToPage(0,
+                                    duration: Duration(milliseconds: 1),
+                                    curve: Curves.bounceIn)
                                 .then((value) => Navigator.pop(context)),
                           ),
                         ],
@@ -124,7 +140,10 @@ class StorageMomoPaymentInfo extends ChangeNotifier {
     if (val == " ") {
       return "There is no username or value";
     } else {
-      return (isNumber == true && val.length < 14 || isNumber == true && val.length > 14) ? "The number is incomplete" : null;
+      return (isNumber == true && val.length < 14 ||
+              isNumber == true && val.length > 14)
+          ? "The number is incomplete"
+          : null;
     }
   }
 }
