@@ -23,7 +23,6 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
-        print("repository started");
         serverHost.sendStorageRequest(
           model: model,
         );
