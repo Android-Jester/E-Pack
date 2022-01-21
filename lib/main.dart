@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'core/presentation/provider/home_screen_data.dart';
 import 'core/presentation/routes.dart';
 import 'features/log_in/presentation/provider/login_info_provider.dart';
-import 'features/sign_up/presentation/provider/login_info_provider.dart';
+import 'features/sign_up/presentation/provider/SignUp_info.dart';
 
 void main() async {
   runApp(const MyApp());

@@ -6,18 +6,19 @@ import 'package:e_pack/features/delivery_option/data/datasources/delivery_data_r
 import 'package:e_pack/features/delivery_option/data/models/delivery_request_model.dart';
 import 'package:e_pack/features/delivery_option/domain/entities/delivery_request.dart';
 import 'package:e_pack/features/delivery_option/domain/repositories/delivery_request_repo.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 typedef Future<DeliveryRequestModel> _GetModelInstance();
 
 class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
   final DeliveryDataReciever serverHost;
-  final NetworkInfo networkInfo = NetworkInfoImpl(InternetConnectionChecker());
+  final NetworkInfo networkInfo;
 
-  DeliveryRequestRepositoryImpl({required this.serverHost});
+  DeliveryRequestRepositoryImpl({
+    required this.networkInfo,
+    required this.serverHost,
+  });
 
-  Future<Either<Failure, DeliveryRequest>>? _getResponse(
-      _GetModelInstance responseModel) async {
+  Future<Either<Failure, DeliveryRequest>>? _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();

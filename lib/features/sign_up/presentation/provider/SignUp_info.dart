@@ -10,6 +10,7 @@ class SignupInfo extends ChangeNotifier {
 
   get key => _formKey;
 
+  // Text Controllers to get info
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
   final TextEditingController userNamecontroller = TextEditingController();

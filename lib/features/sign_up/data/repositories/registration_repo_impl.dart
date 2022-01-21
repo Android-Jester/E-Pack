@@ -6,21 +6,23 @@ import 'package:e_pack/features/sign_up/data/datasources/register_server.dart';
 import 'package:e_pack/features/sign_up/data/models/register_user_model.dart';
 import 'package:e_pack/features/sign_up/domain/entities/registering_user.dart';
 import 'package:e_pack/features/sign_up/domain/repositories/registering_user_repo.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-typedef _GetModelInstance = Future<RegisterUser> Function();
+typedef _GetModelInstance = Future<RegisterUserModel> Function();
 
 class RegisterRepoImpl implements RegisterRepo {
   final RegisterServer authServer;
-  NetworkInfo networkInfo = NetworkInfoImpl(InternetConnectionChecker());
+  final NetworkInfo networkInfo;
 
-  RegisterRepoImpl({required this.authServer});
+  RegisterRepoImpl({
+    required this.networkInfo,
+    required this.authServer,
+  });
 
   Future<Either<Failure, RegisterUser>?> _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
-        await authServer.registerUser(email: model.email, password: model.password, name: model.name);
+        await authServer.registerUser(model: model);
         return Right(model);
       } on ServerException {
         return Left(ServerFailure());

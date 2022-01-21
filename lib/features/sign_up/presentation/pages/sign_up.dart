@@ -3,7 +3,7 @@ import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
 import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/core/presentation/widgets/header_container.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
-import 'package:e_pack/features/sign_up/presentation/provider/login_info_provider.dart';
+import 'package:e_pack/features/sign_up/presentation/provider/SignUp_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:provider/provider.dart';
