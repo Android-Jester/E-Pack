@@ -12,6 +12,12 @@ class ErrorDialog extends StatelessWidget {
     required this.dispose,
   }) : super(key: key);
 
+  builder(context) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      showDialog(context: context, builder: (context) => build(context));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -65,6 +71,12 @@ class LoadingDialog extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  builder(context) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      showDialog(context: context, builder: (context) => build(context));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return const Dialog(
@@ -81,6 +93,12 @@ class SuccessDialog extends StatelessWidget {
     required this.routeid,
     Key? key,
   }) : super(key: key);
+
+  builder(context) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      showDialog(context: context, builder: (context) => build(context));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +127,12 @@ class WarningDialog extends StatelessWidget {
   final String text;
 
   WarningDialog({required this.text});
+
+  builder(context) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      showDialog(context: context, builder: (context) => build(context));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

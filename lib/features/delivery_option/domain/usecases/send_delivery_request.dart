@@ -11,9 +11,8 @@ class SendDeliveryRequest extends UseCase<DeliveryRequest, Params> {
   SendDeliveryRequest({required this.repo});
 
   @override
-  Future<Either<Failure, DeliveryRequest>?>? call(Params params) async {
-    print(params);
-    return await repo.sendDeliveryRequest(
+  Future<Either<Failure, DeliveryRequest>> call({required Params params}) async {
+    return repo.sendDeliveryRequest(
       // Time Collection
       timeCollect: params.timeCollect,
 
@@ -48,29 +47,29 @@ class SendDeliveryRequest extends UseCase<DeliveryRequest, Params> {
 }
 
 class Params extends Equatable {
-  final String? timeCollect;
-  final String? collectRoomType;
-  final int? largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
-  final int? relocateInfo;
-  final String? residenceName;
-  final String? roomNumber;
-  final String? phoneNumber;
-  final String? addressType;
-  final String? accessNote;
-  final String? destinationAddress;
-  final String? destinationRoomNumber;
-  final String? contactName, contactPhoneNum;
-  final String? momoFullName, momoPhoneNum;
-  final double? cost;
+  final String timeCollect;
+  final String collectRoomType;
+  final int largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
+  final int relocateInfo;
+  final String residenceName;
+  final String roomNumber;
+  final String phoneNumber;
+  final String addressType;
+  final String accessNote;
+  final String destinationAddress;
+  final String destinationRoomNumber;
+  final String contactName, contactPhoneNum;
+  final String momoFullName, momoPhoneNum;
+  final double cost;
 
   Params({
     // Time Collection
     required this.timeCollect,
 
     //Box Sizes
-    this.largeBoxSizeCount,
-    this.mediumBoxSizeCount,
-    this.smallBoxSizeCount,
+    required this.largeBoxSizeCount,
+    required this.mediumBoxSizeCount,
+    required this.smallBoxSizeCount,
 
     //relocation Information
     required this.relocateInfo,

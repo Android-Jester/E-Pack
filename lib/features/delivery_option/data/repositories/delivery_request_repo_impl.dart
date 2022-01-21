@@ -18,7 +18,7 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
     required this.serverHost,
   });
 
-  Future<Either<Failure, DeliveryRequest>>? _getResponse(_GetModelInstance responseModel) async {
+  Future<Either<Failure, DeliveryRequest>> _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
@@ -33,7 +33,7 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
   }
 
   @override
-  Future<Either<Failure, DeliveryRequest>?>? sendDeliveryRequest({
+  Future<Either<Failure, DeliveryRequest>> sendDeliveryRequest({
     required String? timeCollect,
     required int? largeBoxSizeCount,
     required int? mediumBoxSizeCount,

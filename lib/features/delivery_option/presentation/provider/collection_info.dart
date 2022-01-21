@@ -13,6 +13,7 @@ class CollectionInfo extends ChangeNotifier {
   bool _isAgreed = false;
   String addressType = "Hostel";
 
+  // Getters for information collection
   get key => _formKey;
   String get residenceName => residenceNameController.text;
   String get roomNumber => roomNumController.text;
@@ -40,6 +41,7 @@ class CollectionInfo extends ChangeNotifier {
     }
   }
 
+  // Validation Conditions
   String? validator(String val, {bool isNumeric = false, bool isPhoneNumber = false}) {
     if (val.isEmpty) {
       return "Please Fill this space";
@@ -53,6 +55,7 @@ class CollectionInfo extends ChangeNotifier {
     }
   }
 
+  // If Validation is [True]
   void validation(ScrollController scroll, PageController controller, int currentPage) {
     if (_formKey.currentState!.validate() && isGranted && isAgreed) {
       smoothScrollToTop(scroll);

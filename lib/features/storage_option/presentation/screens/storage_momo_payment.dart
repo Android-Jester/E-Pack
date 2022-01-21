@@ -62,9 +62,7 @@ class _MomoInformationState extends State<StorageMomoPayment> {
                       textCon: data.momoNum,
                       type: TextInputType.phone),
                   SizedBox(height: itemHeight(35.0)),
-                  CustomButton(
-                      text: "Finalize",
-                      onPressed: () => data.validation(con: context, controller: widget.controller, currentPage: widget.currentPage))
+                  CustomButton(text: "Finalize", onPressed: () => data.validation(context: context))
                 ],
               ),
             ),

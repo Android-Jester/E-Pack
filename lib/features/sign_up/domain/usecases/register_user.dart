@@ -10,8 +10,8 @@ class RegisteringUser extends UseCase<RegisterUser, Params> {
 
   RegisteringUser({required this.repo});
   @override
-  Future<Either<Failure, RegisterUser>?> call(Params params) {
-    return repo.registeruser(params.email, params.password, params.name);
+  Future<Either<Failure, RegisterUser>> call({required Params params}) {
+    return repo.registerUser(params.email, params.password, params.name);
   }
 }
 

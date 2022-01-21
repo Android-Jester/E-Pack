@@ -37,6 +37,6 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, AuthUser>?> authenticateUser(String email, String password) async =>
+  Future<Either<Failure, AuthUser>> authenticateUser(String email, String password) async =>
       await _getResponse(() async => LoginModel(email: email, password: password));
 }

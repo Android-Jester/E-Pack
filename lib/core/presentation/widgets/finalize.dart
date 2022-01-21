@@ -9,6 +9,12 @@ class Finalize extends StatelessWidget {
   final String dateTimeVal;
   Finalize({required this.dateTimeVal});
 
+  builder(context) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      showDialog(context: context, builder: (context) => build(context));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Config.init(context);

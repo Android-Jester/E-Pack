@@ -9,7 +9,7 @@ class AuthenticatingUser extends UseCase<AuthUser, Params> {
   final AuthRepo repo;
   AuthenticatingUser({required this.repo});
   @override
-  Future<Either<Failure, AuthUser>?> call(Params params) {
+  Future<Either<Failure, AuthUser>> call({required Params params}) {
     return repo.authenticateUser(params.email, params.password);
   }
 }

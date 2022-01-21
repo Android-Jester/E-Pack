@@ -3,7 +3,7 @@ import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/features/storage_option/domain/entities/storage_request.dart';
 
 abstract class StorageRequestRepository {
-  Future<Either<Failure, StorageRequest>?>? sendStorageRequest({
+  Future<Either<Failure, StorageRequest>> sendStorageRequest({
     // Time of Collection
     required String timeCollect,
 

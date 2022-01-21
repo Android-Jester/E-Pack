@@ -18,8 +18,7 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
     networkInfo = NetworkInfoImpl(InternetConnectionChecker());
   }
 
-  Future<Either<Failure, StorageRequest>?> _getResponse(
-      _GetModelInstance responseModel) async {
+  Future<Either<Failure, StorageRequest>> _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
@@ -36,7 +35,7 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
   }
 
   @override
-  Future<Either<Failure, StorageRequest>?>? sendStorageRequest({
+  Future<Either<Failure, StorageRequest>> sendStorageRequest({
     // Time of Collection
     required String timeCollect,
 
@@ -67,25 +66,24 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
     required String momoFullName,
     required String momoPhoneNum,
     required double cost,
-  }) async {
-    return await _getResponse(() async => StorageRequestModel(
-          timeCollect: timeCollect,
-          collectRoomType: collectRoomType,
-          residenceName: residenceName,
-          roomNumber: roomNumber,
-          phoneNumber: phoneNumber,
-          addressType: addressType,
-          accessNote: accessNote,
-          locationName: locationName,
-          localPhoneNum: localPhoneNum,
-          whatsPhoneNum: whatsPhoneNum,
-          contactTimes: contactTimes,
-          momoFullName: momoFullName,
-          momoPhoneNum: momoPhoneNum,
-          smallBoxSizeCount: smallBoxSizeCount,
-          mediumBoxSizeCount: mediumBoxSizeCount,
-          largeBoxSizeCount: largeBoxSizeCount,
-          cost: cost,
-        ));
-  }
+  }) async =>
+      _getResponse(() async => StorageRequestModel(
+            timeCollect: timeCollect,
+            collectRoomType: collectRoomType,
+            residenceName: residenceName,
+            roomNumber: roomNumber,
+            phoneNumber: phoneNumber,
+            addressType: addressType,
+            accessNote: accessNote,
+            locationName: locationName,
+            localPhoneNum: localPhoneNum,
+            whatsPhoneNum: whatsPhoneNum,
+            contactTimes: contactTimes,
+            momoFullName: momoFullName,
+            momoPhoneNum: momoPhoneNum,
+            smallBoxSizeCount: smallBoxSizeCount,
+            mediumBoxSizeCount: mediumBoxSizeCount,
+            largeBoxSizeCount: largeBoxSizeCount,
+            cost: cost,
+          ));
 }

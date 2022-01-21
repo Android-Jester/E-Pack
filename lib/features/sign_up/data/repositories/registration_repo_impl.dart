@@ -18,7 +18,7 @@ class RegisterRepoImpl implements RegisterRepo {
     required this.authServer,
   });
 
-  Future<Either<Failure, RegisterUser>?> _getResponse(_GetModelInstance responseModel) async {
+  Future<Either<Failure, RegisterUser>> _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
@@ -34,6 +34,6 @@ class RegisterRepoImpl implements RegisterRepo {
   }
 
   @override
-  Future<Either<Failure, RegisterUser>?> registeruser(String email, String password, String name) =>
+  Future<Either<Failure, RegisterUser>> registerUser(String email, String password, String name) =>
       _getResponse(() async => RegisterUserModel(email: email, password: password, name: name));
 }

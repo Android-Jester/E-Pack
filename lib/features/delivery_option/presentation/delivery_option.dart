@@ -1,3 +1,4 @@
+import 'package:e_pack/features/delivery_option/presentation/provider/bloc/delivery_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,7 @@ class DeliveryOption extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CollectionInfo()),
         ChangeNotifierProvider(create: (_) => DeliveryRecepientInfo()),
         ChangeNotifierProvider(create: (_) => MomoInformationProvider()),
+        ChangeNotifierProvider(create: (_) => DeliveryFinal(context: context)),
       ],
       child: Scaffold(
         body: Body(),

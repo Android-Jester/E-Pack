@@ -11,8 +11,8 @@ class SendStorageRequest extends UseCase<StorageRequest, Params> {
   SendStorageRequest(this.repo);
 
   @override
-  Future<Either<Failure, StorageRequest>?> call(Params params) async {
-    return await repo.sendStorageRequest(
+  Future<Either<Failure, StorageRequest>> call({required Params params}) async {
+    return repo.sendStorageRequest(
       // Time of Collection
       timeCollect: params.timeCollect,
 

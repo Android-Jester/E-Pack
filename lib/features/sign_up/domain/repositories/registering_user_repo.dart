@@ -3,6 +3,5 @@ import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/features/sign_up/domain/entities/registering_user.dart';
 
 abstract class RegisterRepo {
-  Future<Either<Failure, RegisterUser>?> registeruser(
-      String email, String password, String name);
+  Future<Either<Failure, RegisterUser>> registerUser(String email, String password, String name);
 }

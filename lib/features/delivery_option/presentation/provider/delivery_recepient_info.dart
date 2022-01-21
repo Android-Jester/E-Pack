@@ -40,14 +40,6 @@ class DeliveryRecepientInfo extends ChangeNotifier {
   String? numValidator(String val) {
     return (val.isNotEmpty && int.parse(val) is num) ? null : "Please Fill this space";
   }
-  //     if (isPhoneNumber) {
-  //       return (val.length == 14) ? null : "Please type 10 digits";
-  //     } else {
-  //       return "Please type in a number and not a text";
-  //     }
-  //   }
-  //   return ;
-  // }
 
   validation(BuildContext context, PageController controller, int currentPage, ScrollController scroll) {
     smoothScrollToTop(scroll);
