@@ -1,0 +1,83 @@
+import 'package:equatable/equatable.dart';
+
+class DeliveryRequest extends Equatable {
+  final String? timeCollect;
+  final String? collectRoomType;
+  final int? largeBoxSizeCount, mediumBoxSizeCount, smallBoxSizeCount;
+  final int? relocateInfo;
+  final String? residenceName;
+  final String? roomNumber;
+  final String? phoneNumber;
+  final String? addressType;
+  final String? accessNote;
+  final String? destinationAddress;
+  final String? destinationRoomNumber;
+  final String? contactName, contactPhoneNum;
+  final String? momoFullName, momoPhoneNum;
+  final double? cost;
+
+  DeliveryRequest({
+    // Time Collection
+    required this.timeCollect,
+
+    //Box Sizes
+    this.largeBoxSizeCount,
+    this.mediumBoxSizeCount,
+    this.smallBoxSizeCount,
+
+    //relocation Information
+    required this.relocateInfo,
+
+    // Collection Location Info
+    required this.residenceName,
+    required this.collectRoomType,
+    required this.roomNumber,
+    required this.phoneNumber,
+    required this.addressType,
+    required this.accessNote,
+
+    // Destination Information
+    required this.destinationAddress,
+    required this.destinationRoomNumber,
+    required this.contactName,
+    required this.contactPhoneNum,
+
+    //Payment Details
+    required this.momoFullName,
+    required this.momoPhoneNum,
+    required this.cost,
+  });
+
+  @override
+  List<Object?> get props => [
+        // Time Collection
+        timeCollect,
+
+        //Box Sizes
+        largeBoxSizeCount,
+        mediumBoxSizeCount,
+        smallBoxSizeCount,
+
+        //relocation Information
+        relocateInfo,
+
+        // Collection Location Info
+        residenceName,
+        collectRoomType,
+        roomNumber,
+        phoneNumber,
+        addressType,
+        accessNote,
+
+        // Destination Information
+        destinationAddress,
+        destinationRoomNumber,
+        contactName,
+        contactPhoneNum,
+
+        //Payment Details
+        momoFullName,
+        momoPhoneNum,
+        cost,
+      ];
+}
