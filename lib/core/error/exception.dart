@@ -1,6 +1,4 @@
-import 'package:appwrite/appwrite.dart';
-
-class ServerException implements Exception, AppwriteException {
+class ServerException implements Exception {
   final String message;
   final int statusCode;
 

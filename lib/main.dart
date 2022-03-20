@@ -1,10 +1,8 @@
 import 'dart:io';
 
-import 'package:appwrite/appwrite.dart';
 import 'package:e_pack/core/presentation/config/theme.dart';
 import 'package:e_pack/core/presentation/pages/home_screen.dart';
 import 'package:e_pack/core/presentation/pages/splash_screen.dart';
-import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/features/log_in/presentation/provider/bloc/login_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +13,11 @@ import 'core/presentation/routes.dart';
 import 'features/log_in/presentation/provider/login_info_provider.dart';
 import 'features/sign_up/presentation/provider/SignUp_info.dart';
 import 'features/sign_up/presentation/provider/bloc/signup_state.dart';
+import 'injector.dart';
 
 void main() async {
   runApp(const MyApp());
+  await start();
 }
 
 class MyApp extends StatefulWidget {
@@ -44,32 +44,25 @@ class _MyAppState extends State<MyApp> {
               theme: lightTheme,
               darkTheme: darkTheme,
               routes: routes,
-              home: FutureBuilder(
-                  future: Account(AppWriteServer.initClient()).get(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return HomeScreen();
-                    } else if (snapshot.hasError) {
-                      return SplashScreen();
-                    } else {
-                      return Scaffold(body: Center(child: CircularProgressIndicator()));
-                    }
-                  }),
+              home: FutureBuilder(builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return HomeScreen();
+                } else if (snapshot.hasError) {
+                  return SplashScreen();
+                } else {
+                  return Scaffold(body: Center(child: CircularProgressIndicator()));
+                }
+              }),
             )
           : CupertinoApp(
               routes: routes,
-              home: FutureBuilder(
-                  future: Account(AppWriteServer.initClient()).get(),
-                  builder: (context, snapshot) {
-                    // if (snapshot.hasData) {
-                    //   return HomeScreen();
-                    // } else
-                    if (snapshot.hasData) {
-                      return SplashScreen();
-                    } else {
-                      return Scaffold(body: Center(child: CircularProgressIndicator()));
-                    }
-                  }),
+              home: FutureBuilder(builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return SplashScreen();
+                } else {
+                  return Scaffold(body: Center(child: CircularProgressIndicator()));
+                }
+              }),
             ),
     );
   }
