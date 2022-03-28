@@ -2,8 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/features/delivery_option/domain/entities/delivery_request.dart';
 
+import '../entities/response.dart';
+
 abstract class DeliveryRequestRepository {
-  Future<Either<Failure, DeliveryRequest>> sendDeliveryRequest({
+  final String username = "";
+
+  Future<Either<Failure, DeliveryResponse>> sendDeliveryRequest({
     required String timeCollect,
     required int largeBoxSizeCount,
     required int mediumBoxSizeCount,

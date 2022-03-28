@@ -8,7 +8,6 @@ import 'package:e_pack/features/delivery_option/presentation/components/body.dar
 import 'package:e_pack/features/delivery_option/presentation/provider/bloc/delivery_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 class BoxChoices extends StatefulWidget {
   final PageController controller;

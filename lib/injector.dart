@@ -19,26 +19,26 @@ import 'features/log_in/data/repositories/authentication_repo_impl.dart';
 import 'features/sign_up/data/datasources/register_server.dart';
 import 'features/storage_option/domain/repositories/storage_request_repo.dart';
 
-class Dependency extends ChangeNotifier {
-  // Core
-  NetworkInfoImpl networkInfo = NetworkInfoImpl(InternetConnectionChecker());
-
-  // Delivery Repository
-  late DeliveryDataRecieverImpl deliveryServerHost;
-  late DeliveryRequestRepositoryImpl repositoryImpl = DeliveryRequestRepositoryImpl(networkInfo: networkInfo, serverHost: deliveryServerHost);
-
-  // Storage Repository
-  late StorageDataReceiverImpl storageServerHost;
-  late StorageRequestRepositoryImpl storageRepo = StorageRequestRepositoryImpl(serverHost: storageServerHost);
-
-  // Login Model
-  late AuthServerImpl authServer;
-  late AuthRepoImpl authRepo = AuthRepoImpl(server: authServer, networkInfo: networkInfo);
-
-  // SignUp Model
-  late RegisterServerImpl registerServer;
-  late RegisterRepoImpl regRepo = RegisterRepoImpl(networkInfo: networkInfo, authServer: registerServer);
-}
+// class Dependency extends ChangeNotifier {
+//   // Core
+//   NetworkInfoImpl networkInfo = NetworkInfoImpl(InternetConnectionChecker());
+//
+//   // Delivery Repository
+//   late DeliveryDataRecieverImpl deliveryServerHost;
+//   late DeliveryRequestRepositoryImpl repositoryImpl = DeliveryRequestRepositoryImpl(networkInfo: networkInfo, serverHost: deliveryServerHost);
+//
+//   // Storage Repository
+//   late StorageDataReceiverImpl storageServerHost;
+//   late StorageRequestRepositoryImpl storageRepo = StorageRequestRepositoryImpl(serverHost: storageServerHost);
+//
+//   // Login Model
+//   late AuthServerImpl authServer;
+//   late AuthRepoImpl authRepo = AuthRepoImpl(server: authServer, networkInfo: networkInfo);
+//
+//   // SignUp Model
+//   late RegisterServerImpl registerServer;
+//   late RegisterRepoImpl regRepo = RegisterRepoImpl(networkInfo: networkInfo, authServer: registerServer);
+// }
 
 final locator = GetIt.instance;
 
@@ -69,6 +69,7 @@ Future<void> start() async {
   locator.registerLazySingleton<DeliveryRequestRepository>(() => DeliveryRequestRepositoryImpl(
         serverHost: locator.get<DeliveryDataReciever>(),
         networkInfo: locator.get<NetworkInfo>(),
+    username: locator.get<String>(),
       ));
   locator.registerLazySingleton<SendDeliveryRequest>(() => SendDeliveryRequest(repo: locator.get<DeliveryRequestRepository>()));
   locator.registerLazySingleton<SendStorageRequest>(() => SendStorageRequest(locator.get<StorageRequestRepository>()));

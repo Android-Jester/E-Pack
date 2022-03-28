@@ -12,12 +12,12 @@ typedef _GetModelInstance = Future<RegisterUserModel> Function();
 class RegisterRepoImpl implements RegisterRepo {
   final RegisterServer authServer;
   final NetworkInfo networkInfo;
-  String username ="";
+  @override String username ="";
 
   RegisterRepoImpl({
     required this.networkInfo,
     required this.authServer,
-  });
+  }): super();
 
   Future<Either<Failure, RegisterUser>> _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {

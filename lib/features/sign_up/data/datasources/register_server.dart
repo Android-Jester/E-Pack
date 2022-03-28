@@ -12,7 +12,7 @@ class RegisterServerImpl implements RegisterServer {
 
   @override
   Future<void> registerUser({required RegisterUserModel model}) async {
-    net.Response response = await net.get(Uri.parse("$api/delivery"));
+    net.Response response = await net.get(Uri.parse("$api$signup"));
     // return response.body;
     print(response.body);
   }

@@ -84,17 +84,19 @@ class DeliveryCubit extends Cubit<DeliveryState> {
 
 
   // If Validation is [True]
-  void collectValidation(ScrollController scroll, PageController controller, int currentPage) {
-    if (infoCollectionKey.currentState!.validate() && isGranted && isAgreed) {
-      smoothScrollToTop(scroll);
-      direction(controller, currentPage, true);
-    }
-  }
+
 
   String? deliveryInfoNumValidator(String val) {
     return (val.isNotEmpty && int.parse(val) is num) ? null : "Please Fill this space";
   }
 
+
+  void allValidation(ScrollController scroll, PageController controller, int currentPage) {
+    if (infoCollectionKey.currentState!.validate() && isGranted && isAgreed) {
+      smoothScrollToTop(scroll);
+      direction(controller, currentPage, true);
+    }
+  }
   deliveryInfoValidation({required BuildContext context, required PageController controller, required int currentPage, required ScrollController scroll}) {
     smoothScrollToTop(scroll);
     if (deliveryInfoKey.currentState!.validate()) {
@@ -175,7 +177,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
   Stream<DeliveryState> sendRequest() async* {
     yield DeliveryLoading();
     emit(DeliveryLoading());
-    var result = deliveryRequest(params: Params(
+    var result = await deliveryRequest(params: Params(
       timeCollect: timeDate.text,
       smallBoxSizeCount: int.parse(smallBoxController.text),
       mediumBoxSizeCount: int.parse(mediumBoxController.text),
@@ -194,10 +196,11 @@ class DeliveryCubit extends Cubit<DeliveryState> {
       momoPhoneNum: momoUser.text,
       momoFullName: momoNum.text,
       cost: 1500.0,
-
-
     ));
-
+    result.fold(
+            (l) => DeliveryError(errorMessage: l.toString()),
+    (r) => null);
+            // (r) => DeliveryLoaded(successString: r));
 
   }
 }

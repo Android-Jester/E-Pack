@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'bloc/login_state.dart';
 
 class LoginInfo extends ChangeNotifier {
   final _formKey = GlobalKey<FormState>();
@@ -26,7 +25,7 @@ class LoginInfo extends ChangeNotifier {
 
   validate(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      LoginState(context: context).authentication(email: email, password: password);
+
     }
   }
 }

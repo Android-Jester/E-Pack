@@ -2,16 +2,17 @@ import 'package:dartz/dartz.dart';
 import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/core/UseCase/usecase.dart';
 import 'package:e_pack/features/delivery_option/domain/entities/delivery_request.dart';
+import 'package:e_pack/features/delivery_option/domain/entities/response.dart';
 import 'package:e_pack/features/delivery_option/domain/repositories/delivery_request_repo.dart';
 import 'package:equatable/equatable.dart';
 
-class SendDeliveryRequest extends UseCase<DeliveryRequest, Params> {
+class SendDeliveryRequest extends UseCase<DeliveryResponse, Params> {
   final DeliveryRequestRepository repo;
 
   SendDeliveryRequest({required this.repo});
 
   @override
-  Future<Either<Failure, DeliveryRequest>> call({required Params params}) async {
+  Future<Either<Failure, DeliveryResponse>> call({required Params params}) async {
     return repo.sendDeliveryRequest(
       // Time Collection
       timeCollect: params.timeCollect,

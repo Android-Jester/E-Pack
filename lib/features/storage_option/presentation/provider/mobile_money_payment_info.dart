@@ -1,4 +1,3 @@
-import 'package:e_pack/features/storage_option/presentation/provider/bloc/storage_state.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +14,6 @@ class StorageMomoPaymentInfo extends ChangeNotifier {
 
   validation({required BuildContext context}) {
     if (_formKey.currentState!.validate()) {
-      StorageState(context: context).sendRequest();
     }
   }
 

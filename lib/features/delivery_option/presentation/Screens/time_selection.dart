@@ -61,13 +61,11 @@ class _TimeSelectionState extends State<TimeSelection> with AutomaticKeepAliveCl
                         ),
                       ),
                     ),
-                    PageButton(true, onPressed: () {
-                      data.validation(widget.controller, widget.scroll, widget.currentPage);
-                    }),
+                    PageButton(true, onPressed: () => data.allValidation(widget.scroll, widget.controller,  widget.currentPage)),
                   ],
                 ),
               ),
-            ));
+            );
   }
 
   @override

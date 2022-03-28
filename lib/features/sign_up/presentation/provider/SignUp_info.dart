@@ -1,4 +1,3 @@
-import 'package:e_pack/features/sign_up/presentation/provider/bloc/signup_state.dart';
 import 'package:flutter/material.dart';
 
 class SignupInfo extends ChangeNotifier {
@@ -29,12 +28,6 @@ class SignupInfo extends ChangeNotifier {
   }
 
   validate(BuildContext context) {
-    if (_formKey.currentState!.validate()) {
-      SignUpState(context: context).registration(
-        email: email,
-        password: password,
-        name: name,
-      );
-    }
+    if (_formKey.currentState!.validate()) {}
   }
 }

@@ -7,22 +7,25 @@ import 'package:e_pack/features/delivery_option/data/models/delivery_request_mod
 import 'package:e_pack/features/delivery_option/domain/entities/delivery_request.dart';
 import 'package:e_pack/features/delivery_option/domain/repositories/delivery_request_repo.dart';
 
-typedef Future<DeliveryRequestModel> _GetModelInstance();
+import '../../domain/entities/response.dart';
+
+typedef Future<DeliveryResponse> _GetModelInstance();
 
 class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
   final DeliveryDataReciever serverHost;
   final NetworkInfo networkInfo;
+  @override final String username;
 
   DeliveryRequestRepositoryImpl({
     required this.networkInfo,
     required this.serverHost,
+    required this.username,
   });
 
-  Future<Either<Failure, DeliveryRequest>> _getResponse(_GetModelInstance responseModel) async {
+  Future<Either<Failure, DeliveryResponse>> _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
-        serverHost.sendDeliveryRequest(model: model);
         return Right(model);
       } on ServerException {
         return Left(ServerFailure());
@@ -33,7 +36,7 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
   }
 
   @override
-  Future<Either<Failure, DeliveryRequest>> sendDeliveryRequest({
+  Future<Either<Failure, DeliveryResponse>> sendDeliveryRequest({
     required String? timeCollect,
     required int? largeBoxSizeCount,
     required int? mediumBoxSizeCount,
@@ -53,7 +56,7 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
     required String? momoPhoneNum,
     required double? cost,
   }) async {
-    return await _getResponse(() async => DeliveryRequestModel(
+    return await _getResponse(() async => serverHost.sendDeliveryRequest(model: DeliveryRequestModel(
         timeCollect: timeCollect,
         relocateInfo: relocateInfo,
         residenceName: residenceName,
@@ -71,6 +74,6 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
         smallBoxSizeCount: smallBoxSizeCount,
         mediumBoxSizeCount: mediumBoxSizeCount,
         largeBoxSizeCount: largeBoxSizeCount,
-        cost: cost));
+        cost: cost)));
   }
 }

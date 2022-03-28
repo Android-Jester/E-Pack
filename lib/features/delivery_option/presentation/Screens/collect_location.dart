@@ -70,7 +70,7 @@ class _CollectionPageState extends State<CollectionData> with AutomaticKeepAlive
                   ),
                   checkBoxColumn(data: bloc),
                   buttonRow(widget.controller, widget.currentPage, nextButton: () {
-                    bloc.collectValidation(widget.scroll, widget.controller, widget.currentPage);
+                    bloc.allValidation(widget.scroll, widget.controller, widget.currentPage);
                   })
                 ],
               ),

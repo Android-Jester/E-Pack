@@ -17,7 +17,8 @@ class AuthServerImpl implements AuthServer {
     required LoginModel model,
   }) async {
     /// Sends the data of the login model to the server
-    net.Response response = await net.post(Uri.parse("$api"));
+    net.Response response = await net.post(Uri.parse("$api$login"));
     if(response.statusCode == 200){}
+    else {}
   }
 }
