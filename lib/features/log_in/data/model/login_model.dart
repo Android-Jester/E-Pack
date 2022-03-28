@@ -9,9 +9,8 @@ class LoginModel extends AuthUser {
           password: password,
         );
 
-  factory LoginModel.getUserLogin(String email, String password) {
-    return LoginModel(email: email, password: password);
-  }
-
-  bool checkUserLoginState(String verEmail, String verPassword) => (email == verEmail && password == verPassword);
+  Map<String, dynamic> toJSON() => {
+    "email": email,
+    "password": password,
+  };
 }

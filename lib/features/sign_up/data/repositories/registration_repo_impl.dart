@@ -7,7 +7,9 @@ import 'package:e_pack/features/sign_up/data/models/register_user_model.dart';
 import 'package:e_pack/features/sign_up/domain/entities/registering_user.dart';
 import 'package:e_pack/features/sign_up/domain/repositories/registering_user_repo.dart';
 
-typedef _GetModelInstance = Future<RegisterUserModel> Function();
+import '../../domain/entities/register_response.dart';
+
+typedef _GetModelInstance = Future<RegistrationResponse> Function();
 
 class RegisterRepoImpl implements RegisterRepo {
   final RegisterServer authServer;
@@ -19,11 +21,10 @@ class RegisterRepoImpl implements RegisterRepo {
     required this.authServer,
   }): super();
 
-  Future<Either<Failure, RegisterUser>> _getResponse(_GetModelInstance responseModel) async {
+  Future<Either<Failure, RegistrationResponse>> _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
-        await authServer.registerUser(model: model);
         return Right(model);
       } on ServerException {
         return Left(ServerFailure());
@@ -35,9 +36,6 @@ class RegisterRepoImpl implements RegisterRepo {
   }
 
   @override
-  Future<Either<Failure, RegisterUser>> registerUser(String email, String password, String name) =>
-      _getResponse(() async {
-         username = name;
-      return RegisterUserModel(email: email, password: password, name: name);
-});
+  Future<Either<Failure, RegistrationResponse>> registerUser(String email, String password, String name) =>
+      _getResponse(() async => authServer.registerUser(model: RegisterUserModel(email: email, password: password, name: name)));
 }

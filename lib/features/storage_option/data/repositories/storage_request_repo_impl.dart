@@ -4,11 +4,11 @@ import 'package:e_pack/core/error/exception.dart';
 import 'package:e_pack/core/network/network_info.dart';
 import 'package:e_pack/features/storage_option/data/datasources/storage_data_receiver.dart';
 import 'package:e_pack/features/storage_option/data/models/storage_request_model.dart';
-import 'package:e_pack/features/storage_option/domain/entities/storage_request.dart';
+import 'package:e_pack/features/storage_option/domain/entities/storage_response_request.dart';
 import 'package:e_pack/features/storage_option/domain/repositories/storage_request_repo.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-typedef Future<StorageRequestModel> _GetModelInstance();
+typedef Future<StorageRequestResponse> _GetModelInstance();
 
 class StorageRequestRepositoryImpl implements StorageRequestRepository {
   final StorageDataReceiver serverHost;
@@ -19,14 +19,10 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
     networkInfo = NetworkInfoImpl(InternetConnectionChecker());
   }
 
-  Future<Either<Failure, StorageRequest>> _getResponse(_GetModelInstance responseModel) async {
+  Future<Either<Failure, StorageRequestResponse>> _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
       try {
         final model = await responseModel();
-        serverHost.sendStorageRequest(
-          username: username,
-          model: model,
-        );
         return Right(model);
       } on ServerException {
         return Left(ServerFailure());
@@ -37,7 +33,7 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
   }
 
   @override
-  Future<Either<Failure, StorageRequest>> sendStorageRequest({
+  Future<Either<Failure, StorageRequestResponse>> sendStorageRequest({
     // Time of Collection
     required String timeCollect,
 
@@ -69,7 +65,9 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
     required String momoPhoneNum,
     required double cost,
   }) async =>
-      _getResponse(() async => StorageRequestModel(
+      _getResponse(
+        () async => serverHost.sendStorageRequest(
+          model: StorageRequestModel(
             timeCollect: timeCollect,
             collectRoomType: collectRoomType,
             residenceName: residenceName,
@@ -83,9 +81,9 @@ class StorageRequestRepositoryImpl implements StorageRequestRepository {
             contactTimes: contactTimes,
             momoFullName: momoFullName,
             momoPhoneNum: momoPhoneNum,
-            smallBoxSizeCount: smallBoxSizeCount,
-            mediumBoxSizeCount: mediumBoxSizeCount,
-            largeBoxSizeCount: largeBoxSizeCount,
             cost: cost,
-          ));
+          ),
+          username: username,
+        ),
+      );
 }

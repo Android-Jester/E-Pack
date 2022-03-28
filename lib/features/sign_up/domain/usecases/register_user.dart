@@ -1,16 +1,17 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/core/UseCase/usecase.dart';
+import 'package:e_pack/features/sign_up/domain/entities/register_response.dart';
 import 'package:e_pack/features/sign_up/domain/entities/registering_user.dart';
 import 'package:e_pack/features/sign_up/domain/repositories/registering_user_repo.dart';
 import 'package:equatable/equatable.dart';
 
-class RegisteringUser extends UseCase<RegisterUser, Params> {
+class RegisteringUser extends UseCase<RegistrationResponse, Params> {
   final RegisterRepo repo;
 
   RegisteringUser({required this.repo});
   @override
-  Future<Either<Failure, RegisterUser>> call({required Params params}) {
+  Future<Either<Failure, RegistrationResponse>> call({required Params params}) {
     return repo.registerUser(params.email, params.password, params.name);
   }
 }

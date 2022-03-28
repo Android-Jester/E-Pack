@@ -47,10 +47,10 @@ Future<void> start() async {
   locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(locator.get<InternetConnectionChecker>()));
   locator.registerLazySingleton<InternetConnectionChecker>(() => InternetConnectionChecker());
 
-  locator.registerLazySingleton<AuthServer>(() => AuthServerImpl());
+  locator.registerLazySingleton<LoginServer>(() => LoginServerImpl());
   locator.registerLazySingleton<AuthRepo>(() => AuthRepoImpl(
         networkInfo: locator.get<NetworkInfo>(),
-        server: locator.get<AuthServer>(),
+        server: locator.get<LoginServer>(),
       ));
 
   locator.registerLazySingleton<RegisterServer>(() => RegisterServerImpl());

@@ -5,11 +5,13 @@ import 'package:e_pack/features/log_in/domain/entities/authenticating_user.dart'
 import 'package:e_pack/features/log_in/domain/repositories/auth_repo.dart';
 import 'package:equatable/equatable.dart';
 
-class AuthenticatingUser extends UseCase<AuthUser, Params> {
+import '../entities/login_response.dart';
+
+class AuthenticatingUser extends UseCase<LoginResponse, Params> {
   final AuthRepo repo;
   AuthenticatingUser({required this.repo});
   @override
-  Future<Either<Failure, AuthUser>> call({required Params params}) {
+  Future<Either<Failure, LoginResponse>> call({required Params params}) {
     return repo.authenticateUser(params.email, params.password);
   }
 }

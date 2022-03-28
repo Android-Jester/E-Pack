@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/features/storage_option/domain/entities/storage_request.dart';
+import 'package:e_pack/features/storage_option/domain/entities/storage_response_request.dart';
 
 abstract class StorageRequestRepository {
   String username ="";
 
-  Future<Either<Failure, StorageRequest>> sendStorageRequest({
+  Future<Either<Failure, StorageRequestResponse>> sendStorageRequest({
     // Time of Collection
     required String timeCollect,
 

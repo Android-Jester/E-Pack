@@ -1,17 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_pack/core/Failure/failures.dart';
 import 'package:e_pack/core/UseCase/usecase.dart';
-import 'package:e_pack/features/storage_option/domain/entities/storage_request.dart';
 import 'package:e_pack/features/storage_option/domain/repositories/storage_request_repo.dart';
 import 'package:equatable/equatable.dart';
 
-class SendStorageRequest extends UseCase<StorageRequest, Params> {
+import '../entities/storage_response_request.dart';
+
+class SendStorageRequest extends UseCase<StorageRequestResponse, Params> {
   final StorageRequestRepository repo;
 
   SendStorageRequest(this.repo);
 
   @override
-  Future<Either<Failure, StorageRequest>> call({required Params params}) async {
+  Future<Either<Failure, StorageRequestResponse>> call({required Params params}) async {
     return repo.sendStorageRequest(
       // Time of Collection
       timeCollect: params.timeCollect,
