@@ -6,9 +6,11 @@ import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
 import 'package:e_pack/core/presentation/widgets/button_row.dart';
 import 'package:e_pack/core/presentation/widgets/check_box_row.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
-import 'package:e_pack/features/storage_option/presentation/provider/collection_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
+import '../provider/bloc/storage_cubit.dart';
 
 class StorageCollectionInfo extends StatefulWidget {
   final PageController controller;
@@ -49,14 +51,15 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    return Consumer<StorageCollectionData>(
-      builder: (context, data, _) {
+    var data = BlocProvider.of<StorageCubit>(context);
+    return BlocConsumer<StorageCubit, StorageState>(
+      builder: (context, state) {
         return SingleChildScrollView(
           child: ContainerWrapper(
             width: Config.width,
             height: Config.height,
             child: Form(
-              key: data.key,
+              key: data.collectKey,
               child: Column(
                 children: [
                   formColumn(data),
@@ -77,10 +80,13 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
           ),
         );
       },
+      listener: (context, state) {
+
+      }
     );
   }
 
-  Widget formColumn(StorageCollectionData data) {
+  Widget formColumn(StorageCubit data) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: itemWidth(25)),
       child: Column(children: [
@@ -156,7 +162,7 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
     );
   }
 
-  Widget checkBoxColumn(StorageCollectionData data) {
+  Widget checkBoxColumn(StorageCubit data) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: itemHeight(5)),
       child: Column(
@@ -164,11 +170,11 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
           CheckBoxRow(
             text: "Granting Access",
             checkValue: data.isGranted,
-            function: (val) => data.setGranted(val!),
+            function: (val) => data.isGranted = val!,
           ),
           CheckBoxRow(
             text: "I agree to terms and conditions",
-            function: (val) => data.setAgree(val!),
+            function: (val) => data.isAgreed = val!,
             checkValue: data.isAgreed,
           ),
         ],

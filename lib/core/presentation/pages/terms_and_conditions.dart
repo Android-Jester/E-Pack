@@ -85,7 +85,7 @@ class TandC extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           CustomButton(
               text: "Book Now",
               onPressed: () {
@@ -93,7 +93,7 @@ class TandC extends StatelessWidget {
                     ? Navigator.pushNamed(context, DeliveryOption.id)
                     : Navigator.pushNamed(context, StorageOption.id);
               }),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );

@@ -64,6 +64,9 @@ dependencies:
   # DateTime Picker
   syncfusion_flutter_datepicker: ^19.2.62
 
+  #Local Storage
+  shared_preferences: ^2.0.13
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

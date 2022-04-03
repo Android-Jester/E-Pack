@@ -6,12 +6,22 @@ import 'package:flutter/services.dart';
 class TextWithLabel extends StatelessWidget {
   final String text;
   final String? Function(String? val)? validate;
+  final void Function(String? val)? textEditing;
   final TextInputType type;
   final TextEditingController textCon;
   final FocusNode? node;
   final FocusNode? nextNode;
 
-  TextWithLabel({Key? key, this.node, this.nextNode, required this.text, this.validate, this.type = TextInputType.text, required this.textCon})
+  TextWithLabel({
+    Key? key,
+    this.node,
+    this.nextNode,
+    required this.text,
+    this.validate,
+    this.type = TextInputType.text,
+    required this.textCon,
+    this.textEditing,
+  })
       : super(key: key);
 
   @override
@@ -42,6 +52,7 @@ class TextWithLabel extends StatelessWidget {
                 keyboardType: type,
                 textAlign: TextAlign.center,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
+                onChanged: textEditing,
                 onEditingComplete: () {
                   (nextNode != null) ? FocusScope.of(context).requestFocus(nextNode) : FocusScope.of(context).unfocus();
                 },

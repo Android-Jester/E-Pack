@@ -5,8 +5,9 @@ import 'package:e_pack/core/presentation/widgets/button_row.dart';
 import 'package:e_pack/core/presentation/widgets/page_button.dart';
 import 'package:e_pack/core/presentation/widgets/state_dialogs.dart';
 import 'package:e_pack/features/storage_option/presentation/components/body.dart';
-import 'package:e_pack/features/storage_option/presentation/provider/box_size_data.dart';
+import 'package:e_pack/features/storage_option/presentation/provider/bloc/storage_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class StorageBoxChoices extends StatefulWidget {
@@ -28,8 +29,10 @@ class _BoxChoicesState extends State<StorageBoxChoices> with AutomaticKeepAliveC
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    return Consumer<StorageBoxSizeData>(
-      builder: (context, data, child) => SingleChildScrollView(
+    var data = BlocProvider.of<StorageCubit>(context);
+    return BlocConsumer<StorageCubit, StorageState>(
+      bloc: data,
+      builder: (context, state) => SingleChildScrollView(
         child: ContainerWrapper(
           padding: EdgeInsets.symmetric(vertical: itemWidth(35.0)),
           width: Config.width,
@@ -59,7 +62,7 @@ class _BoxChoicesState extends State<StorageBoxChoices> with AutomaticKeepAliveC
               boxSizeInfo(),
               SizedBox(height: itemHeight(20.0)),
               buttonRow(widget.controller, widget.currentPage, nextButton: () {
-                if (data.largeBoxSizeText != 0 || data.mediumBoxSizeText != 0 || data.smallBoxSizeText != 0) {
+                if (int.parse(data.largeBoxController.text) != 0 || int.parse(data.mediumBoxController.text) != 0 || int.parse(data.smallBoxController.text) != 0) {
                   smoothScrollToTop(widget.scroll);
                   direction(widget.controller, widget.currentPage, true);
                 } else {
@@ -73,6 +76,7 @@ class _BoxChoicesState extends State<StorageBoxChoices> with AutomaticKeepAliveC
           ),
         ),
       ),
+      listener: (context, state) {},
     );
   }
 
@@ -88,7 +92,7 @@ class _BoxChoicesState extends State<StorageBoxChoices> with AutomaticKeepAliveC
     );
   }
 
-  Widget boxesColumn(StorageBoxSizeData data) {
+  Widget boxesColumn(StorageCubit data) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: itemHeight(30)),
       child: Column(

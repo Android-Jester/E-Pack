@@ -3,8 +3,9 @@ import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
 import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
 import 'package:e_pack/features/storage_option/presentation/components/body.dart';
-import 'package:e_pack/features/storage_option/presentation/provider/storage_recepient_info.dart';
+import 'package:e_pack/features/storage_option/presentation/provider/bloc/storage_cubit.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class StorageContactInfo extends StatefulWidget {
@@ -41,8 +42,9 @@ class _ContactInfoState extends State<StorageContactInfo> {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    return Consumer<StorageRecepientInfo>(
-      builder: (context, data, child) => SingleChildScrollView(
+    var data = BlocProvider.of<StorageCubit>(context);
+    return BlocConsumer<StorageCubit, StorageState>(
+      builder: (context, state) => SingleChildScrollView(
         child: ContainerWrapper(
           height: Config.height! / 1.3,
           width: Config.width,
@@ -87,6 +89,7 @@ class _ContactInfoState extends State<StorageContactInfo> {
           ),
         ),
       ),
+      listener: (context, state) {},
     );
   }
 }

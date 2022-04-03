@@ -19,14 +19,14 @@ class SplashScreen extends StatelessWidget {
           CustomButton(
             width: itemWidth(400),
             text: "Login",
-            onPressed: () => Navigator.popAndPushNamed(context, LogIn.id),
+            onPressed: () => Navigator.pushNamed(context, LogIn.id),
             color: Theme.of(context).colorScheme.secondary,
           ),
           SizedBox(height: itemHeight(15.0)),
           CustomButton(
             width: itemWidth(400),
             text: "Sign Up",
-            onPressed: () => Navigator.popAndPushNamed(context, SignUp.id),
+            onPressed: () => Navigator.pushNamed(context, SignUp.id),
             color: Theme.of(context).colorScheme.primary,
           ),
         ],

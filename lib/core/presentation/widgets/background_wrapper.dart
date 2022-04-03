@@ -27,10 +27,10 @@ class ContainerWrapper extends StatelessWidget {
         margin: EdgeInsets.symmetric(
           horizontal: itemWidth(15.0),
         ),
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(itemWidth(15.0)), boxShadow: [
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(itemWidth(15.0)), boxShadow: const [
           BoxShadow(
             offset: Offset(2, 3),
-            color: Colors.black45,
+            color: Colors.black12,
             blurRadius: 2,
           )
         ]),

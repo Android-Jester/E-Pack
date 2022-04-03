@@ -5,9 +5,11 @@ import 'package:e_pack/core/presentation/widgets/page_button.dart';
 import 'package:e_pack/core/presentation/widgets/selection_radio.dart';
 import 'package:e_pack/core/presentation/widgets/state_dialogs.dart';
 import 'package:e_pack/features/storage_option/presentation/components/body.dart';
-import 'package:e_pack/features/storage_option/presentation/provider/room_type_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
+import '../provider/bloc/storage_cubit.dart';
 
 class StorageRoomType extends StatefulWidget {
   final PageController? controller;
@@ -28,8 +30,9 @@ class _RoomTypeState extends State<StorageRoomType> with AutomaticKeepAliveClien
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    return Consumer<StorageRoomTypeData>(
-      builder: (context, data, child) {
+    var data = BlocProvider.of<StorageCubit>(context);
+    return BlocConsumer<StorageCubit, StorageState>(
+      builder: (context, state) {
         return SingleChildScrollView(
           child: ContainerWrapper(
             padding: EdgeInsets.symmetric(vertical: itemHeight(30.0)),
@@ -70,40 +73,41 @@ class _RoomTypeState extends State<StorageRoomType> with AutomaticKeepAliveClien
           ),
         );
       },
+      listener: (context, state) {},
     );
   }
 
-  Column radioColumn(StorageRoomTypeData data) => Column(
+  Column radioColumn(StorageCubit data) => Column(
         children: [
           SelectionRadio(
             value: 1,
             text: "Single Room",
             groupValue: data.roomType,
-            changed: (val) => data.setRoomType(val!),
+            changed: (val) => data.roomType = val!,
           ),
           SelectionRadio(
             value: 2,
             text: "Double Room",
             groupValue: data.roomType,
-            changed: (val) => data.setRoomType(val!),
+            changed: (val) => data.roomType = val!,
           ),
           SelectionRadio(
             value: 3,
             text: "Two or more",
             groupValue: data.roomType,
-            changed: (val) => data.setRoomType(val!),
+            changed: (val) => data.roomType = val!,
           ),
           SelectionRadio(
             value: 4,
             text: "Apartment",
             groupValue: data.roomType,
-            changed: (val) => data.setRoomType(val!),
+            changed: (val) => data.roomType = val!,
           ),
           SelectionRadio(
             value: 5,
             text: "Homestel",
             groupValue: data.roomType,
-            changed: (val) => data.setRoomType(val!),
+            changed: (val) => data.roomType = val!,
           ),
         ],
       );
