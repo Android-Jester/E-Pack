@@ -41,8 +41,8 @@ class _TimeSelectionState extends State<StorageTimeSelection> with AutomaticKeep
                     const SizedBox(height: 5.0),
                     DateTimePicker(
                       dateController: dateController!,
-                      onSelectionChanged: (val) => data.onDateChange(val: val.value.add(Duration(hours: (DateTime.now().hour + 5), minutes: 30))),
-                      endDate: DateTime(2022, 01, 15, 18, 00),
+                      onSelectionChanged: (val) {},
+                      endDate: DateTime(2022, 05, 15, 18, 00),
                     ),
                     SizedBox(height: itemHeight(15.0)),
                     SizedBox(
@@ -65,7 +65,7 @@ class _TimeSelectionState extends State<StorageTimeSelection> with AutomaticKeep
                     ),
                     PageButton(true, onPressed: () {
                       print("press");
-                      data.validation(widget.controller, widget.scroll, widget.currentPage);
+                      data.validation(widget.scroll, widget.controller, widget.currentPage);
                     }),
                   ],
                 ),

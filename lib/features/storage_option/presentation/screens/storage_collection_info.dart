@@ -92,7 +92,7 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
       child: Column(children: [
         TextWithLabel(
           text: "Name of Residence",
-          validate: (val) => data.validator(val!),
+          validate: (val) => data.textValidator(val!),
           textCon: data.residenceNameController,
           type: TextInputType.name,
           node: residenceNode,
@@ -100,7 +100,7 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
         ),
         TextWithLabel(
           text: "Room or Flat Number",
-          validate: (val) => data.validator(val!, isNumeric: true),
+          validate: (val) => data.numberValidator(val!),
           textCon: data.roomNumController,
           type: TextInputType.number,
           node: roomNode,
@@ -108,7 +108,7 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
         ),
         TextWithLabel(
           text: "Mobile Number",
-          validate: (val) => data.validator(val!, isNumeric: true),
+          validate: (val) => data.numberValidator(val!),
           textCon: data.mobileNumController,
           type: TextInputType.phone,
           node: phoneNode,

@@ -4,7 +4,6 @@ import 'package:e_pack/core/presentation/widgets/custom_button.dart';
 import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 import '../provider/bloc/storage_cubit.dart';
 
@@ -53,18 +52,17 @@ class _MomoInformationState extends State<StorageMomoPayment> {
               child: Column(
                 children: [
                   TextWithLabel(
-                    validate: (val) => data.validate(val!),
+                    validate: (val) => data.textValidator(val!),
                     text: "Mobile Money Name",
                     textCon: data.momoUser,
                     type: TextInputType.name,
                   ),
-                  TextWithLabel(
-                      validate: (val) => data.validate(val!, isNumber: true),
-                      text: "Mobile Money Number",
-                      textCon: data.momoNum,
-                      type: TextInputType.phone),
+                  TextWithLabel(validate: (val) => data.numberValidator(val!), text: "Mobile Money Number", textCon: data.momoNum, type: TextInputType.phone),
                   SizedBox(height: itemHeight(35.0)),
-                  CustomButton(text: "Finalize", onPressed: () => data.validation(context: context))
+                  CustomButton(
+                    text: "Finalize",
+                    onPressed: () => data.validation(widget.scroll, widget.controller, widget.currentPage),
+                  ),
                 ],
               ),
             ),

@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:e_pack/core/presentation/widgets/page_button.dart';
+import 'package:e_pack/features/storage_option/presentation/components/body.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -35,6 +37,23 @@ class StorageCubit extends Cubit<StorageState> {
   String addressType = "Hostel";
   int roomType = 0;
 
+
+void validation(ScrollController scroll, PageController page, int pageIndex) {
+  smoothScrollToTop(scroll);
+  direction(page, pageIndex, true);
+}
+
+String? textValidator(String val) {
+  if(val.isEmpty) {
+    return "This is Empty";
+  } else {
+    return null;
+  }
+}
+String? numberValidator(String val, ){
+}
+String? phoneNumberValidator(String val, ){
+}
 
 
 }
