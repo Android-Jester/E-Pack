@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:e_pack/core/Failure/failures.dart';
+import 'package:e_pack/core/error/exception.dart';
 import 'package:e_pack/core/server/appwrite_server.dart';
 import 'package:e_pack/features/log_in/data/model/login_model.dart';
 import 'package:e_pack/features/log_in/data/model/login_response_model.dart';
@@ -27,11 +28,14 @@ class LoginServerImpl implements LoginServer {
       Uri.parse("$api$login"),
       body: model.toJSON(),
     );
-    if(response.statusCode == 200){
+    print("RESPONSE: ${response.body}");
+    if (response.statusCode == 200) {
+      print(LoginResponseModel.fromJSON(json.decode(response.body)));
       return LoginResponseModel.fromJSON(json.decode(response.body));
     }
     else {
-      throw ServerFailure();
+      print("ERROR");
+      throw ServerException("SERVER ERROR");
     }
   }
 }

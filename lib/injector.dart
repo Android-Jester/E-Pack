@@ -4,6 +4,7 @@ import 'package:e_pack/features/delivery_option/data/repositories/delivery_reque
 import 'package:e_pack/features/delivery_option/domain/usecases/send_delivery_request.dart';
 import 'package:e_pack/features/delivery_option/presentation/provider/bloc/delivery_cubit.dart';
 import 'package:e_pack/features/log_in/domain/repositories/auth_repo.dart';
+import 'package:e_pack/features/log_in/domain/usecases/auth_user.dart';
 import 'package:e_pack/features/log_in/presentation/provider/login_cubit.dart';
 import 'package:e_pack/features/sign_up/data/repositories/registration_repo_impl.dart';
 import 'package:e_pack/features/sign_up/domain/repositories/registering_user_repo.dart';
@@ -24,27 +25,6 @@ import 'features/sign_up/data/datasources/register_server.dart';
 import 'features/storage_option/domain/repositories/storage_request_repo.dart';
 import 'features/storage_option/presentation/provider/bloc/storage_cubit.dart';
 
-// class Dependency extends ChangeNotifier {
-//   // Core
-//   NetworkInfoImpl networkInfo = NetworkInfoImpl(InternetConnectionChecker());
-//
-//   // Delivery Repository
-//   late DeliveryDataRecieverImpl deliveryServerHost;
-//   late DeliveryRequestRepositoryImpl repositoryImpl = DeliveryRequestRepositoryImpl(networkInfo: networkInfo, serverHost: deliveryServerHost);
-//
-//   // Storage Repository
-//   late StorageDataReceiverImpl storageServerHost;
-//   late StorageRequestRepositoryImpl storageRepo = StorageRequestRepositoryImpl(serverHost: storageServerHost);
-//
-//   // Login Model
-//   late AuthServerImpl authServer;
-//   late AuthRepoImpl authRepo = AuthRepoImpl(server: authServer, networkInfo: networkInfo);
-//
-//   // SignUp Model
-//   late RegisterServerImpl registerServer;
-//   late RegisterRepoImpl regRepo = RegisterRepoImpl(networkInfo: networkInfo, authServer: registerServer);
-// }
-
 final locator = GetIt.instance;
 
 Future<void> start() async {
@@ -53,7 +33,7 @@ Future<void> start() async {
 
   locator.registerFactory<DeliveryCubit>(() => DeliveryCubit(deliveryRequest: locator.get<SendDeliveryRequest>()));
   locator.registerFactory<SignUpCubit>(() => SignUpCubit());
-  locator.registerFactory<LoginCubit>(() => LoginCubit());
+  locator.registerFactory<LoginCubit>(() => LoginCubit(authUser: locator.get<AuthenticatingUser>()));
   locator.registerFactory<StorageCubit>(() => StorageCubit());
   locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(locator.get<InternetConnectionChecker>()));
   locator.registerLazySingleton<InternetConnectionChecker>(() => InternetConnectionChecker());
@@ -64,6 +44,7 @@ Future<void> start() async {
         server: locator.get<LoginServer>(),
         localServer: locator.get<LocalLoginServer>(),
       ));
+  locator.registerLazySingleton<AuthenticatingUser>(() => AuthenticatingUser(repo: locator.get<AuthRepo>()));
 
   locator.registerLazySingleton<RegisterServer>(() => RegisterServerImpl());
   locator.registerLazySingleton<RegisterRepo>(() => RegisterRepoImpl(
@@ -81,7 +62,7 @@ Future<void> start() async {
   locator.registerLazySingleton<DeliveryRequestRepository>(() => DeliveryRequestRepositoryImpl(
         serverHost: locator.get<DeliveryDataReciever>(),
         networkInfo: locator.get<NetworkInfo>(),
-    username: locator.get<String>(),
+        username: locator.get<String>(),
       ));
   locator.registerLazySingleton<SendDeliveryRequest>(() => SendDeliveryRequest(repo: locator.get<DeliveryRequestRepository>()));
   locator.registerLazySingleton<SendStorageRequest>(() => SendStorageRequest(locator.get<StorageRequestRepository>()));
