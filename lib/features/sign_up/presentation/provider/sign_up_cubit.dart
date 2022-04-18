@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:e_pack_final/features/sign_up/domain/usecases/register_user.dart';
+import 'package:e_pack_final/features/storage_option/presentation/storage_option.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -31,12 +32,19 @@ class SignUpCubit extends Cubit<SignUpState> {
     return null;
   }
 
-  emailvalidator(String? val) {
+  emailValidator(String? val) {
     if (val!.isEmpty) return "Please enter the email";
     if (!val.contains("@")) {
       return "Please type the correct email";
     }
     return null;
+  }
+  passwordValidator(String? val) {
+    if (val!.isEmpty) {
+      return "Please enter the password";
+    } else {
+      return null;
+    }
   }
 
   validate(BuildContext context) {
@@ -46,8 +54,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           emit(event);
           print(event);
           if (event is SignUpLoaded) {
-            print("SUCCESS");
-            // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const StorageOption()));
           } else if(event is SignUpError) {
             showDialog(
               context: context,

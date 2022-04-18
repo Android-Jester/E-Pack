@@ -25,10 +25,12 @@ class LoginServerImpl implements LoginServer {
   }) async {
     /// Sends the data of the login model to the server
     net.Response response = await net.post(
-      Uri.parse("$api$login?email=${model.email}&${model.password}"),
+      Uri.parse("$api$login"),
+      body: model.toJSON(),
     );
 
-
+    print("STATUS: ${response.statusCode}");
+    print("DATA: ${json.decode(response.body)}");
     if (response.statusCode == 200) {
       return LoginResponseModel.fromJSON(json.decode(response.body));
     }

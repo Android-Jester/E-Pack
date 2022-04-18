@@ -23,7 +23,6 @@ class _FormListState extends State<FormList> {
 
   late FocusNode passwordNode;
 
-  bool isVisible = false;
 
   @override
   void initState() {
@@ -58,43 +57,14 @@ class _FormListState extends State<FormList> {
                   nextNode: passwordNode,
                   text: "Email",
                   type: TextInputType.emailAddress,
-                  validate: (val) => widget.data.emailvalidator(val),
+                  validate: (val) => widget.data.emailValidator(val),
                   textCon: widget.data.emailcontroller),
               TextWithLabel(
                 node: passwordNode,
                 text: "Password",
-                validate: null,
+                validate: (val) => widget.data.passwordValidator(val),
                 textCon: widget.data.passwordcontroller,
-                textEditing: (val) {
-                  setState(() {
-                    if(val!.isEmpty || val == null) {
-                      isVisible = false;
-                    } else if(val.length > 1) {
-                      isVisible = true;
-                    } else {
-                      isVisible = true;
-                    }
-                  });
-                },
               ),
-              Visibility(
-                visible: isVisible,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: itemWidth(15)),
-                  child: FlutterPwValidator(
-                    successColor: Colors.green,
-                    failureColor: Theme.of(context).colorScheme.error,
-                    controller: widget.data.passwordcontroller,
-                    minLength: 6,
-                    uppercaseCharCount: 2,
-                    numericCharCount: 3,
-                    specialCharCount: 1,
-                    width: 400,
-                    height: 150,
-                    onSuccess: () {},
-                  ),
-                ),
-              )
             ],
           ),
         ),

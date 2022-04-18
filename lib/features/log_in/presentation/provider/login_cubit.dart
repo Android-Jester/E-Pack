@@ -1,3 +1,4 @@
+import 'package:e_pack_final/features/storage_option/presentation/storage_option.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,9 +43,8 @@ class LoginCubit extends Cubit<LoginState> {
         print(event);
         if (event is LoginLoaded) {
           print("SUCCESS");
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const StorageOption()));
         } else if(event is LoginError) {
-
           showDialog(
             context: context,
             builder: (context) => ErrorDialog(

@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
         builder: (context, state) {
         return Column(
             children: [
-              Header(),
+              const Header(),
               SizedBox(height: itemHeight(30.0)),
               FormList(data: bloc),
               SizedBox(height: itemHeight(30.0)),

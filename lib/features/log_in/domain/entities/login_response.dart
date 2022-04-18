@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
 class LoginResponse extends Equatable {
-  final bool registrationStatus;
+  final bool registered;
 
-  LoginResponse({required this.registrationStatus});
+  LoginResponse({required this.registered});
 
 
   @override
-  List<Object?> get props => [registrationStatus];
+  List<Object?> get props => [registered];
 
 }
