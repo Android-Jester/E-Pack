@@ -1,5 +1,5 @@
-const String api = "epack-api.herokuapp.com";
-const String delivery = "api/delivery";
-const String storage = "api/storage";
-const String login = "api/login";
-const String signup = "api/signup";
+const String api = "https://epack-api.herokuapp.com/";
+const String delivery = "api/client/delivery";
+const String storage = "api/client/storage";
+const String login = "api/client/login";
+const String signup = "api/client/register";

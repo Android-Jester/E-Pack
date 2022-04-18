@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as net;
 
 import '../../../../core/core_errors/exceptions.dart';
@@ -24,10 +25,10 @@ class LoginServerImpl implements LoginServer {
   }) async {
     /// Sends the data of the login model to the server
     net.Response response = await net.post(
-      Uri.parse("$api$login"),
-      body: model.toJSON(),
+      Uri.parse("$api$login?email=${model.email}&${model.password}"),
     );
-    print("RESPONSE: ${response.body}");
+
+
     if (response.statusCode == 200) {
       return LoginResponseModel.fromJSON(json.decode(response.body));
     }

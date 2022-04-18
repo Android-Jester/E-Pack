@@ -44,6 +44,7 @@ class LoginCubit extends Cubit<LoginState> {
           print("SUCCESS");
           // Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
         } else if(event is LoginError) {
+
           showDialog(
             context: context,
             builder: (context) => ErrorDialog(
@@ -55,7 +56,12 @@ class LoginCubit extends Cubit<LoginState> {
             ),
           );
         } else if(event is LoginLoading) {
-          showDialog(context: context, builder: (_) => const LoadingDialog());
+          showDialog(
+              context: context,
+              builder: (_) {
+                return const LoadingDialog();
+              },
+          );
         }
       });
     }

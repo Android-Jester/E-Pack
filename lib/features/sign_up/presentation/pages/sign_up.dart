@@ -40,7 +40,7 @@ class Body extends StatelessWidget {
               SizedBox(height: itemHeight(30.0)),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: itemWidth(20), vertical: itemHeight(20)),
-                child: CustomButton(text: "Sign Up", onPressed: () async {}),
+                child: CustomButton(text: "Sign Up", onPressed: () async => bloc.validate(context)),
               ),
             ],
           );
