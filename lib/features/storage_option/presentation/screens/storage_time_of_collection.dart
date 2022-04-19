@@ -34,43 +34,47 @@ class _TimeSelectionState extends State<StorageTimeSelection> with AutomaticKeep
               physics: BouncingScrollPhysics(),
               child: ContainerWrapper(
                 padding: EdgeInsets.symmetric(vertical: itemHeight(25.0)),
-                child: Column(
-                  children: [
-                    const Text("Pick A Slot", style: TextStyle(fontSize: 30.0)),
-                    const SizedBox(height: 5.0),
-                    // Date Time Picker
-                    DateTimePicker(
-                      dateController: dateController!,
-                      onSelectionChanged: (val) {
-                        setState(() {
-                          data.onDateChange(val.value.toString());
-                        });
-                      },
-                      endDate: DateTime(2022, 05, 15, 18, 00),
+                child: Form(
+                  key: data.initialKey,
+                  child: Column(
+                    children: [
+                      const Text("Pick A Slot", style: TextStyle(fontSize: 30.0)),
+                      const SizedBox(height: 5.0),
+                      // Date Time Picker
+                      DateTimePicker(
+                        dateController: dateController!,
+                        onSelectionChanged: (val) {
+                          setState(() {
+                            data.onDateChange(val.value.toString());
+                          });
+                        },
+                        endDate: DateTime(2022, 05, 15, 18, 00),
 
-                    ),
-                    SizedBox(height: itemHeight(15.0)),
-                    SizedBox(
-                      height: itemHeight(100.0),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: itemWidth(20.0)),
-                        child: TextField(
-                          controller: data.timeDate,
-                          readOnly: true,
-                          showCursor: false,
-                          maxLines: 2,
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                              hintText: "Please select a date to view Timeslot here",
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(itemWidth(12.0)))),
+                      ),
+                      SizedBox(height: itemHeight(15.0)),
+                      SizedBox(
+                        height: itemHeight(100.0),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: itemWidth(20.0)),
+                          child: TextFormField(
+                            controller: data.timeDate,
+                            readOnly: true,
+                            showCursor: false,
+                            validator: (val) => data.textValidator(val!),
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                                hintText: "Please select a date to view Timeslot here",
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(itemWidth(12.0)))),
+                          ),
                         ),
                       ),
-                    ),
-                    PageButton(true, onPressed: () {
-                      print("press");
-                      data.validation(widget.scroll, widget.controller, widget.currentPage);
-                    }),
-                  ],
+                      PageButton(true, onPressed: () {
+                        print("press");
+                        data.validation(context, widget.scroll, widget.controller, widget.currentPage, data.initialKey);
+                      }),
+                    ],
+                  ),
                 ),
               ),
             ),

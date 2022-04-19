@@ -1,27 +1,28 @@
 //TODO: collection of location info
 
-import 'package:e_pack_final/core/core_usage/presentation/screen/terms_and_conditions.dart';
+import 'package:e_pack/core/presentation/config/config.dart';
+import 'package:e_pack/core/presentation/config/theme.dart';
+import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
+import 'package:e_pack/core/presentation/widgets/button_row.dart';
+import 'package:e_pack/core/presentation/widgets/check_box_row.dart';
+import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/core_usage/presentation/configurations/sizes.dart';
-import '../../../../core/core_usage/presentation/configurations/theme.dart';
-import '../../../../core/core_usage/presentation/function/page_movement.dart';
-import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
-import '../../../../core/core_usage/presentation/widgets/options/check_box.dart';
-import '../../../../core/core_usage/presentation/widgets/text_with_lable.dart';
-import '../provider/bloc/storage_cubit.dart';
+import 'package:provider/provider.dart';
 
-class StorageCollectionInfo extends StatefulWidget {
+import '../provider/bloc/delivery_cubit.dart';
+
+class CollectionData extends StatefulWidget {
   final PageController controller;
   final int currentPage;
   final ScrollController scroll;
 
-  StorageCollectionInfo({required this.controller, required this.currentPage, required this.scroll});
+  CollectionData({required this.controller, required this.currentPage, required this.scroll});
   @override
-  State<StorageCollectionInfo> createState() => _CollectionPageState();
+  State<CollectionData> createState() => _CollectionPageState();
 }
 
-class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKeepAliveClientMixin {
+class _CollectionPageState extends State<CollectionData> with AutomaticKeepAliveClientMixin {
   late FocusNode residenceNode;
   late FocusNode phoneNode;
   late FocusNode roomNode;
@@ -50,18 +51,16 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    var data = BlocProvider.of<StorageCubit>(context);
-    return BlocConsumer<StorageCubit, StorageState>(
-      builder: (context, state) {
-        return SingleChildScrollView(
+    var bloc = BlocProvider.of<DeliveryCubit>(context);
+    return SingleChildScrollView(
           child: ContainerWrapper(
             width: Config.width,
             height: Config.height,
             child: Form(
-              key: data.collectKey,
+              key: bloc.infoCollectionKey,
               child: Column(
                 children: [
-                  formColumn(data),
+                  formColumn(data: bloc),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: itemWidth(15.0)),
                     child: Text(
@@ -69,36 +68,24 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
                       style: TextStyle(fontSize: itemWidth(17.0)),
                     ),
                   ),
-                  checkBoxColumn(data),
+                  checkBoxColumn(data: bloc),
                   buttonRow(widget.controller, widget.currentPage, nextButton: () {
-                    data.validation(context, widget.scroll, widget.controller, widget.currentPage, data.collectKey);
+                    bloc.allValidation(widget.scroll, widget.controller, widget.currentPage);
                   })
                 ],
               ),
             ),
           ),
         );
-      },
-      listener: (context, state) {
-
-      }
-    );
   }
 
-  Widget formColumn(StorageCubit data) {
-    List<String> value = [
-      "Hostel",
-      "Homestel",
-      "Apartment",
-      "Flat",
-      "Hall"
-    ];
+  Widget formColumn({required DeliveryCubit data}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: itemWidth(25)),
       child: Column(children: [
         TextWithLabel(
           text: "Name of Residence",
-          validate: (val) => data.textValidator(val!),
+          validate: (val) => data.collectValidator(val!),
           textCon: data.residenceNameController,
           type: TextInputType.name,
           node: residenceNode,
@@ -106,15 +93,15 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
         ),
         TextWithLabel(
           text: "Room or Flat Number",
-          validate: (val) => data.numberValidator(val!),
-          textCon: data.roomNumController,
+          validate: (val) => data.collectValidator(val!, isNumeric: true),
+          textCon: data.roomNumberController,
           type: TextInputType.number,
           node: roomNode,
           nextNode: phoneNode,
         ),
         TextWithLabel(
           text: "Mobile Number",
-          validate: (val) => data.numberValidator(val!),
+          validate: (val) => data.collectValidator(val!, isNumeric: true),
           textCon: data.mobileNumController,
           type: TextInputType.phone,
           node: phoneNode,
@@ -134,10 +121,24 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
                 child: DropdownButtonFormField(
                   decoration: inputDecoration(context),
                   value: data.addressType,
-                  items: List.generate(value.length, (i) => DropdownMenuItem(
-                     child: Text(value[i]),
-                     value: value[i],
-                  )),
+                  items: const [
+                    DropdownMenuItem(
+                      child: Text("Hostel"),
+                      value: "Hostel",
+                    ),
+                    DropdownMenuItem(
+                      child: Text("Homestel"),
+                      value: "Homestel",
+                    ),
+                    DropdownMenuItem(
+                      child: Text("Flat"),
+                      value: "Flat",
+                    ),
+                    DropdownMenuItem(
+                      child: Text("Hall"),
+                      value: "Hall",
+                    ),
+                  ],
                   onChanged: (value) => data.addressType = value.toString(),
                 ),
               ),
@@ -146,6 +147,7 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
         ),
         TextWithLabel(
           text: "Access Note",
+          // validate: (val) => data.validator(val!, isNumeric: true),
           textCon: data.accessNoteController,
           node: accessNotesNode,
         ),
@@ -153,55 +155,24 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
     );
   }
 
-  Widget checkBoxColumn(StorageCubit data) {
-    List<String> options = [
-      "Granting Access to Storage",
-      "Agreement to Terms and Conditions"
-    ];
-    List<bool> agreements = [
-      data.isAgreed,
-      data.isGranted,
-    ];
+  Widget checkBoxColumn({required DeliveryCubit data}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: itemHeight(5)),
       child: Column(
         children: [
           CheckBoxRow(
-            textInput: options[0],
-            checkValue: data.isAgreed,
-            function: (val) => setState(() {
-              data.isAgreed = val!;
-            }),
+            text: "Granting Access",
+            checkValue: data.isGranted,
+            function: (val) => data.isGranted = val!,
           ),
           CheckBoxRow(
-            text: InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const TermsAndConditions()));
-              },
-              child: Text(
-                options[1],
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  fontSize: 15.0,
-                  color: Colors.blue,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-            checkValue: data.isGranted,
-            function: (val) => setState(() {
-              data.isGranted = val!;
-            }),
-          )
-        ]
-        ),
-        // children:
-        //   CheckBoxRow(
-        //     text: "I agree to terms and conditions",
-        //     function: (val) => data.isAgreed = val!,
-        //     checkValue: data.isAgreed,
-        //   ),
-        // ],
-      );
+            text: "I agree to terms and conditions",
+            function: (val) => data.isAgreed = val!,
+            checkValue: data.isAgreed,
+          ),
+        ],
+      ),
+    );
   }
 
   @override

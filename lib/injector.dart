@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:e_pack_final/core/core_usage/network.dart';
 import 'package:e_pack_final/features/log_in/presentation/provider/login_cubit.dart';
 import 'package:e_pack_final/features/sign_up/data/datasources/local_register_server.dart';
@@ -24,10 +26,9 @@ import 'features/storage_option/domain/repositories/storage_request_repo.dart';
 import 'features/storage_option/presentation/provider/bloc/storage_cubit.dart';
 
 final locator = GetIt.instance;
-String? text;
+
 
 Future<void> start() async {
-  text = await rootBundle.loadString('assets/terms_and_conditions.txt');
   //core
   WidgetsFlutterBinding.ensureInitialized();
   final SharedPreferences shared = await SharedPreferences.getInstance();

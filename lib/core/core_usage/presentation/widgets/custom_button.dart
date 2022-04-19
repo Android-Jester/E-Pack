@@ -22,7 +22,7 @@ class CustomButton extends StatelessWidget {
           style: ButtonStyle(
             foregroundColor: MaterialStateColor.resolveWith((states) {
               if (states.contains(MaterialState.selected)) {
-                return Colors.grey;
+                return Theme.of(context).colorScheme.primaryContainer;
               } else if (states.contains(MaterialState.disabled)) {
                 return Theme.of(context).colorScheme.background;
               } else {

@@ -46,12 +46,11 @@ class _ContactInfoState extends State<StorageContactInfo> {
     return BlocConsumer<StorageCubit, StorageState>(
       builder: (context, state) => SingleChildScrollView(
         child: ContainerWrapper(
-          height: Config.height! / 1.3,
           width: Config.width,
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: itemHeight(12.0)),
+            padding: EdgeInsets.symmetric(vertical: itemHeight(15.0)),
             child: Form(
-              key: data.key,
+              key: data.contactKey,
               child: Column(
                 children: [
                   TextWithLabel(
@@ -75,10 +74,9 @@ class _ContactInfoState extends State<StorageContactInfo> {
                       validate: (val) => data.numberValidator(val!),
                       type: TextInputType.number),
                   TextWithLabel(text: "Notes", textCon: data.notesController, validate: (val) => data.textValidator(val!), type: TextInputType.multiline),
-                  Spacer(),
                   CustomButton(
                     onPressed: () async {
-                      data.validation(widget.scroll, widget.controller!, widget.currentPage!);
+                      data.validation(context, widget.scroll, widget.controller!, widget.currentPage!, data.contactKey);
                     },
                     text: 'Book Now',
                   ),

@@ -48,7 +48,7 @@ class _MomoInformationState extends State<StorageMomoPayment> {
             width: Config.width,
             height: Config.height! / 2.3,
             child: Form(
-              key: data.key,
+              // key: data.key,
               child: Column(
                 children: [
                   TextWithLabel(
@@ -61,7 +61,7 @@ class _MomoInformationState extends State<StorageMomoPayment> {
                   SizedBox(height: itemHeight(35.0)),
                   CustomButton(
                     text: "Finalize",
-                    onPressed: () => data.validation(widget.scroll, widget.controller, widget.currentPage),
+                    onPressed: () => data.validation(context, widget.scroll, widget.controller, widget.currentPage, data.initialKey),
                   ),
                 ],
               ),
