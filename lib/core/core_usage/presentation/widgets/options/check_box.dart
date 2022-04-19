@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CheckBoxRow extends StatelessWidget {
-  final String text;
+  final Widget? text;
+  final String? textInput;
   final bool checkValue;
   final void Function(bool? val)? function;
 
   CheckBoxRow({
-    required this.text,
+    this.text,
+    this.textInput,
     required this.function,
     required this.checkValue,
   });
@@ -18,10 +20,10 @@ class CheckBoxRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            text,
+          (text == null) ? Text(
+            textInput!,
             style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15.0),
-          ),
+          ) : text!,
           Checkbox(
             checkColor: Theme.of(context).colorScheme.primary,
             activeColor: Theme.of(context).colorScheme.primary,

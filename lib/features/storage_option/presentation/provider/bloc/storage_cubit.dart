@@ -5,11 +5,13 @@ import 'package:meta/meta.dart';
 
 import '../../../../../core/core_usage/presentation/function/page_movement.dart';
 import '../../../../../core/core_usage/presentation/function/scroll_movement.dart';
+import '../../../domain/usecases/send_storage_request.dart';
 
 part 'storage_state.dart';
 
 class StorageCubit extends Cubit<StorageState> {
-  StorageCubit() : super(StorageInitial());
+  final SendStorageRequest sendStorageData;
+  StorageCubit({required this.sendStorageData}) : super(StorageInitial());
 
   TextEditingController largeBoxController =
   TextEditingController(text: "0");
@@ -44,6 +46,13 @@ void validation(ScrollController scroll, PageController page, int pageIndex) {
   direction(page, pageIndex, true);
 }
 
+void onDateChange(String value) {
+  timeDate = TextEditingController(text: "$value");
+  dateTimeVal = value;
+
+}
+
+
 String? textValidator(String val) {
   if(val.isEmpty) {
     return "This is Empty";
@@ -54,6 +63,24 @@ String? textValidator(String val) {
 String? numberValidator(String val, ){
 }
 String? phoneNumberValidator(String val, ){
+}
+
+  void changeValue(int val) => roomType = val;
+
+
+
+Future<void> sendStorageInfo() async {
+  // var usecase = await sendStorageData(
+  //   params: Params(
+  //       timeCollect: dateTimeVal,
+  //       collectRoomType: addressType,
+  //       residenceName: residenceNameController.text,
+  //       roomNumber: roomNumberController.text,
+  //       phoneNumber: mobileNumController.text,
+  //       accessNote: accessNoteController.text,
+  //
+  //   )
+  // );
 }
 
 

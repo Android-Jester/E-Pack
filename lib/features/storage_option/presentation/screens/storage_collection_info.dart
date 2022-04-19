@@ -1,5 +1,6 @@
 //TODO: collection of location info
 
+import 'package:e_pack_final/core/core_usage/presentation/screen/terms_and_conditions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
@@ -85,6 +86,13 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
   }
 
   Widget formColumn(StorageCubit data) {
+    List<String> value = [
+      "Hostel",
+      "Homestel",
+      "Apartment",
+      "Flat",
+      "Hall"
+    ];
     return Padding(
       padding: EdgeInsets.symmetric(vertical: itemWidth(25)),
       child: Column(children: [
@@ -126,24 +134,10 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
                 child: DropdownButtonFormField(
                   decoration: inputDecoration(context),
                   value: data.addressType,
-                  items: const [
-                    DropdownMenuItem(
-                      child: Text("Hostel"),
-                      value: "Hostel",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Homestel"),
-                      value: "Homestel",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Flat"),
-                      value: "Flat",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Hall"),
-                      value: "Hall",
-                    ),
-                  ],
+                  items: List.generate(value.length, (i) => DropdownMenuItem(
+                     child: Text(value[i]),
+                     value: value[i],
+                  )),
                   onChanged: (value) => data.addressType = value.toString(),
                 ),
               ),
@@ -152,7 +146,6 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
         ),
         TextWithLabel(
           text: "Access Note",
-          // validate: (val) => data.validator(val!, isNumeric: true),
           textCon: data.accessNoteController,
           node: accessNotesNode,
         ),
@@ -161,21 +154,46 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
   }
 
   Widget checkBoxColumn(StorageCubit data) {
+    List<String> options = [
+      "Granting Access to Storage",
+      "Agreement to Terms and Conditions"
+    ];
+    List<bool> agreements = [
+      data.isAgreed,
+      data.isGranted,
+    ];
     return Padding(
       padding: EdgeInsets.symmetric(vertical: itemHeight(5)),
       child: Column(
-        children: [
-          CheckBoxRow(
-            text: "Granting Access",
-            checkValue: data.isGranted,
-            function: (val) => data.isGranted = val!,
-          ),
-          CheckBoxRow(
-            text: "I agree to terms and conditions",
-            function: (val) => data.isAgreed = val!,
-            checkValue: data.isAgreed,
-          ),
-        ],
+        children: List.generate(
+          options.length,
+            (i) => CheckBoxRow(
+                  text: InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => TermsAndConditions()));
+                    },
+                    child: Text(
+                      options[i],
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontSize: 15.0,
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  checkValue: agreements[i],
+                  function: (val)=> setState(() {
+                    agreements[i] = val!;
+                  }),
+                ),
+        ),
+        // children:
+        //   CheckBoxRow(
+        //     text: "I agree to terms and conditions",
+        //     function: (val) => data.isAgreed = val!,
+        //     checkValue: data.isAgreed,
+        //   ),
+        // ],
       ),
     );
   }

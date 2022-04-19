@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
 import '../../../../core/core_usage/presentation/widgets/custom_button.dart';
 import '../../../../core/core_usage/presentation/widgets/header.dart';
+import '../../../storage_option/presentation/storage_option.dart';
 import '../provider/login_cubit.dart';
 import 'components/form_list.dart';
 
@@ -28,21 +29,42 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     var bloc = BlocProvider.of<LoginCubit>(context, listen: false);
     Config.init(context);
-    return SingleChildScrollView(
-      child: BlocConsumer<LoginCubit, LoginState>(
-          bloc: bloc,
-          builder: (context, state) {
-        return Column(
-          children: [
-            const Header(isLogin: true,),
-            SizedBox(height: itemHeight(25.0)),
-            FormList(data: bloc,),
-            SizedBox(height: itemHeight(15.0)),
-            CustomButton(width: itemWidth(350), text: "Log in", onPressed: () => bloc.validate(context)),
-          ],
-        );
-      }, listener: (context, state) {})
+    return WillPopScope(
+      onWillPop: () async {
+        bloc.emit(LoginInitial());
+        return true;
+      },
+      child: SingleChildScrollView(
+        child: BlocConsumer<LoginCubit, LoginState>(
+            bloc: bloc,
+            builder: (context, state) {
+          if(state is LoginInitial) {
+            return Column(
+              children: [
+                const Header(isLogin: true,),
+                SizedBox(height: itemHeight(25.0)),
+                FormList(data: bloc,),
+                SizedBox(height: itemHeight(15.0)),
+                CustomButton(width: itemWidth(350), text: "Log in", onPressed: () => bloc.validate(context)),
+              ],
+            );
+          } else if(state is LoginError) {
+            return Container();
+          } else if(state is LoginLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Container();
+          }
+        }, listener: (context, state) {
+              print("STATE: $state");
+              if(state is LoginLoaded) {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const StorageOption()));
+              }
+        })
 
+      ),
     );
   }
 }

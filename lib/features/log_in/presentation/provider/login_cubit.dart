@@ -38,50 +38,21 @@ class LoginCubit extends Cubit<LoginState> {
 
   validate(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      loginUser().listen((event) {
-        emit(event);
-        print(event);
-        if (event is LoginLoaded) {
-          print("SUCCESS");
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const StorageOption()));
-        } else if(event is LoginError) {
-          showDialog(
-            context: context,
-            builder: (context) => ErrorDialog(
-              retry: () {
-                Navigator.pop(context);
-                validate(context);
-              },
-              dispose: () => Navigator.pop(context),
-            ),
-          );
-        } else if(event is LoginLoading) {
-          showDialog(
-              context: context,
-              builder: (_) {
-                return const LoadingDialog();
-              },
-          );
-        }
-      });
+       await loginUser();
     }
   }
 
-  Stream<LoginState> loginUser() async* {
+  Future<void> loginUser() async {
+    print("PRESSED");
     var loginStream = await authUser(
         params: Params(
       email: emailcontroller.text,
       password: passwordcontroller.text,
     ));
-    yield LoginLoading();
-    yield* loginStream.fold(
-
-      (error) async* {
-      yield LoginError(errorMessage: error.toString());
-    },
-    (right) async* {
-      yield LoginLoading();
-      yield LoginLoaded(message: right);
-    });
+    emit(LoginLoading());
+    return loginStream.fold(
+      (error) => emit(LoginError(errorMessage: error.toString())),
+      (right) => emit(LoginLoaded(message: right)),
+    );
   }
 }

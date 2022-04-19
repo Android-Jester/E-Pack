@@ -157,9 +157,13 @@ class WarningDialog extends StatelessWidget {
                   size: itemWidth(60.0),
                 ),
               ),
-              Text(
-                text,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: itemWidth(25)),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: itemHeight(15)),
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: itemWidth(25)),
+                ),
               ),
               SizedBox(
                 height: itemHeight(12),

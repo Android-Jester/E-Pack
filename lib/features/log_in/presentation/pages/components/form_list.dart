@@ -64,24 +64,24 @@ class _FormListState extends State<FormList> {
                   });
                 },
               ),
-              Visibility(
-                visible: isVisible,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: itemWidth(15)),
-                  child: FlutterPwValidator(
-                    successColor: Colors.green,
-                    failureColor: Theme.of(context).colorScheme.error,
-                    controller: widget.data.passwordcontroller,
-                    minLength: 6,
-                    uppercaseCharCount: 2,
-                    numericCharCount: 3,
-                    specialCharCount: 1,
-                    width: 400,
-                    height: 150,
-                    onSuccess: () {},
-                  ),
-                ),
-              )
+              // Visibility(
+              //   visible: isVisible,
+              //   child: Padding(
+              //     padding: EdgeInsets.symmetric(horizontal: itemWidth(15)),
+              //     child: FlutterPwValidator(
+              //       successColor: Colors.green,
+              //       failureColor: Theme.of(context).colorScheme.error,
+              //       controller: widget.data.passwordcontroller,
+              //       minLength: 6,
+              //       uppercaseCharCount: 2,
+              //       numericCharCount: 3,
+              //       specialCharCount: 1,
+              //       width: 400,
+              //       height: 150,
+              //       onSuccess: () {},
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

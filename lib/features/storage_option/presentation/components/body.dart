@@ -39,11 +39,11 @@ class _BodyState extends State<Body> {
         currentPage: currentPage,
         scroll: _scrollControl,
       ),
-      StorageRoomType(
-        controller: _controller,
-        currentPage: currentPage,
-        scroll: _scrollControl,
-      ),
+      // StorageRoomType(
+      //   controller: _controller,
+      //   currentPage: currentPage,
+      //   scroll: _scrollControl,
+      // ),
       StorageBoxChoices(
         controller: _controller,
         currentPage: currentPage,
@@ -68,7 +68,7 @@ class _BodyState extends State<Body> {
 
     List<String> title = [
       "Time Selection",
-      "Appartment Type",
+      // "Appartment Type",
       "Box Sizes",
       // "Storage Period",
       "Collection Info",

@@ -77,40 +77,58 @@ class _RoomTypeState extends State<StorageRoomType> with AutomaticKeepAliveClien
     );
   }
 
-  Column radioColumn(StorageCubit data) => Column(
-        children: [
-          SelectionRadio(
-            value: 1,
-            text: "Single Room",
-            groupValue: data.roomType,
-            changed: (val) => data.roomType = val!,
-          ),
-          SelectionRadio(
-            value: 2,
-            text: "Double Room",
-            groupValue: data.roomType,
-            changed: (val) => data.roomType = val!,
-          ),
-          SelectionRadio(
-            value: 3,
-            text: "Two or more",
-            groupValue: data.roomType,
-            changed: (val) => data.roomType = val!,
-          ),
-          SelectionRadio(
-            value: 4,
-            text: "Apartment",
-            groupValue: data.roomType,
-            changed: (val) => data.roomType = val!,
-          ),
-          SelectionRadio(
-            value: 5,
-            text: "Homestel",
-            groupValue: data.roomType,
-            changed: (val) => data.roomType = val!,
-          ),
-        ],
-      );
+  // Column radioColumn(StorageCubit data) => Column(
+  //       children: [
+  //         SelectionRadio(
+  //           value: 1,
+  //           text: "Single Room",
+  //           groupValue: data.roomType,
+  //           changed: (val) => data.changeValue(val!),
+  //         ),
+  //         SelectionRadio(
+  //           value: 2,
+  //           text: "Double Room",
+  //           groupValue: data.roomType,
+  //           changed: (val) => data.changeValue(val!),
+  //
+  //         ),
+  //         SelectionRadio(
+  //           value: 3,
+  //           text: "Two or more",
+  //           groupValue: data.roomType,
+  //           changed: (val) => data.roomType = val!,
+  //         ),
+  //         SelectionRadio(
+  //           value: 4,
+  //           text: "Apartment",
+  //           groupValue: data.roomType,
+  //           changed: (val) => data.roomType = val!,
+  //         ),
+  //         SelectionRadio(
+  //           value: 5,
+  //           text: "Homestel",
+  //           groupValue: data.roomType,
+  //           changed: (val) => data.roomType = val!,
+  //         ),
+  //       ],
+  //     );
+  Column radioColumn(StorageCubit data) {
+    List<String> types = [
+      "Single Room",
+      "Double Room",
+      "Two or more",
+      "Apartment",
+      "Homestel"
+    ];
+    return Column(
+      children: List.generate(5, (i) => SelectionRadio(
+        value: (i+1),
+        text: types[i],
+        changed: (val) => setState(() => data.changeValue(val!)),
+        groupValue: data.roomType,
+      )),
+    );
+  }
 
   @override
   // TODO: implement wantKeepAlive

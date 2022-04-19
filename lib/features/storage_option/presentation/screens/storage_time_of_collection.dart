@@ -28,7 +28,7 @@ class _TimeSelectionState extends State<StorageTimeSelection> with AutomaticKeep
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    var data = BlocProvider.of<StorageCubit>(context);
+    var data = BlocProvider.of<StorageCubit>(context, listen: true);
     return BlocConsumer<StorageCubit, StorageState>(
         builder: (context, state) => SingleChildScrollView(
               physics: BouncingScrollPhysics(),
@@ -38,10 +38,16 @@ class _TimeSelectionState extends State<StorageTimeSelection> with AutomaticKeep
                   children: [
                     const Text("Pick A Slot", style: TextStyle(fontSize: 30.0)),
                     const SizedBox(height: 5.0),
+                    // Date Time Picker
                     DateTimePicker(
                       dateController: dateController!,
-                      onSelectionChanged: (val) {},
+                      onSelectionChanged: (val) {
+                        setState(() {
+                          data.onDateChange(val.value.toString());
+                        });
+                      },
                       endDate: DateTime(2022, 05, 15, 18, 00),
+
                     ),
                     SizedBox(height: itemHeight(15.0)),
                     SizedBox(
@@ -56,9 +62,7 @@ class _TimeSelectionState extends State<StorageTimeSelection> with AutomaticKeep
                           textAlign: TextAlign.center,
                           decoration: InputDecoration(
                               hintText: "Please select a date to view Timeslot here",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(itemWidth(12.0)),
-                              )),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(itemWidth(12.0)))),
                         ),
                       ),
                     ),
