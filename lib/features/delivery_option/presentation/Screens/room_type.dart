@@ -1,14 +1,13 @@
-import 'package:e_pack/core/presentation/config/config.dart';
-import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
-import 'package:e_pack/core/presentation/widgets/button_row.dart';
-import 'package:e_pack/core/presentation/widgets/page_button.dart';
-import 'package:e_pack/core/presentation/widgets/selection_radio.dart';
-import 'package:e_pack/core/presentation/widgets/state_dialogs.dart';
-import 'package:e_pack/features/delivery_option/presentation/components/body.dart';
-import 'package:e_pack/features/delivery_option/presentation/provider/bloc/delivery_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
+
+import '../../../../core/core_usage/presentation/configurations/sizes.dart';
+import '../../../../core/core_usage/presentation/function/page_movement.dart';
+import '../../../../core/core_usage/presentation/function/scroll_movement.dart';
+import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
+import '../../../../core/core_usage/presentation/widgets/dialog_states.dart';
+import '../../../../core/core_usage/presentation/widgets/options/selection_radio.dart';
+import '../provider/bloc/delivery_cubit.dart';
 
 class RoomType extends StatefulWidget {
   final PageController? controller;
@@ -31,44 +30,48 @@ class _RoomTypeState extends State<RoomType> with AutomaticKeepAliveClientMixin 
     var data = BlocProvider.of<DeliveryCubit>(context);
     Config.init(context);
     return SingleChildScrollView(
-          child: ContainerWrapper(
-            padding: EdgeInsets.symmetric(vertical: itemHeight(30.0)),
-            width: Config.width,
-            child: Column(
-              children: [
-                Text(
-                  "Select Room Type",
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: itemHeight(15)),
-                  child: Divider(
-                    color: Theme.of(context).colorScheme.secondary,
-                    thickness: itemHeight(1),
-                    height: itemHeight(1.5),
-                  ),
-                ),
-                SizedBox(height: itemHeight(15.0)),
-                radioColumn(data),
-                SizedBox(height: itemHeight(25.0)),
-                buttonRow(widget.controller!, widget.currentPage!, nextButton: () {
-                  if (data.roomType == 0) {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return WarningDialog(
-                            text: 'Room Type Not Selected',
-                          );
-                        });
-                  } else {
-                    smoothScrollToTop(widget.scroll);
-                    direction(widget.controller!, widget.currentPage!, true);
-                  }
-                })
-              ],
+      child: ContainerWrapper(
+        padding: EdgeInsets.symmetric(vertical: itemHeight(30.0)),
+        width: Config.width,
+        child: Column(
+          children: [
+            Text(
+              "Select Room Type",
+              style: Theme.of(context).textTheme.headline3,
             ),
-          ),
-        );
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: itemHeight(15)),
+              child: Divider(
+                color: Theme.of(context).colorScheme.secondary,
+                thickness: itemHeight(1),
+                height: itemHeight(1.5),
+              ),
+            ),
+            SizedBox(height: itemHeight(15.0)),
+            radioColumn(data),
+            SizedBox(height: itemHeight(25.0)),
+            ButtonRow(
+              pageController: widget.controller!,
+              currentPage: widget.currentPage!,
+              scroll: widget.scroll,
+              nextAction: () {
+                if (data.roomType == 0) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return WarningDialog(
+                          text: 'Room Type Not Selected',
+                        );
+                      });
+                } else {
+                  direction(widget.controller!, widget.scroll, widget.currentPage!, true);
+                }
+              },
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Column radioColumn(DeliveryCubit data) => Column(
@@ -84,14 +87,12 @@ class _RoomTypeState extends State<RoomType> with AutomaticKeepAliveClientMixin 
             text: "Double Room",
             groupValue: data.roomType,
             changed: (val) => data.roomType = val!,
-
           ),
           SelectionRadio(
             value: 3,
             text: "Two or more",
             groupValue: data.roomType,
             changed: (val) => data.roomType = val!,
-
           ),
           SelectionRadio(
             value: 4,
@@ -104,7 +105,6 @@ class _RoomTypeState extends State<RoomType> with AutomaticKeepAliveClientMixin 
             text: "Homestel",
             groupValue: data.roomType,
             changed: (val) => data.roomType = val!,
-
           ),
         ],
       );

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
+import '../../../../core/core_usage/presentation/function/date_change.dart';
 import '../../../../core/core_usage/presentation/function/date_time.dart';
 import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
 import '../../../../core/core_usage/presentation/widgets/page_directions.dart';
@@ -43,13 +44,8 @@ class _TimeSelectionState extends State<StorageTimeSelection> with AutomaticKeep
                       // Date Time Picker
                       DateTimePicker(
                         dateController: dateController!,
-                        onSelectionChanged: (val) {
-                          setState(() {
-                            data.onDateChange(val.value.toString());
-                          });
-                        },
+                        onSelectionChanged: (val) => setState(() => onDateChange(val.value.toString(), data)),
                         endDate: DateTime(2022, 05, 15, 18, 00),
-
                       ),
                       SizedBox(height: itemHeight(15.0)),
                       SizedBox(

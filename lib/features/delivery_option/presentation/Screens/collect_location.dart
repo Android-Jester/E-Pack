@@ -1,15 +1,19 @@
 //TODO: collection of location info
 
-import 'package:e_pack/core/presentation/config/config.dart';
-import 'package:e_pack/core/presentation/config/theme.dart';
-import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
-import 'package:e_pack/core/presentation/widgets/button_row.dart';
-import 'package:e_pack/core/presentation/widgets/check_box_row.dart';
-import 'package:e_pack/core/presentation/widgets/text_with_label.dart';
+
+import 'dart:html';
+
+import 'package:e_pack_final/core/core_usage/presentation/widgets/check_boxes_agreement.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
+import '../../../../core/core_usage/presentation/configurations/sizes.dart';
+import '../../../../core/core_usage/presentation/configurations/theme.dart';
+import '../../../../core/core_usage/presentation/function/page_movement.dart';
+import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
+import '../../../../core/core_usage/presentation/widgets/options/check_box.dart';
+import '../../../../core/core_usage/presentation/widgets/text_with_lable.dart';
+import '../../../storage_option/presentation/provider/bloc/storage_cubit.dart';
 import '../provider/bloc/delivery_cubit.dart';
 
 class CollectionData extends StatefulWidget {
@@ -68,10 +72,13 @@ class _CollectionPageState extends State<CollectionData> with AutomaticKeepAlive
                       style: TextStyle(fontSize: itemWidth(17.0)),
                     ),
                   ),
-                  checkBoxColumn(data: bloc),
-                  buttonRow(widget.controller, widget.currentPage, nextButton: () {
-                    bloc.allValidation(widget.scroll, widget.controller, widget.currentPage);
-                  })
+                  CheckBoxesAgreements(cubit: bloc),
+                  ButtonRow(
+                      pageController: widget.controller,
+                      currentPage: widget.currentPage,
+                      scroll: widget.scroll,
+                      nextAction: () => bloc.allValidation(widget.scroll, widget.controller, widget.currentPage),
+                  )
                 ],
               ),
             ),
@@ -106,45 +113,7 @@ class _CollectionPageState extends State<CollectionData> with AutomaticKeepAlive
           type: TextInputType.phone,
           node: phoneNode,
         ),
-        Container(
-          padding: EdgeInsets.only(top: itemHeight(10.0)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Address Type",
-                style: TextStyle(fontSize: itemWidth(15.0)),
-              ),
-              SizedBox(height: itemHeight(2.5)),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: itemWidth(30.0)),
-                child: DropdownButtonFormField(
-                  decoration: inputDecoration(context),
-                  value: data.addressType,
-                  items: const [
-                    DropdownMenuItem(
-                      child: Text("Hostel"),
-                      value: "Hostel",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Homestel"),
-                      value: "Homestel",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Flat"),
-                      value: "Flat",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Hall"),
-                      value: "Hall",
-                    ),
-                  ],
-                  onChanged: (value) => data.addressType = value.toString(),
-                ),
-              ),
-            ],
-          ),
-        ),
+        AreaSelection(cubit: data),
         TextWithLabel(
           text: "Access Note",
           // validate: (val) => data.validator(val!, isNumeric: true),
@@ -155,26 +124,71 @@ class _CollectionPageState extends State<CollectionData> with AutomaticKeepAlive
     );
   }
 
-  Widget checkBoxColumn({required DeliveryCubit data}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: itemHeight(5)),
+
+  @override
+  bool get wantKeepAlive => true;
+}
+
+class AreaSelection extends StatelessWidget {
+  AreaSelection({
+    required this.cubit,
+    Key? key,
+  }) : super(key: key);
+  final Cubit cubit;
+
+  String addressType = "";
+  checkCubit(Cubit cubit) {
+    if(cubit is StorageCubit) {
+      cubit.addressType = addressType;
+    }
+    else if(cubit is DeliveryCubit) {
+      cubit.addressType = addressType;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: itemHeight(10.0)),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CheckBoxRow(
-            text: "Granting Access",
-            checkValue: data.isGranted,
-            function: (val) => data.isGranted = val!,
+          Text(
+            "Address Type",
+            style: TextStyle(fontSize: itemWidth(15.0)),
           ),
-          CheckBoxRow(
-            text: "I agree to terms and conditions",
-            function: (val) => data.isAgreed = val!,
-            checkValue: data.isAgreed,
+          SizedBox(height: itemHeight(2.5)),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: itemWidth(30.0)),
+            child: DropdownButtonFormField(
+              decoration: inputDecoration(context),
+              value: addressType,
+              items: const [
+                DropdownMenuItem(
+                  child: Text("Hostel"),
+                  value: "Hostel",
+                ),
+                DropdownMenuItem(
+                  child: Text("Homestel"),
+                  value: "Homestel",
+                ),
+                DropdownMenuItem(
+                  child: Text("Flat"),
+                  value: "Flat",
+                ),
+                DropdownMenuItem(
+                  child: Text("Hall"),
+                  value: "Hall",
+                ),
+              ],
+              onChanged: (value) {
+                addressType = value.toString();
+                checkCubit(cubit);
+              },
+            ),
           ),
         ],
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

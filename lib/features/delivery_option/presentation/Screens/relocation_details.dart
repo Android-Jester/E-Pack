@@ -1,12 +1,12 @@
-import 'package:e_pack/core/presentation/config/config.dart';
-import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
-import 'package:e_pack/core/presentation/widgets/button_row.dart';
-import 'package:e_pack/core/presentation/widgets/page_button.dart';
-import 'package:e_pack/features/delivery_option/presentation/components/body.dart';
-import 'package:e_pack/features/delivery_option/presentation/provider/bloc/delivery_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../core/core_usage/presentation/configurations/sizes.dart';
+import '../../../../core/core_usage/presentation/function/page_movement.dart';
+import '../../../../core/core_usage/presentation/function/scroll_movement.dart';
+import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
+import '../provider/bloc/delivery_cubit.dart';
 
 class RelocationDetails extends StatefulWidget {
   final PageController? controller;
@@ -68,12 +68,12 @@ class _RelocationDetailsState extends State<RelocationDetails> with AutomaticKee
               ),
               selectionRow(text: "Deliver to a different campus address", value: 3, data: data, groupValue: data.relocationValue),
               selectionRow(text: "Deliver to another room in the same building", value: 4, data: data, groupValue: data.relocationValue),
-              buttonRow(
-                widget.controller!,
-                widget.currentPage,
-                nextButton: () {
-                  smoothScrollToTop(widget.scroll);
-                  (data.relocationValue == 0) ? null : direction(widget.controller!, widget.currentPage, true);
+              ButtonRow(
+                pageController: widget.controller!,
+                currentPage: widget.currentPage,
+                scroll: widget.scroll,
+                nextAction: () {
+                  (data.relocationValue == 0) ? null : direction(widget.controller!, widget.scroll, widget.currentPage, true);
                 },
               )
             ],

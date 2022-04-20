@@ -1,13 +1,16 @@
-import 'package:e_pack/core/presentation/config/config.dart';
-import 'package:e_pack/core/presentation/widgets/background_wrapper.dart';
-import 'package:e_pack/core/presentation/widgets/box_selection.dart';
-import 'package:e_pack/core/presentation/widgets/button_row.dart';
-import 'package:e_pack/core/presentation/widgets/page_button.dart';
-import 'package:e_pack/core/presentation/widgets/state_dialogs.dart';
-import 'package:e_pack/features/delivery_option/presentation/components/body.dart';
-import 'package:e_pack/features/delivery_option/presentation/provider/bloc/delivery_cubit.dart';
+import 'package:e_pack_final/core/core_usage/presentation/widgets/box_selections/box_header.dart';
+import 'package:e_pack_final/core/core_usage/presentation/widgets/box_selections/box_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/core_usage/presentation/configurations/sizes.dart';
+import '../../../../core/core_usage/presentation/function/page_movement.dart';
+import '../../../../core/core_usage/presentation/function/scroll_movement.dart';
+import '../../../../core/core_usage/presentation/widgets/box_selections/box_selector.dart';
+import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
+import '../../../../core/core_usage/presentation/widgets/dialog_states.dart';
+import '../../../../core/core_usage/presentation/widgets/options/box_selector.dart';
+import '../provider/bloc/delivery_cubit.dart';
 
 class BoxChoices extends StatefulWidget {
   final PageController controller;
@@ -35,33 +38,23 @@ class _BoxChoicesState extends State<BoxChoices> with AutomaticKeepAliveClientMi
           width: Config.width,
           child: Column(
             children: [
-              Text(
-                "Select",
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: itemHeight(20)),
-                child: Divider(
-                  color: Colors.black,
-                  thickness: itemHeight(0.5),
-                  height: itemHeight(1.5),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: itemWidth(25.0)),
-                child: Text(
-                  "Please choose the particular type and number of boxes you may need for your belongings",
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-              ),
+              const BoxHeader(),
               const Divider(),
-              boxesColumn(data: bloc),
-              boxSizeInfo(),
+              BoxesSelection(
+                large: bloc.largeBoxController,
+                medium:bloc.mediumBoxController,
+                small: bloc.smallBoxController,
+              ),
+              const BoxSizes(),
               SizedBox(height: itemHeight(20.0)),
-              buttonRow(widget.controller, widget.currentPage, nextButton: () {
+              ButtonRow(
+                  pageController: widget.controller,
+                  currentPage: widget.currentPage,
+                  scroll: widget.scroll,
+                  nextAction: () {
                 if (int.parse(bloc.largeBoxController.text) != 0 || int.parse(bloc.mediumBoxController.text) != 0 || int.parse(bloc.smallBoxController.text) != 0) {
-                  smoothScrollToTop(widget.scroll);
-                  direction(widget.controller, widget.currentPage, true);
+
+                  direction(widget.controller, widget.scroll, widget.currentPage, true);
                 } else {
                   showDialog(
                     context: context,
@@ -74,41 +67,6 @@ class _BoxChoicesState extends State<BoxChoices> with AutomaticKeepAliveClientMi
         ),
       );
   }
-
-  Container boxSizeInfo() {
-    return Container(
-      color: Colors.red.shade200,
-      width: Config.width,
-      height: Config.height! / 6,
-      padding: EdgeInsets.symmetric(horizontal: itemWidth(2.0)),
-      child: const Center(
-        child: Text(" Size of Large Box: 18”x18”x24” \n Size of Medium Box: 18”x18”x16” \n Size of Small Box: 16”x12”x12” "),
-      ),
-    );
-  }
-
-  Widget boxesColumn({required DeliveryCubit data}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: itemHeight(30)),
-      child: Column(
-        children: [
-          BoxSelection(
-            textEditingController: data.largeBoxController,
-            text: "Large Box",
-          ),
-          BoxSelection(
-            textEditingController: data.mediumBoxController,
-            text: "Medium Box",
-          ),
-          BoxSelection(
-            textEditingController: data.smallBoxController,
-            text: "Small Box",
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;

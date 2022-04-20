@@ -4,7 +4,6 @@ import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/core_usage/presentation/configurations/sizes.dart';
 import '../../../../../core/core_usage/presentation/function/page_movement.dart';
-import '../../../../../core/core_usage/presentation/function/scroll_movement.dart';
 import '../../../../../core/core_usage/presentation/widgets/custom_button.dart';
 import '../../../domain/usecases/send_delivery_request.dart';
 
@@ -89,12 +88,11 @@ class DeliveryCubit extends Cubit<DeliveryState> {
 
   void allValidation(ScrollController scroll, PageController controller, int currentPage) {
     if (infoCollectionKey.currentState!.validate() && isGranted && isAgreed) {
-      smoothScrollToTop(scroll);
-      direction(controller, currentPage, true);
+
+      direction(controller, scroll, currentPage, true);
     }
   }
   deliveryInfoValidation({required BuildContext context, required PageController controller, required int currentPage, required ScrollController scroll}) {
-    smoothScrollToTop(scroll);
     if (deliveryInfoKey.currentState!.validate()) {
       showDialog(
           context: context,
@@ -135,35 +133,6 @@ class DeliveryCubit extends Cubit<DeliveryState> {
                 ),
               ),
             );
-
-            // return Dialog(
-            //     child: Container(
-            //         height: itemHeight(250),
-            //         child: Column(
-            //           children: <Widget>[
-            //             Text("Have you completed everything?"),
-            //             SizedBox(
-            //               width: itemWidth(30.0),
-            //               child: Row(
-            //                 children: [
-            //                   CustomButton(
-            //                       width: itemWidth(60.0),
-            //                       text: "Yes",
-            //                       onPressed: () {
-            //                         controller
-            //                             .animateToPage(currentPage + 1, duration: Duration(milliseconds: 1), curve: Curves.bounceIn)
-            //                             .then((value) => Navigator.pop(context));
-            //                       }),
-            //                   CustomButton(
-            //                     width: itemWidth(60.0),
-            //                     text: "No",
-            //                     onPressed: () => Navigator.pop(context),
-            //                   )
-            //                 ],
-            //               ),
-            //             ),
-            //           ],
-            //         )));
           });
     }
   }
@@ -193,10 +162,17 @@ class DeliveryCubit extends Cubit<DeliveryState> {
       momoFullName: momoNum.text,
       cost: 1500.0,
     ));
-    result.fold(
-            (l) => DeliveryError(errorMessage: l.toString()),
-    (r) => null);
-            // (r) => DeliveryLoaded(successString: r));
+    yield* result.fold(
+            (l) async* {
+              emit(DeliveryLoading());
+              emit(DeliveryError(errorMessage: l.toString()));
+              yield DeliveryError(errorMessage: l.toString());
+            },
+          (r) async* {
+              yield DeliveryLoading();
+              yield DeliveryLoaded(successString: r.deliveryKey);
+          }
+    );
 
   }
 }

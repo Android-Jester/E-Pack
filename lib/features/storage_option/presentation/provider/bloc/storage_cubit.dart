@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/core_usage/presentation/function/page_movement.dart';
 import '../../../../../core/core_usage/presentation/function/scroll_movement.dart';
 import '../../../../../injector.dart';
+import '../../../../delivery_option/presentation/provider/bloc/delivery_cubit.dart';
 import '../../../domain/usecases/send_storage_request.dart';
 
 part 'storage_state.dart';
@@ -61,17 +62,12 @@ class StorageCubit extends Cubit<StorageState> {
 
 void validation(BuildContext context, ScrollController scroll, PageController page, int pageIndex, GlobalKey<FormState> keys) {
   if(keys.currentState!.validate()) {
-    smoothScrollToTop(scroll);
-    direction(page, pageIndex, true);
+    direction(page, scroll, pageIndex, true);
   }
   else {showDialog(context: context, builder: (_) => WarningDialog(text: "Please Enter Value"));}
 }
 
-void onDateChange(String value) {
-  timeDate = TextEditingController(text: "$value");
-  dateTimeVal = value;
 
-}
 
 
 String? textValidator(String val) {

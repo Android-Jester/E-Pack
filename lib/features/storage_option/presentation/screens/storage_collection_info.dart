@@ -1,11 +1,13 @@
 //TODO: collection of location info
 
 import 'package:e_pack_final/core/core_usage/presentation/screen/terms_and_conditions.dart';
+import 'package:e_pack_final/features/delivery_option/presentation/provider/bloc/delivery_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
 import '../../../../core/core_usage/presentation/configurations/theme.dart';
 import '../../../../core/core_usage/presentation/function/page_movement.dart';
+import '../../../../core/core_usage/presentation/widgets/check_boxes_agreement.dart';
 import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
 import '../../../../core/core_usage/presentation/widgets/options/check_box.dart';
 import '../../../../core/core_usage/presentation/widgets/text_with_lable.dart';
@@ -69,8 +71,12 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
                       style: TextStyle(fontSize: itemWidth(17.0)),
                     ),
                   ),
-                  checkBoxColumn(data),
-                  buttonRow(widget.controller, widget.currentPage, nextButton: () {
+                  CheckBoxesAgreements(cubit: data),
+                  ButtonRow(
+                      pageController: widget.controller,
+                      currentPage: widget.currentPage,
+                      scroll: widget.scroll,
+                      nextAction: () {
                     data.validation(context, widget.scroll, widget.controller, widget.currentPage, data.collectKey);
                   })
                 ],
@@ -153,57 +159,9 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
     );
   }
 
-  Widget checkBoxColumn(StorageCubit data) {
-    List<String> options = [
-      "Granting Access to Storage",
-      "Agreement to Terms and Conditions"
-    ];
-    List<bool> agreements = [
-      data.isAgreed,
-      data.isGranted,
-    ];
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: itemHeight(5)),
-      child: Column(
-        children: [
-          CheckBoxRow(
-            textInput: options[0],
-            checkValue: data.isAgreed,
-            function: (val) => setState(() {
-              data.isAgreed = val!;
-            }),
-          ),
-          CheckBoxRow(
-            text: InkWell(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const TermsAndConditions()));
-              },
-              child: Text(
-                options[1],
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                  fontSize: 15.0,
-                  color: Colors.blue,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-            checkValue: data.isGranted,
-            function: (val) => setState(() {
-              data.isGranted = val!;
-            }),
-          )
-        ]
-        ),
-        // children:
-        //   CheckBoxRow(
-        //     text: "I agree to terms and conditions",
-        //     function: (val) => data.isAgreed = val!,
-        //     checkValue: data.isAgreed,
-        //   ),
-        // ],
-      );
-  }
 
   @override
   bool get wantKeepAlive => true;
 }
+
+
