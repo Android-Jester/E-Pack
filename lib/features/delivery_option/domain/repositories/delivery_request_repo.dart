@@ -3,7 +3,7 @@ import '../../../../core/core_errors/failures.dart';
 import '../entities/response.dart';
 
 abstract class DeliveryRequestRepository {
-  final String username = "";
+  String username = "";
 
   Future<Either<Failure, DeliveryResponse>> sendDeliveryRequest({
     required String timeCollect,

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
+import '../../../../core/core_usage/presentation/function/validators.dart';
 import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
 import '../../../../core/core_usage/presentation/widgets/custom_button.dart';
 import '../../../../core/core_usage/presentation/widgets/text_with_lable.dart';
@@ -56,24 +57,32 @@ class _ContactInfoState extends State<StorageContactInfo> {
                   TextWithLabel(
                     text: "Current Location",
                     textCon: data.locationAddressController,
-                    validate: (val) => data.textValidator(val!),
+                    validate: (val) => textValidator(val!),
                   ),
                   TextWithLabel(
-                      validate: (val) => data.phoneNumberValidator(val!),
-                      text: "Local Phone Number",
-                      textCon: data.phoneNumberController,
-                      type: TextInputType.phone),
+                    validate: (val) => phoneNumberValidator(val!),
+                    text: "Local Phone Number",
+                    textCon: data.phoneNumberController,
+                    type: TextInputType.phone,
+                  ),
                   TextWithLabel(
-                      validate: (val) => data.phoneNumberValidator(val!),
-                      text: "WhatsApp Number",
-                      textCon: data.whatsAppNumberController,
-                      type: TextInputType.phone),
+                    validate: (val) => phoneNumberValidator(val!),
+                    text: "WhatsApp Number",
+                    textCon: data.whatsAppNumberController,
+                    type: TextInputType.phone,
+                  ),
                   TextWithLabel(
-                      text: "Contact Times per week",
-                      textCon: data.contactTimesController,
-                      validate: (val) => data.numberValidator(val!),
-                      type: TextInputType.number),
-                  TextWithLabel(text: "Notes", textCon: data.notesController, validate: (val) => data.textValidator(val!), type: TextInputType.multiline),
+                    text: "Contact Times per week",
+                    textCon: data.contactTimesController,
+                    validate: (val) => numberValidator(val!),
+                    type: TextInputType.number,
+                  ),
+                  TextWithLabel(
+                    text: "Notes",
+                    textCon: data.notesController,
+                    validate: (val) => textValidator(val!),
+                    type: TextInputType.multiline,
+                  ),
                   CustomButton(
                     onPressed: () async {
                       data.validation(context, widget.scroll, widget.controller!, widget.currentPage!, data.contactKey);

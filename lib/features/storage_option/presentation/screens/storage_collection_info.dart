@@ -1,6 +1,5 @@
 //TODO: collection of location info
 
-import 'package:e_pack_final/core/core_usage/presentation/screen/terms_and_conditions.dart';
 import 'package:e_pack_final/features/delivery_option/presentation/provider/bloc/delivery_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,45 +8,16 @@ import '../../../../core/core_usage/presentation/configurations/theme.dart';
 import '../../../../core/core_usage/presentation/function/page_movement.dart';
 import '../../../../core/core_usage/presentation/widgets/check_boxes_agreement.dart';
 import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
-import '../../../../core/core_usage/presentation/widgets/options/check_box.dart';
 import '../../../../core/core_usage/presentation/widgets/text_with_lable.dart';
 import '../provider/bloc/storage_cubit.dart';
+import '../widgets/form_column.dart';
 
-class StorageCollectionInfo extends StatefulWidget {
+class StorageCollectionInfo extends StatelessWidget {
   final PageController controller;
   final int currentPage;
   final ScrollController scroll;
 
-  StorageCollectionInfo({required this.controller, required this.currentPage, required this.scroll});
-  @override
-  State<StorageCollectionInfo> createState() => _CollectionPageState();
-}
-
-class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKeepAliveClientMixin {
-  late FocusNode residenceNode;
-  late FocusNode phoneNode;
-  late FocusNode roomNode;
-  late FocusNode accessNotesNode;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    residenceNode = FocusNode();
-    phoneNode = FocusNode();
-    roomNode = FocusNode();
-    accessNotesNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    residenceNode.dispose();
-    phoneNode.dispose();
-    roomNode.dispose();
-    accessNotesNode.dispose();
-  }
+  const StorageCollectionInfo({required this.controller, required this.currentPage, required this.scroll, Key? key}):super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +33,7 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
               key: data.collectKey,
               child: Column(
                 children: [
-                  formColumn(data),
+                  FormColumn(data: data),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: itemWidth(15.0)),
                     child: Text(
@@ -73,11 +43,11 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
                   ),
                   CheckBoxesAgreements(cubit: data),
                   ButtonRow(
-                      pageController: widget.controller,
-                      currentPage: widget.currentPage,
-                      scroll: widget.scroll,
+                      pageController: controller,
+                      currentPage: currentPage,
+                      scroll: scroll,
                       nextAction: () {
-                    data.validation(context, widget.scroll, widget.controller, widget.currentPage, data.collectKey);
+                    data.validation(context, scroll, controller, currentPage, data.collectKey);
                   })
                 ],
               ),
@@ -91,77 +61,15 @@ class _CollectionPageState extends State<StorageCollectionInfo> with AutomaticKe
     );
   }
 
-  Widget formColumn(StorageCubit data) {
-    List<String> value = [
-      "Hostel",
-      "Homestel",
-      "Apartment",
-      "Flat",
-      "Hall"
-    ];
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: itemWidth(25)),
-      child: Column(children: [
-        TextWithLabel(
-          text: "Name of Residence",
-          validate: (val) => data.textValidator(val!),
-          textCon: data.residenceNameController,
-          type: TextInputType.name,
-          node: residenceNode,
-          nextNode: roomNode,
-        ),
-        TextWithLabel(
-          text: "Room or Flat Number",
-          validate: (val) => data.numberValidator(val!),
-          textCon: data.roomNumController,
-          type: TextInputType.number,
-          node: roomNode,
-          nextNode: phoneNode,
-        ),
-        TextWithLabel(
-          text: "Mobile Number",
-          validate: (val) => data.numberValidator(val!),
-          textCon: data.mobileNumController,
-          type: TextInputType.phone,
-          node: phoneNode,
-        ),
-        Container(
-          padding: EdgeInsets.only(top: itemHeight(10.0)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Address Type",
-                style: TextStyle(fontSize: itemWidth(15.0)),
-              ),
-              SizedBox(height: itemHeight(2.5)),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: itemWidth(30.0)),
-                child: DropdownButtonFormField(
-                  decoration: inputDecoration(context),
-                  value: data.addressType,
-                  items: List.generate(value.length, (i) => DropdownMenuItem(
-                     child: Text(value[i]),
-                     value: value[i],
-                  )),
-                  onChanged: (value) => data.addressType = value.toString(),
-                ),
-              ),
-            ],
-          ),
-        ),
-        TextWithLabel(
-          text: "Access Note",
-          textCon: data.accessNoteController,
-          node: accessNotesNode,
-        ),
-      ]),
-    );
-  }
 
 
   @override
   bool get wantKeepAlive => true;
 }
+
+
+
+
+
 
 

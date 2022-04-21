@@ -1,11 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
-import '../../../../core/core_usage/presentation/widgets/sliver_deligates.dart';
+import '../../../../core/core_usage/presentation/widgets/functional_header.dart';
 import '../screens/storage_box_choices.dart';
 import '../screens/storage_collection_info.dart';
 import '../screens/storage_contact_info.dart';
-import '../screens/storage_period.dart';
 import '../screens/storage_time_of_collection.dart';
 
 class Body extends StatefulWidget {
@@ -76,63 +76,21 @@ class _BodyState extends State<Body> {
       "Mobile Money Payment"
     ];
 
-    return Container(
-      width: Config.width,
-      child: NestedScrollView(
-        floatHeaderSlivers: true,
-        controller: _scrollControl,
-        physics: BouncingScrollPhysics(),
-        body: SafeArea(
+    return Column(
+      children: [
+        Header(
+            mainTitle: "Storage Option",
+            title: title[currentPage]),
+        Expanded(
           child: PageView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             onPageChanged: (value) => setState(() => currentPage = value),
             controller: _controller,
             itemCount: pages.length,
             itemBuilder: (context, i) => pages[i],
           ),
         ),
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
-          SliverAppBar(
-            snap: true,
-            bottom: AppBar(
-              leading: Container(
-                color: Colors.transparent,
-              ),
-              elevation: 1.0,
-              backgroundColor: (innerBoxIsScrolled) ? Theme.of(context).colorScheme.secondary : Colors.transparent,
-              title: Text(
-                title[currentPage],
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(color: Colors.white),
-              ),
-              centerTitle: true,
-            ),
-            centerTitle: true,
-            elevation: 1.0,
-            title: Text(
-              "Storage Option",
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(color: Colors.white),
-            ),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            floating: true,
-            pinned: true,
-            expandedHeight: itemHeight(150),
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "assets/images/box.jpg",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SliverPersistentHeader(
-            pinned: false,
-            delegate: Delegate(currentPage: currentPage, pages: pages),
-          )
-        ],
-      ),
+      ],
     );
   }
 }
-
-
-
-

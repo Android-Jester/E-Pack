@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:e_pack_final/core/core_usage/network.dart';
+import 'package:e_pack_final/features/delivery_option/data/datasources/delivery_data_reciever.dart';
+import 'package:e_pack_final/features/delivery_option/domain/repositories/delivery_request_repo.dart';
+import 'package:e_pack_final/features/delivery_option/domain/usecases/send_delivery_request.dart';
 import 'package:e_pack_final/features/log_in/presentation/provider/login_cubit.dart';
 import 'package:e_pack_final/features/sign_up/data/datasources/local_register_server.dart';
 import 'package:e_pack_final/features/storage_option/domain/usecases/send_storage_request.dart';
@@ -10,6 +13,8 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'features/delivery_option/data/repositories/delivery_request_repo_impl.dart';
+import 'features/delivery_option/presentation/provider/bloc/delivery_cubit.dart';
 import 'features/log_in/data/datasources/auth_server.dart';
 import 'features/log_in/data/datasources/local_auth_server.dart';
 import 'features/log_in/data/repositories/authentication_repo_impl.dart';
@@ -38,10 +43,8 @@ Future<void> start() async {
 
 // SignUp User
   locator.registerFactory<SignUpCubit>(() => SignUpCubit(signUpUser: locator.get<RegisteringUser>()));
-
   locator.registerLazySingleton<LocalRegisterServer>(() => LocalRegisterServerImpl(sharedPreferences: shared));
   locator.registerLazySingleton<RegisterServer>(() => RegisterServerImpl());
-
   locator.registerLazySingleton<RegisterRepo>(() => RegisterRepoImpl(
       webServer: locator.get<RegisterServer>(),
       localServer: locator.get<LocalRegisterServer>(),
@@ -51,10 +54,8 @@ Future<void> start() async {
 
 // Login User
   locator.registerFactory<LoginCubit>(() => LoginCubit(authUser: locator.get<AuthenticatingUser>()));
-
   locator.registerLazySingleton<LocalLoginServer>(() => LocalLoginServerImpl(sharedPreferences: shared));
   locator.registerLazySingleton<LoginServer>(() => LoginServerImpl());
-
   locator.registerLazySingleton<AuthRepo>(() => AuthRepoImpl(
     webServer: locator.get<LoginServer>(),
     localServer: locator.get<LocalLoginServer>(),
@@ -64,10 +65,17 @@ Future<void> start() async {
 
   // storage option
   locator.registerFactory<StorageCubit>(() => StorageCubit(sendStorageData: locator.get<SendStorageRequest>()));
-
   locator.registerLazySingleton<StorageDataReceiver>(() => StorageDataReceiverImpl());
-
   locator.registerLazySingleton<StorageRequestRepository>(() => StorageRequestRepositoryImpl(serverHost: locator.get<StorageDataReceiver>()));
   locator.registerLazySingleton<SendStorageRequest>(() => SendStorageRequest(locator.get<StorageRequestRepository>()));
+
+  // Delivery Option
+  locator.registerFactory<DeliveryCubit>(() => DeliveryCubit(deliveryRequest: locator.get<SendDeliveryRequest>()));
+  locator.registerLazySingleton<DeliveryDataReciever>(() => DeliveryDataRecieverImpl());
+  locator.registerLazySingleton<DeliveryRequestRepository>(() => DeliveryRequestRepositoryImpl(
+      serverHost: locator.get<DeliveryDataReciever>(),
+      networkInfo: locator.get<NetworkInfo>(),
+  ));
+  locator.registerLazySingleton<SendDeliveryRequest>(() => SendDeliveryRequest(repo: locator.get<DeliveryRequestRepository>()));
 
 }

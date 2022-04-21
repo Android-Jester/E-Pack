@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
+import '../../../../core/core_usage/presentation/function/validators.dart';
 import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
 import '../../../../core/core_usage/presentation/widgets/custom_button.dart';
 import '../../../../core/core_usage/presentation/widgets/text_with_lable.dart';
@@ -52,12 +53,12 @@ class _MomoInformationState extends State<StorageMomoPayment> {
               child: Column(
                 children: [
                   TextWithLabel(
-                    validate: (val) => data.textValidator(val!),
+                    validate: (val) => textValidator(val!),
                     text: "Mobile Money Name",
                     textCon: data.momoUser,
                     type: TextInputType.name,
                   ),
-                  TextWithLabel(validate: (val) => data.numberValidator(val!), text: "Mobile Money Number", textCon: data.momoNum, type: TextInputType.phone),
+                  TextWithLabel(validate: (val) => numberValidator(val!), text: "Mobile Money Number", textCon: data.momoNum, type: TextInputType.phone),
                   SizedBox(height: itemHeight(35.0)),
                   CustomButton(
                     text: "Finalize",

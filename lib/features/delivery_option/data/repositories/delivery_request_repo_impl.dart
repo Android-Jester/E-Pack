@@ -13,12 +13,10 @@ typedef Future<DeliveryResponse> _GetModelInstance();
 class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
   final DeliveryDataReciever serverHost;
   final NetworkInfo networkInfo;
-  @override final String username;
 
   DeliveryRequestRepositoryImpl({
     required this.networkInfo,
     required this.serverHost,
-    required this.username,
   });
 
   Future<Either<Failure, DeliveryResponse>> _getResponse(_GetModelInstance responseModel) async {
@@ -75,4 +73,7 @@ class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
         largeBoxSizeCount: largeBoxSizeCount,
         cost: cost)));
   }
+
+  @override
+  String username = '';
 }

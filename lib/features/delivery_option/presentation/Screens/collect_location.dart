@@ -1,7 +1,6 @@
 //TODO: collection of location info
 
 
-import 'dart:html';
 
 import 'package:e_pack_final/core/core_usage/presentation/widgets/check_boxes_agreement.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ import '../../../../core/core_usage/presentation/widgets/options/check_box.dart'
 import '../../../../core/core_usage/presentation/widgets/text_with_lable.dart';
 import '../../../storage_option/presentation/provider/bloc/storage_cubit.dart';
 import '../provider/bloc/delivery_cubit.dart';
+import '../widget/drop_down.dart';
 
 class CollectionData extends StatefulWidget {
   final PageController controller;
@@ -77,8 +77,13 @@ class _CollectionPageState extends State<CollectionData> with AutomaticKeepAlive
                       pageController: widget.controller,
                       currentPage: widget.currentPage,
                       scroll: widget.scroll,
-                      nextAction: () => bloc.allValidation(widget.scroll, widget.controller, widget.currentPage),
-                  )
+                      nextAction: () => bloc.allValidation(
+                        scroll: widget.scroll,
+                        controller: widget.controller,
+                        currentPage: widget.currentPage,
+                        key: bloc.infoCollectionKey,
+                        context: context,
+                      )),
                 ],
               ),
             ),
@@ -113,7 +118,7 @@ class _CollectionPageState extends State<CollectionData> with AutomaticKeepAlive
           type: TextInputType.phone,
           node: phoneNode,
         ),
-        AreaSelection(cubit: data),
+        DropDownObjects(cubit: data),
         TextWithLabel(
           text: "Access Note",
           // validate: (val) => data.validator(val!, isNumeric: true),
@@ -129,66 +134,4 @@ class _CollectionPageState extends State<CollectionData> with AutomaticKeepAlive
   bool get wantKeepAlive => true;
 }
 
-class AreaSelection extends StatelessWidget {
-  AreaSelection({
-    required this.cubit,
-    Key? key,
-  }) : super(key: key);
-  final Cubit cubit;
 
-  String addressType = "";
-  checkCubit(Cubit cubit) {
-    if(cubit is StorageCubit) {
-      cubit.addressType = addressType;
-    }
-    else if(cubit is DeliveryCubit) {
-      cubit.addressType = addressType;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: itemHeight(10.0)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Address Type",
-            style: TextStyle(fontSize: itemWidth(15.0)),
-          ),
-          SizedBox(height: itemHeight(2.5)),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: itemWidth(30.0)),
-            child: DropdownButtonFormField(
-              decoration: inputDecoration(context),
-              value: addressType,
-              items: const [
-                DropdownMenuItem(
-                  child: Text("Hostel"),
-                  value: "Hostel",
-                ),
-                DropdownMenuItem(
-                  child: Text("Homestel"),
-                  value: "Homestel",
-                ),
-                DropdownMenuItem(
-                  child: Text("Flat"),
-                  value: "Flat",
-                ),
-                DropdownMenuItem(
-                  child: Text("Hall"),
-                  value: "Hall",
-                ),
-              ],
-              onChanged: (value) {
-                addressType = value.toString();
-                checkCubit(cubit);
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

@@ -25,11 +25,10 @@ class DateTimePicker extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: itemWidth(20.0)),
       child: SfDateRangePicker(
           allowViewNavigation: true,
-          backgroundColor: Colors.white,
           controller: dateController,
           minDate: DateTime.now(),
           onSelectionChanged: onSelectionChanged,
-          navigationDirection: DateRangePickerNavigationDirection.vertical,
+          navigationDirection: DateRangePickerNavigationDirection.horizontal,
           initialDisplayDate: DateTime.now(),
           maxDate: endDate),
     );

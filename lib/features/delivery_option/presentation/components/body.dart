@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
+import '../../../../core/core_usage/presentation/widgets/functional_header.dart';
 import '../../../../core/core_usage/presentation/widgets/sliver_deligates.dart';
 import '../Screens/box_choices.dart';
 import '../Screens/collect_location.dart';
@@ -52,11 +53,11 @@ class _BodyState extends State<Body> {
         controller: _controller,
         scroll: _scrollControl,
       ),
-      RoomType(
-        currentPage: currentPage,
-        controller: _controller,
-        scroll: _scrollControl,
-      ),
+      // RoomType(
+      //   currentPage: currentPage,
+      //   controller: _controller,
+      //   scroll: _scrollControl,
+      // ),
       BoxChoices(
         currentPage: currentPage,
         controller: _controller,
@@ -84,59 +85,74 @@ class _BodyState extends State<Body> {
       )
     ];
 
-    return Container(
-      width: Config.width,
-      child: NestedScrollView(
-        physics: BouncingScrollPhysics(),
-        floatHeaderSlivers: true,
-        controller: _scrollControl,
-        body: SafeArea(
+    return Column(
+      children: [
+        Header(title: title[currentPage], mainTitle: 'Delivery Option'),
+        Expanded(
           child: PageView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             onPageChanged: (value) => setState(() => currentPage = value),
             controller: _controller,
             itemCount: pages.length,
-            itemBuilder: (context, index) => pages[index],
+            itemBuilder: (context, i) => pages[i],
           ),
         ),
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) =>
-            [
-          SliverAppBar(
-            snap: true,
-            bottom: AppBar(
-              leading: Container(
-                color: Theme.of(context).colorScheme.primaryVariant,
-              ),
-              elevation: 1.0,
-              backgroundColor: (innerBoxIsScrolled)
-                  ? Theme.of(context).colorScheme.secondaryVariant
-                  : Colors.transparent,
-              title: Text(
-                title[currentPage],
-              ),
-              centerTitle: true,
-            ),
-            centerTitle: true,
-            elevation: 1.0,
-            title: Text("Delivery Option"),
-            backgroundColor: Theme.of(context).colorScheme.background,
-            floating: true,
-            pinned: true,
-            expandedHeight: itemHeight(150),
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "assets/images/box.jpg",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SliverPersistentHeader(
-            pinned: false,
-            delegate: Delegate(currentPage: currentPage, pages: pages),
-          )
-        ],
-      ),
+      ],
     );
+
+    // return Container(
+    //   width: Config.width,
+    //   child: NestedScrollView(
+    //     physics: BouncingScrollPhysics(),
+    //     floatHeaderSlivers: true,
+    //     controller: _scrollControl,
+    //     body: SafeArea(
+    //       child: PageView.builder(
+    //         physics: NeverScrollableScrollPhysics(),
+    //         onPageChanged: (value) => setState(() => currentPage = value),
+    //         controller: _controller,
+    //         itemCount: pages.length,
+    //         itemBuilder: (context, index) => pages[index],
+    //       ),
+    //     ),
+    //     headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) =>
+    //         [
+    //       SliverAppBar(
+    //         snap: true,
+    //         bottom: AppBar(
+    //           leading: Container(
+    //             color: Theme.of(context).colorScheme.primaryVariant,
+    //           ),
+    //           elevation: 1.0,
+    //           backgroundColor: (innerBoxIsScrolled)
+    //               ? Theme.of(context).colorScheme.secondaryVariant
+    //               : Colors.transparent,
+    //           title: Text(
+    //             title[currentPage],
+    //           ),
+    //           centerTitle: true,
+    //         ),
+    //         centerTitle: true,
+    //         elevation: 1.0,
+    //         title: Text("Delivery Option"),
+    //         backgroundColor: Theme.of(context).colorScheme.background,
+    //         floating: true,
+    //         pinned: true,
+    //         expandedHeight: itemHeight(150),
+    //         flexibleSpace: FlexibleSpaceBar(
+    //           background: Image.asset(
+    //             "assets/images/box.jpg",
+    //             fit: BoxFit.cover,
+    //           ),
+    //         ),
+    //       ),
+    //       SliverPersistentHeader(
+    //         pinned: false,
+    //         delegate: Delegate(currentPage: currentPage, pages: pages),
+    //       )
+    //     ],
+    //   ),
+    // );
   }
 }
 

@@ -21,14 +21,14 @@ class SplashScreen extends StatelessWidget {
           CustomButton(
             width: itemWidth(400),
             text: "Login",
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LogIn())),
+            onPressed: () => Navigator.pushNamed(context, LogIn.id),
             color: Theme.of(context).colorScheme.secondary,
           ),
           SizedBox(height: itemHeight(15.0)),
           CustomButton(
             width: itemWidth(400),
             text: "Sign Up",
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SignUp())),
+            onPressed: () => Navigator.pushNamed(context, SignUp.id),
             color: Theme.of(context).colorScheme.primary,
           ),
         ],
@@ -42,7 +42,6 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Spacer(),

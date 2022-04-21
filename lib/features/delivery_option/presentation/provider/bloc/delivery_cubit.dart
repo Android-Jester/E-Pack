@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/core_usage/presentation/configurations/sizes.dart';
 import '../../../../../core/core_usage/presentation/function/page_movement.dart';
 import '../../../../../core/core_usage/presentation/widgets/custom_button.dart';
+import '../../../../../core/core_usage/presentation/widgets/dialog_states.dart';
 import '../../../domain/usecases/send_delivery_request.dart';
 
 part 'delivery_state.dart';
@@ -38,7 +39,8 @@ class DeliveryCubit extends Cubit<DeliveryState> {
 
 
 
-
+  final contactKey = GlobalKey<FormState>();
+  final initialKey = GlobalKey<FormState>();
   final boxKey = GlobalKey<FormState>();
   final infoCollectionKey = GlobalKey<FormState>();
   final momoKey = GlobalKey<FormState>();
@@ -76,8 +78,20 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     }
     return null;
   }
-
-
+  String? textValidator(String val) {
+    if(val.isEmpty) {
+      return "This is Empty";
+    } else {
+      return null;
+    }
+  }
+  List<String> addressValue = [
+    "Hostel",
+    "Homestel",
+    "Apartment",
+    "Flat",
+    "Hall"
+  ];
   // If Validation is [True]
 
 
@@ -86,11 +100,16 @@ class DeliveryCubit extends Cubit<DeliveryState> {
   }
 
 
-  void allValidation(ScrollController scroll, PageController controller, int currentPage) {
-    if (infoCollectionKey.currentState!.validate() && isGranted && isAgreed) {
-
+  void allValidation({required ScrollController scroll,
+    required PageController controller,
+    required int currentPage,
+    required GlobalKey<FormState> key,
+    required BuildContext context,
+  }) {
+    if (key.currentState!.validate()) {
       direction(controller, scroll, currentPage, true);
-    }
+    }   else {showDialog(context: context, builder: (_) => WarningDialog(text: "Please Enter Value"));}
+
   }
   deliveryInfoValidation({required BuildContext context, required PageController controller, required int currentPage, required ScrollController scroll}) {
     if (deliveryInfoKey.currentState!.validate()) {

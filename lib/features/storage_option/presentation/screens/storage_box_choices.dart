@@ -71,14 +71,6 @@ class _BoxChoicesState extends State<StorageBoxChoices> with AutomaticKeepAliveC
     );
   }
 
-  // Container boxSizeInfo() {
-  //   return
-  // }
-  //   return
-
-  // Widget boxesColumn(StorageCubit data) {
-  // }
-
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;

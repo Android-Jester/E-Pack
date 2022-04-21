@@ -139,42 +139,48 @@ class WarningDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(itemWidth(30.0))),
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: itemHeight(20.0)),
-        width: itemWidth(150),
-        height: itemHeight(260),
-        child: Center(
-          child: Column(
-            children: [
-              CircleAvatar(
-                radius: itemWidth(40),
-                backgroundColor: Theme.of(context).colorScheme.error,
-                child: Icon(
-                  Icons.close,
-                  color: Colors.white,
-                  size: itemWidth(60.0),
+    return SizedBox(
+
+      child: Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(itemWidth(30.0))),
+        child: Container(
+          padding: EdgeInsets.all(itemWidth(20.0)),
+          width: itemWidth(150),
+          height: itemHeight(260),
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: itemHeight(15),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: itemHeight(15)),
-                child: Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: itemWidth(25)),
+                CircleAvatar(
+                  radius: itemWidth(40),
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: itemWidth(60.0),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: itemHeight(12),
-              ),
-              CustomButton(
-                width: itemWidth(250),
-                text: "Cancel",
-                onPressed: () => Navigator.pop(context),
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ],
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: itemHeight(15)),
+                  child: Text(
+                    text,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: itemWidth(25)),
+                  ),
+                ),
+                SizedBox(
+                  height: itemHeight(12),
+                ),
+                CustomButton(
+                  width: itemWidth(250),
+                  text: "Cancel",
+                  onPressed: () => Navigator.pop(context),
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ],
+            ),
           ),
         ),
       ),

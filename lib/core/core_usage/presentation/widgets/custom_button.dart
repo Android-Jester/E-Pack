@@ -10,7 +10,7 @@ class CustomButton extends StatelessWidget {
   final Color? color;
   final double width;
 
-  CustomButton({this.width = 140, this.color, Key? key, this.isDisabled = false, required this.text, required this.onPressed})
+  CustomButton({this.width = 140, this.color = Colors.blue, Key? key, this.isDisabled = false, required this.text, required this.onPressed})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

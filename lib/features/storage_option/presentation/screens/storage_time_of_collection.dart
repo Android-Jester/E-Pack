@@ -5,6 +5,7 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
 import '../../../../core/core_usage/presentation/function/date_change.dart';
 import '../../../../core/core_usage/presentation/function/date_time.dart';
+import '../../../../core/core_usage/presentation/function/validators.dart';
 import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
 import '../../../../core/core_usage/presentation/widgets/page_directions.dart';
 import '../provider/bloc/storage_cubit.dart';
@@ -30,7 +31,7 @@ class _TimeSelectionState extends State<StorageTimeSelection> with AutomaticKeep
   Widget build(BuildContext context) {
     Config.init(context);
     var data = BlocProvider.of<StorageCubit>(context, listen: true);
-    return BlocConsumer<StorageCubit, StorageState>(
+    return BlocBuilder<StorageCubit, StorageState>(
         builder: (context, state) => SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: ContainerWrapper(
@@ -56,7 +57,7 @@ class _TimeSelectionState extends State<StorageTimeSelection> with AutomaticKeep
                             controller: data.timeDate,
                             readOnly: true,
                             showCursor: false,
-                            validator: (val) => data.textValidator(val!),
+                            validator: (val) =>textValidator(val!),
                             maxLines: 2,
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
@@ -74,7 +75,6 @@ class _TimeSelectionState extends State<StorageTimeSelection> with AutomaticKeep
                 ),
               ),
             ),
-        listener: (context, state) {},
     );
   }
 

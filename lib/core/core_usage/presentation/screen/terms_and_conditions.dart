@@ -1,4 +1,5 @@
 import 'package:e_pack_final/core/core_usage/presentation/widgets/container_wrapper.dart';
+import 'package:e_pack_final/core/core_usage/presentation/widgets/custom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -7,6 +8,7 @@ import '../../../../injector.dart';
 import '../configurations/sizes.dart';
 
 class TermsAndConditions extends StatefulWidget {
+  static String id = "terms";
   const TermsAndConditions({Key? key}) : super(key: key);
 
   @override
@@ -49,7 +51,8 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
             ContainerWrapper(
               padding: EdgeInsets.all(itemWidth(5)),
             child: Text(tData)
-            )
+            ),
+            CustomButton(text: "Exit", onPressed: () => Navigator.pop(context))
           ],
         ),
       ),

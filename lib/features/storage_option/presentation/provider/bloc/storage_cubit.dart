@@ -67,20 +67,16 @@ void validation(BuildContext context, ScrollController scroll, PageController pa
   else {showDialog(context: context, builder: (_) => WarningDialog(text: "Please Enter Value"));}
 }
 
+  List<String> addressValue = [
+    "Hostel",
+    "Homestel",
+    "Apartment",
+    "Flat",
+    "Hall"
+  ];
 
 
 
-String? textValidator(String val) {
-  if(val.isEmpty) {
-    return "This is Empty";
-  } else {
-    return null;
-  }
-}
-String? numberValidator(String val, ){
-}
-String? phoneNumberValidator(String val, ){
-}
 
   void changeValue(int val) => roomType = val;
 

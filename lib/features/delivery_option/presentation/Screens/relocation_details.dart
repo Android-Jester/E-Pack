@@ -24,27 +24,36 @@ class RelocationDetails extends StatefulWidget {
 }
 
 class _RelocationDetailsState extends State<RelocationDetails> with AutomaticKeepAliveClientMixin {
-  Widget selectionRow(
-      {required String? text, required int? value, required int groupValue, required DeliveryCubit data, double sizeWidth = 13.5}) {
+
+  Widget selectionRow({required DeliveryCubit data,
+    required String text,
+    required int value,}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: itemWidth(15.0), vertical: itemHeight(20.0)),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Container(
           width: itemWidth(260),
           child: Text(
-            text!,
+            text,
             style: Theme.of(context).textTheme.bodyText1!,
             softWrap: true,
           ),
         ),
         Radio<int>(
-          value: value!,
-          groupValue: groupValue,
-          onChanged: (valued) => data.relocationValue = valued!,
+          value: value,
+          groupValue: data.relocationValue,
+          onChanged: (valued) => setState(() => data.relocationValue = valued!),
         ),
       ]),
     );
   }
+
+  List<String> locationDetail = [
+    "Deliver to my House: (within Kumasi only)",
+    "Deliver to another address on same campus",
+    "Deliver to a different campus address",
+    "Deliver to another room in the same building"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -54,20 +63,10 @@ class _RelocationDetailsState extends State<RelocationDetails> with AutomaticKee
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              selectionRow(
-                text: "Deliver to my House: (around Kumasi only)",
-                value: 1,
-                data: data,
-                groupValue: data.relocationValue,
-              ),
-              selectionRow(
-                text: "Deliver to another address on same campus",
-                data: data,
-                value: 2,
-                groupValue: data.relocationValue,
-              ),
-              selectionRow(text: "Deliver to a different campus address", value: 3, data: data, groupValue: data.relocationValue),
-              selectionRow(text: "Deliver to another room in the same building", value: 4, data: data, groupValue: data.relocationValue),
+              selectionRow(data: data, text: locationDetail[0], value: 1),
+              selectionRow(data: data, text: locationDetail[1], value: 2),
+              selectionRow(data: data, text: locationDetail[2], value: 3),
+              selectionRow(data: data, text: locationDetail[3], value: 4),
               ButtonRow(
                 pageController: widget.controller!,
                 currentPage: widget.currentPage,
@@ -81,7 +80,11 @@ class _RelocationDetailsState extends State<RelocationDetails> with AutomaticKee
         );
   }
 
+
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
+
+
+
