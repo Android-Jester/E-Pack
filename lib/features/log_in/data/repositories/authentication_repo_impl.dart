@@ -8,6 +8,7 @@ import '../../domain/repositories/auth_repo.dart';
 import '../datasources/auth_server.dart';
 import '../datasources/local_auth_server.dart';
 import '../model/login_model.dart';
+
 typedef _GetModelInstance = Future<LoginResponse> Function();
 
 class AuthRepoImpl implements AuthRepo {
@@ -15,7 +16,8 @@ class AuthRepoImpl implements AuthRepo {
   final LocalLoginServer localServer;
   final NetworkInfo networkInfo;
 
-  @override String username = "";
+  @override
+  String username = "";
   AuthRepoImpl({
     required this.webServer,
     required this.localServer,
@@ -28,11 +30,12 @@ class AuthRepoImpl implements AuthRepo {
       // acquire model from the User
       try {
         final model = await responseModel();
-
+        localServer.cacheLoginInfo(username: username);
         //sending the model to datasource
         // localServer.cacheLoginInfo(username: username);
         return Right(model);
       } on ServerException {
+        username = await localServer.getUsername();
         return Left(ServerFailure());
       }
     } else {
@@ -41,8 +44,7 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, LoginResponse>> authenticateUser(String email, String password) async =>
-      await _getResponse(() async {
-        return  webServer.loginUser(model: LoginModel(email: email, password: password));
+  Future<Either<Failure, LoginResponse>> authenticateUser(String email, String password) async => await _getResponse(() async {
+        return webServer.loginUser(model: LoginModel(email: email, password: password));
       });
 }

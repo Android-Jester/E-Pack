@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LocalLoginServer {
   Future<void> cacheLoginInfo({required String username});
+  Future<String> getUsername();
 }
 
 class LocalLoginServerImpl extends LocalLoginServer {
@@ -13,4 +14,8 @@ class LocalLoginServerImpl extends LocalLoginServer {
     await sharedPreferences.setString("local_user", username);
   }
 
+  @override
+  Future<String> getUsername() async {
+    return await sharedPreferences.getString("local_user")!;
+  }
 }

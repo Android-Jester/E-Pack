@@ -43,6 +43,9 @@ dependencies:
   #Local Storage
   shared_preferences: ^2.0.13
 
+  # Obtain Device UUID
+  device_info_plus: ^3.2.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
