@@ -16,21 +16,13 @@ class DateTimePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(itemWidth(25.0)),
       ),
       width: Config.width!,
       padding: EdgeInsets.symmetric(horizontal: itemWidth(20.0)),
-      child: SfDateRangePicker(
-          allowViewNavigation: true,
-          controller: dateController,
-          minDate: DateTime.now(),
-          onSelectionChanged: onSelectionChanged,
-          navigationDirection: DateRangePickerNavigationDirection.horizontal,
-          initialDisplayDate: DateTime.now(),
-          maxDate: endDate),
+      child: SfDateRangePicker(allowViewNavigation: true, controller: dateController, minDate: DateTime.now(), onSelectionChanged: onSelectionChanged, navigationDirection: DateRangePickerNavigationDirection.horizontal, initialDisplayDate: DateTime.now(), maxDate: endDate),
     );
   }
 }

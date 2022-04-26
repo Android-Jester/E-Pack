@@ -3,7 +3,6 @@ import 'package:e_pack_final/features/delivery_option/data/datasources/delivery_
 import 'package:e_pack_final/features/delivery_option/domain/repositories/delivery_request_repo.dart';
 import 'package:e_pack_final/features/delivery_option/domain/usecases/send_delivery_request.dart';
 import 'package:e_pack_final/features/log_in/presentation/provider/login_cubit.dart';
-import 'package:e_pack_final/features/sign_up/data/datasources/local_register_server.dart';
 import 'package:e_pack_final/features/storage_option/domain/usecases/send_storage_request.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -28,11 +27,11 @@ import 'features/storage_option/domain/repositories/storage_request_repo.dart';
 import 'features/storage_option/presentation/provider/bloc/storage_cubit.dart';
 
 final locator = GetIt.instance;
-String username = (locator.get<RegisterRepo>().username == "" || locator.get<RegisterRepo>().username == null)
-    ? (locator.get<AuthRepo>().username == "" || locator.get<AuthRepo>().username == null)
-        ? "guest"
-        : locator.get<AuthRepo>().username
-    : locator.get<RegisterRepo>().username;
+// String username = (locator.get<RegisterRepo>().username == "" || locator.get<RegisterRepo>().username == null)
+//     ? (locator.get<AuthRepo>().username == "" || locator.get<AuthRepo>().username == null)
+//         ? ''
+//         : locator.get<AuthRepo>().username!
+//     : locator.get<RegisterRepo>().username!;
 
 Future<void> start() async {
   //core
@@ -42,11 +41,11 @@ Future<void> start() async {
 
 // SignUp User
   locator.registerFactory<SignUpCubit>(() => SignUpCubit(signUpUser: locator.get<RegisteringUser>()));
-  locator.registerLazySingleton<LocalRegisterServer>(() => LocalRegisterServerImpl(sharedPreferences: shared));
+  // locator.registerLazySingleton<LocalRegisterServer>(() => LocalRegisterServerImpl(sharedPreferences: shared));
   locator.registerLazySingleton<RegisterServer>(() => RegisterServerImpl());
   locator.registerLazySingleton<RegisterRepo>(() => RegisterRepoImpl(
         webServer: locator.get<RegisterServer>(),
-        localServer: locator.get<LocalRegisterServer>(),
+        localServer: locator.get<LocalLoginServer>(),
         networkInfo: locator.get<NetworkInfo>(),
       ));
   locator.registerLazySingleton<RegisteringUser>(() => RegisteringUser(repo: locator.get<RegisterRepo>()));

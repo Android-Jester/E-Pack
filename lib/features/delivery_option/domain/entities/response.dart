@@ -6,9 +6,7 @@ class DeliveryResponse extends Equatable {
   DeliveryResponse({required this.deliveryKey});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
-    deliveryKey,
-  ];
-
+        deliveryKey,
+      ];
 }

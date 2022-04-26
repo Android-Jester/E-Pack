@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:e_pack_final/features/sign_up/data/datasources/local_register_server.dart';
+import 'package:e_pack_final/features/log_in/data/datasources/local_auth_server.dart';
 
 import '../../../../core/core_errors/exceptions.dart';
 import '../../../../core/core_errors/failures.dart';
@@ -13,16 +13,16 @@ typedef _GetModelInstance = Future<RegistrationResponse> Function();
 
 class RegisterRepoImpl implements RegisterRepo {
   final RegisterServer webServer;
-  final LocalRegisterServer localServer;
+  final LocalLoginServer localServer;
   final NetworkInfo networkInfo;
+
   @override
   String username = "";
-
   RegisterRepoImpl({
     required this.networkInfo,
     required this.webServer,
     required this.localServer,
-  }) : super();
+  });
 
   Future<Either<Failure, RegistrationResponse>> _getResponse(_GetModelInstance responseModel) async {
     if (await networkInfo.isConnected) {
@@ -40,8 +40,10 @@ class RegisterRepoImpl implements RegisterRepo {
   }
 
   @override
-  Future<Either<Failure, RegistrationResponse>> registerUser(String email, String password, String name) => _getResponse(() async {
-        username = name;
-        return webServer.registerUser(model: RegisterUserModel(email: email, password: password, name: name));
-      });
+  Future<Either<Failure, RegistrationResponse>> registerUser(String email, String password, String name) async {
+    username = name;
+    return _getResponse(() async {
+      return webServer.registerUser(model: RegisterUserModel(email: email, password: password, name: name));
+    });
+  }
 }

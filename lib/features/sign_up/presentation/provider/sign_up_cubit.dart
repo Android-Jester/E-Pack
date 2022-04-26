@@ -1,11 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:e_pack_final/features/sign_up/domain/usecases/register_user.dart';
-import 'package:e_pack_final/features/storage_option/presentation/storage_option.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../core/core_usage/presentation/widgets/dialog_states.dart';
 import '../../domain/entities/register_response.dart';
 
 part 'sign_up_state.dart';
@@ -39,6 +37,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     }
     return null;
   }
+
   passwordValidator(String? val) {
     if (val!.isEmpty) {
       return "Please enter the password";
@@ -50,45 +49,38 @@ class SignUpCubit extends Cubit<SignUpState> {
   validate(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       if (_formKey.currentState!.validate()) {
-        registerUser().listen((event) {
-          emit(event);
-          print(event);
-          if (event is SignUpLoaded) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const StorageOption()));
-          } else if(event is SignUpError) {
-            showDialog(
-              context: context,
-              builder: (context) => ErrorDialog(
-                retry: () {
-                  Navigator.pop(context);
-                  validate(context);
-                },
-                dispose: () => Navigator.pop(context),
-              ),
-            );
-          } else if(event is SignUpLoading) {
-            showDialog(context: context, builder: (_) => const LoadingDialog());
-          }
-        });
+        registerUser();
       }
     }
   }
 
-  Stream<SignUpState> registerUser() async* {
-    var loginStream = await signUpUser(
+  Future<void> registerUser() async {
+    emit(SignUpLoading());
+    var registerStream = await signUpUser(
         params: Params(
-          email: emailcontroller.text,
-          password: passwordcontroller.text, name: userNamecontroller.text,
-        ));
-    yield SignUpLoading();
-    yield* loginStream.fold(
-
-            (error) async* {
-          yield SignUpError(errorMessage: error.toString());
-        },
-            (right) async* {
-          yield SignUpLoading();
-          yield SignUpLoaded(response: right);
-        });
+      email: emailcontroller.text,
+      password: passwordcontroller.text,
+      name: userNamecontroller.text,
+    ));
+    registerStream.fold(
+      (l) => emit(SignUpError(errorMessage: l.toString())),
+      (r) => emit(SignUpLoaded(response: r)),
+    );
   }
 }
+// Stream<SignUpState> registerUser() async* {
+//   var loginStream = await signUpUser(
+//       params: Params(
+//     email: emailcontroller.text,
+//     password: passwordcontroller.text,
+//     name: userNamecontroller.text,
+//   ));
+//   emit(SignUpLoading());
+//   yield SignUpLoading();
+//   yield* loginStream.fold((error) async* {
+//     yield SignUpError(errorMessage: error.toString());
+//   }, (right) async* {
+//     yield SignUpLoading();
+//     yield SignUpLoaded(response: right);
+//   });
+// }

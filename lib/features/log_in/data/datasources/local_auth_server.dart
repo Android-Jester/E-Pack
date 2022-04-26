@@ -16,6 +16,11 @@ class LocalLoginServerImpl extends LocalLoginServer {
 
   @override
   Future<String> getUsername() async {
-    return await sharedPreferences.getString("local_user")!;
+    try {
+      return await sharedPreferences.getString("local_user")!;
+    } catch (e) {
+      print(e.hashCode);
+      return "";
+    }
   }
 }

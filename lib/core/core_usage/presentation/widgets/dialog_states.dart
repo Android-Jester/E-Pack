@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../configurations/sizes.dart';
@@ -81,8 +80,13 @@ class LoadingDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Dialog(
-      child: Scaffold(body: Center(child: CircularProgressIndicator())),
+    return Dialog(
+      child: Padding(
+        padding: EdgeInsets.all(itemWidth(15)),
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 }
@@ -140,7 +144,6 @@ class WarningDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     Config.init(context);
     return SizedBox(
-
       child: Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(itemWidth(30.0))),
         child: Container(

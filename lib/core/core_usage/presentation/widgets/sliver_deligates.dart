@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../configurations/sizes.dart';
 import 'build_dots.dart';
 
-
 class Delegate extends SliverPersistentHeaderDelegate {
   final int currentPage;
   final List<Widget> pages;
@@ -12,7 +11,6 @@ class Delegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     Config.init(context);
-    // TODO: implement build
     return Container(
       color: Theme.of(context).colorScheme.surface,
       height: maxExtent - shrinkOffset,
@@ -24,11 +22,9 @@ class Delegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  // TODO: implement maxExtent
   double get maxExtent => itemHeight(20.0);
 
   @override
-  // TODO: implement minExtent
   double get minExtent => itemHeight(5.0);
 
   @override

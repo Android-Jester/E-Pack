@@ -2,15 +2,21 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 
+import '../../features/log_in/data/datasources/local_auth_server.dart';
+import '../../injector.dart';
+
 DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 late AndroidDeviceInfo androidInfo;
 late IosDeviceInfo iosInfo;
+String username = '';
 
 void initialize() async {
   androidInfo = await deviceInfo.androidInfo;
-  iosInfo = await deviceInfo.iosInfo;
+  username = await locator.get<LocalLoginServer>().getUsername();
+  print(username);
+  // iosInfo = await deviceInfo.iosInfo;
   print("RUNNING ON: ${androidInfo.androidId}");
-  print("RUNNING ON: ${iosInfo.identifierForVendor}");
+  // print("RUNNING ON: ${iosInfo.identifierForVendor}");
 }
 
 ///Server Routes and Base URL

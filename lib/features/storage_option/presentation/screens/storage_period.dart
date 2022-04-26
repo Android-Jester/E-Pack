@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
 import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
 import '../provider/bloc/storage_cubit.dart';
@@ -29,8 +30,14 @@ class _RoomTypeState extends State<StoragePeriod> with AutomaticKeepAliveClientM
         return SingleChildScrollView(
           child: ContainerWrapper(
               child: Column(
-            children: const [
-              //TODO: LABEL
+            children: [
+              Center(
+                child: Text(
+                  "SELECT the number of weeks you prefer to store your items for",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              )
               //TODO: COUNTER
               //TODO: SUM COST
               //TODO: MOVE TO NEXT SCREEN

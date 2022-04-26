@@ -26,6 +26,7 @@ class EPack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("USERNAME: $username");
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => locator.get<SignUpCubit>()), //setup cubit for the entire project
@@ -38,8 +39,8 @@ class EPack extends StatelessWidget {
                 theme: lightTheme,
                 darkTheme: darkTheme,
                 routes: routes,
-                home: (username == '') ? const SplashScreen() : HomeScreen(),
+                home: (username == '') ? SplashScreen() : HomeScreen(),
               )
-            : const CupertinoApp(home: SplashScreen()));
+            : CupertinoApp(home: SplashScreen()));
   }
 }

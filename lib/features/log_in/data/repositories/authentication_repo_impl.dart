@@ -17,7 +17,6 @@ class AuthRepoImpl implements AuthRepo {
   final NetworkInfo networkInfo;
 
   @override
-  String username = "";
   AuthRepoImpl({
     required this.webServer,
     required this.localServer,
@@ -30,12 +29,10 @@ class AuthRepoImpl implements AuthRepo {
       // acquire model from the User
       try {
         final model = await responseModel();
-        localServer.cacheLoginInfo(username: username);
         //sending the model to datasource
         // localServer.cacheLoginInfo(username: username);
         return Right(model);
       } on ServerException {
-        username = await localServer.getUsername();
         return Left(ServerFailure());
       }
     } else {

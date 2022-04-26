@@ -14,9 +14,7 @@ class DeliveryError extends DeliveryState {
 
   DeliveryError({required this.errorMessage});
   @override
-  // TODO: implement props
   List<Object?> get props => [errorMessage];
-
 }
 
 class DeliveryLoaded extends DeliveryState {
@@ -24,13 +22,10 @@ class DeliveryLoaded extends DeliveryState {
 
   DeliveryLoaded({required this.successString});
   @override
-  // TODO: implement props
   List<Object?> get props => [successString];
 }
 
 class DeliveryLoading extends DeliveryState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
-
 }

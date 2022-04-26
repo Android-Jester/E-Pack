@@ -6,6 +6,7 @@ import '../../../../core/core_usage/presentation/widgets/functional_header.dart'
 import '../screens/storage_box_choices.dart';
 import '../screens/storage_collection_info.dart';
 import '../screens/storage_contact_info.dart';
+import '../screens/storage_period.dart';
 import '../screens/storage_time_of_collection.dart';
 
 class Body extends StatefulWidget {
@@ -49,11 +50,11 @@ class _BodyState extends State<Body> {
         currentPage: currentPage,
         scroll: _scrollControl,
       ),
-      // StoragePeriod(
-      //   controller: _controller,
-      //   currentPage: currentPage,
-      //   scroll: _scrollControl,
-      // ),
+      StoragePeriod(
+        controller: _controller,
+        currentPage: currentPage,
+        scroll: _scrollControl,
+      ),
       StorageCollectionInfo(
         controller: _controller,
         currentPage: currentPage,
@@ -70,7 +71,7 @@ class _BodyState extends State<Body> {
       "Time Selection",
       // "Appartment Type",
       "Box Sizes",
-      // "Storage Period",
+      "Storage Period",
       "Collection Info",
       "Contact Info",
       "Mobile Money Payment"
@@ -78,9 +79,7 @@ class _BodyState extends State<Body> {
 
     return Column(
       children: [
-        Header(
-            mainTitle: "Storage Option",
-            title: title[currentPage]),
+        Header(mainTitle: "Storage Option", title: title[currentPage]),
         Expanded(
           child: PageView.builder(
             physics: const NeverScrollableScrollPhysics(),

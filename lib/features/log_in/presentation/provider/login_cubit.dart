@@ -1,9 +1,7 @@
-import 'package:e_pack_final/features/storage_option/presentation/storage_option.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/core_usage/presentation/widgets/dialog_states.dart';
 import '../../domain/entities/login_response.dart';
 import '../../domain/usecases/auth_user.dart';
 
@@ -38,12 +36,13 @@ class LoginCubit extends Cubit<LoginState> {
 
   validate(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-       await loginUser();
+      await loginUser();
     }
   }
 
   Future<void> loginUser() async {
     print("PRESSED");
+    emit(LoginLoading());
     var loginStream = await authUser(
         params: Params(
       email: emailcontroller.text,
