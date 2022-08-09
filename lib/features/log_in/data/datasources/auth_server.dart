@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as net;
+// import 'package:http/http.dart' as net;
 
 import '../../../../core/core_errors/exceptions.dart';
 import '../../../../core/core_usage/constants.dart';
@@ -24,15 +24,21 @@ class LoginServerImpl implements LoginServer {
     required LoginModel model,
   }) async {
     /// Sends the data of the login model to the server
-    net.Response response = await net.post(
-      Uri.parse("$api$login"),
-      body: model.toJSON(),
+    Response response = await baseLink.post(
+      login,
+      data: model.toJSON(),
     );
 
+
+    // net.Response response = await net.post(
+    //   Uri.parse("$api$login"),
+    //   body: model.toJSON(),
+    // );
+
     print("STATUS: ${response.statusCode}");
-    print("DATA: ${json.decode(response.body)}");
+    print("DATA: ${json.decode(response.data)}");
     if (response.statusCode == 200) {
-      return LoginResponseModel.fromJSON(json.decode(response.body));
+      return LoginResponseModel.fromJSON(json.decode(response.data));
     }
     else {
       throw ServerException();

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as net;
+
+import 'package:dio/dio.dart';
 
 import '../../../../core/core_errors/exceptions.dart';
 import '../../../../core/core_usage/constants.dart';
@@ -17,13 +18,22 @@ abstract class RegisterServer {
 class RegisterServerImpl implements RegisterServer {
   @override
   Future<RegistrationResponse> registerUser({required RegisterUserModel model}) async {
-    net.Response response = await net.post(
-      Uri.parse("$api$signup"),
-      body: model.toJson(),
+    Dio dio = Dio(BaseOptions(
+      baseUrl: baseurl,
+    ));
+    Response response = await dio.post(
+        signup,
+        data: model.toJson(),
     );
-    print(response.body);
+
+    // net.Response response = await net.post(
+    //   Uri.parse("$baseurl$signup"),
+    //   body: model.toJson(),
+    // );
+    print("SIGNUP STATUSCODE: ${response.statusCode}");
     if (response.statusCode == 200) {
-      return RegistrationResponseModel.fromJSON(json.decode(response.body));
+      print(response.data);
+      return RegistrationResponseModel.fromJSON(json.decode(response.data));
     } else {
       throw ServerException();
     }

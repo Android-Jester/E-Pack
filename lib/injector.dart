@@ -69,9 +69,9 @@ Future<void> start() async {
 
   // Delivery Option
   locator.registerFactory<DeliveryCubit>(() => DeliveryCubit(deliveryRequest: locator.get<SendDeliveryRequest>()));
-  locator.registerLazySingleton<DeliveryDataReciever>(() => DeliveryDataRecieverImpl());
+  locator.registerLazySingleton<DeliveryDataReceiver>(() => DeliveryDataReceiverImpl());
   locator.registerLazySingleton<DeliveryRequestRepository>(() => DeliveryRequestRepositoryImpl(
-        serverHost: locator.get<DeliveryDataReciever>(),
+        serverHost: locator.get<DeliveryDataReceiver>(),
         networkInfo: locator.get<NetworkInfo>(),
       ));
   locator.registerLazySingleton<SendDeliveryRequest>(() => SendDeliveryRequest(repo: locator.get<DeliveryRequestRepository>()));

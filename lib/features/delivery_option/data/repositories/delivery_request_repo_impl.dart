@@ -11,7 +11,7 @@ import '../models/delivery_request_model.dart';
 typedef Future<DeliveryResponse> _GetModelInstance();
 
 class DeliveryRequestRepositoryImpl implements DeliveryRequestRepository {
-  final DeliveryDataReciever serverHost;
+  final DeliveryDataReceiver serverHost;
   final NetworkInfo networkInfo;
 
   DeliveryRequestRepositoryImpl({

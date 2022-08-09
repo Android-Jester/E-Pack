@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:http/http.dart' as net;
+
+import 'package:dio/dio.dart';
 
 import '../../../../core/core_errors/exceptions.dart';
 import '../../../../core/core_usage/constants.dart';
@@ -21,11 +22,20 @@ class StorageDataReceiverImpl implements StorageDataReceiver {
     required StorageRequestModel model,
     required String username,
   }) async {
-    net.Response response = await net.post(Uri.parse("$api$storage?username=$username"),
-    body: model.toJson(),
+    Response response = await baseLink.post(
+        storage,
+        data: model.toJson(),
+        queryParameters: {
+          "username" : username,
+    }
     );
+    // net.Response response = await net.post(Uri.parse("$baseurl$storage?username=$username"),
+    // body: model.toJson(),
+    // );
+    print("STATUS CODE(Storage): ${response.statusCode}");
     if(response.statusCode == 200) {
-     return StorageRequestResponseModel.fromJSON(json.decode(response.body));
+      print("Body(Storage): ${response.data}");
+     return StorageRequestResponseModel.fromJSON(json.decode(response.data));
     } else {
       throw ServerException();
     }
