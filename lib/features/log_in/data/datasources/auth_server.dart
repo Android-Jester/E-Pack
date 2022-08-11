@@ -36,9 +36,10 @@ class LoginServerImpl implements LoginServer {
     // );
 
     print("STATUS: ${response.statusCode}");
-    print("DATA: ${json.decode(response.data)}");
+    print("DATA: ${response.data}");
+    print("DATA: ${response.data.runtimeType}");
     if (response.statusCode == 200) {
-      return LoginResponseModel.fromJSON(json.decode(response.data));
+      return LoginResponseModel.fromJSON(response.data as Map<String, dynamic>);
     }
     else {
       throw ServerException();

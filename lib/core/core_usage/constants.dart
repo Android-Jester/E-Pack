@@ -9,19 +9,11 @@ import '../../injector.dart';
 DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 late AndroidDeviceInfo androidInfo;
 late IosDeviceInfo iosInfo;
-String username = '';
 
 // Dio link
 Dio baseLink = Dio(BaseOptions(baseUrl: baseurl));
 
-void initialize() async {
-  androidInfo = await deviceInfo.androidInfo;
-  username = await locator.get<LocalLoginServer>().getUsername();
-  print(username);
-  // iosInfo = await deviceInfo.iosInfo;
-  print("RUNNING ON: ${androidInfo.androidId}");
-  // print("RUNNING ON: ${iosInfo.identifierForVendor}");
-}
+
 
 ///Server Routes and Base URL
 const String baseurl = "https://epack-api.herokuapp.com/";

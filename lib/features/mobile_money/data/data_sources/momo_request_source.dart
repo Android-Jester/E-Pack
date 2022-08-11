@@ -38,7 +38,7 @@ class Payment implements PaymentForm {
           "reference" : reference,
         }
     );
-    print("Status Code(Verify): ${response.statusCode}")
+    print("Status Code(Verify): ${response.statusCode}");
     if(response.statusCode == 200) {
       print("Data(Verify): ${response.data}");
     } else {

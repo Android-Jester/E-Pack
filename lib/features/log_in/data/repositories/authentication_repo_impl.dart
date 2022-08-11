@@ -23,25 +23,27 @@ class AuthRepoImpl implements AuthRepo {
     required this.networkInfo,
   });
 
-  Future<Either<Failure, LoginResponse>> _getResponse(_GetModelInstance responseModel) async {
+  @override
+  Future<Either<Failure, LoginResponse>> authenticateUser(String email, String password) async {
     if (await networkInfo.isConnected) {
       // try {
       // acquire model from the User
+      var loginModel = LoginModel(email: email, password: password);
       try {
-        final model = await responseModel();
+        final model = await webServer.loginUser(model: loginModel);
         //sending the model to datasource
-        // localServer.cacheLoginInfo(username: username);
+        localServer.cacheLoginInfo(username: loginModel.email);
         return Right(model);
       } on ServerException {
         return Left(ServerFailure());
       }
     } else {
-      return Left(ServerFailure());
+      try {
+        final model = await localServer.getUsername();
+        return Right(model);
+      } catch(e) {
+        return Left(LocalFailure());
+      }
     }
   }
-
-  @override
-  Future<Either<Failure, LoginResponse>> authenticateUser(String email, String password) async => await _getResponse(() async {
-        return webServer.loginUser(model: LoginModel(email: email, password: password));
-      });
 }

@@ -10,8 +10,6 @@ import '../widgets/custom_button.dart';
 class SplashScreen extends StatelessWidget {
   static String id = "splash";
   SplashScreen({Key? key}) : super(key: key) {
-    // print("LOGIN USERNAME: " + locator.get<AuthRepo>().username!);
-    print("REGISTER USERNAME: " + username);
   }
 
   Widget buttonColumn(BuildContext context) {

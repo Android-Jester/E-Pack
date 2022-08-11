@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../configurations/sizes.dart';
 import 'custom_button.dart';
 
+
+
+
 class ErrorDialog extends StatelessWidget {
   final void Function() retry;
   final void Function() dispose;
@@ -14,7 +17,7 @@ class ErrorDialog extends StatelessWidget {
   }) : super(key: key);
 
   builder(context) {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       showDialog(context: context, builder: (context) => build(context));
     });
   }
@@ -47,7 +50,7 @@ class ErrorDialog extends StatelessWidget {
                 height: 12,
               ),
               CustomButton(
-                color: Theme.of(context).colorScheme.primaryVariant,
+                color: Theme.of(context).colorScheme.primary,
                 width: itemWidth(250),
                 text: "Retry",
                 onPressed: retry,
@@ -57,7 +60,7 @@ class ErrorDialog extends StatelessWidget {
                 width: itemWidth(250),
                 text: "Cancel",
                 onPressed: dispose,
-                color: Theme.of(context).colorScheme.secondaryVariant,
+                color: Theme.of(context).colorScheme.secondaryContainer,
               ),
             ],
           ),
@@ -73,7 +76,7 @@ class LoadingDialog extends StatelessWidget {
   }) : super(key: key);
 
   builder(context) {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       showDialog(context: context, builder: (context) => build(context));
     });
   }
@@ -83,7 +86,7 @@ class LoadingDialog extends StatelessWidget {
     return Dialog(
       child: Padding(
         padding: EdgeInsets.all(itemWidth(15)),
-        child: Center(
+        child: const Center(
           child: CircularProgressIndicator(),
         ),
       ),
@@ -101,7 +104,7 @@ class SuccessDialog extends StatelessWidget {
   }) : super(key: key);
 
   builder(context) {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       showDialog(context: context, builder: (context) => build(context));
     });
   }
@@ -110,7 +113,7 @@ class SuccessDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(itemWidth(30.0))),
-      child: Container(
+      child: SizedBox(
         height: itemHeight(140),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -132,10 +135,10 @@ class SuccessDialog extends StatelessWidget {
 class WarningDialog extends StatelessWidget {
   final String text;
 
-  WarningDialog({required this.text});
+  const WarningDialog({required this.text, Key? key}) : super(key: key);
 
   builder(context) {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       showDialog(context: context, builder: (context) => build(context));
     });
   }

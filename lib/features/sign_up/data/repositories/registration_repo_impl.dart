@@ -17,33 +17,26 @@ class RegisterRepoImpl implements RegisterRepo {
   final NetworkInfo networkInfo;
 
   @override
-  String username = "";
   RegisterRepoImpl({
     required this.networkInfo,
     required this.webServer,
     required this.localServer,
   });
 
-  Future<Either<Failure, RegistrationResponse>> _getResponse(_GetModelInstance responseModel) async {
+  Future<Either<Failure, RegistrationResponse>> registerUser(String email,
+      String password, String name) async {
     if (await networkInfo.isConnected) {
       try {
-        final model = await responseModel();
-        localServer.cacheLoginInfo(username: username);
+        var webRegisterModel = RegisterUserModel(
+            email: email, password: password, name: name);
+        final model = await webServer.registerUser(model: webRegisterModel);
+        localServer.cacheLoginInfo(username: webRegisterModel.email);
         return Right(model);
       } on ServerException {
-        username = await localServer.getUsername();
         return Left(ServerFailure());
       }
     } else {
       return Left(ServerFailure());
     }
-  }
-
-  @override
-  Future<Either<Failure, RegistrationResponse>> registerUser(String email, String password, String name) async {
-    username = name;
-    return _getResponse(() async {
-      return webServer.registerUser(model: RegisterUserModel(email: email, password: password, name: name));
-    });
   }
 }

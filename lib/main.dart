@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:e_pack_final/core/core_usage/constants.dart';
 import 'package:e_pack_final/core/core_usage/presentation/screen/HomeScreen.dart';
 import 'package:e_pack_final/core/core_usage/presentation/screen/splash_screen.dart';
+import 'package:e_pack_final/features/log_in/domain/entities/login_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,6 @@ import 'injector.dart';
 
 Future<void> main() async {
   await start();
-  initialize(); //starts the service locator
   runApp(const EPack()); //runs the application
 }
 
@@ -26,7 +26,6 @@ class EPack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("USERNAME: $username");
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => locator.get<SignUpCubit>()), //setup cubit for the entire project
@@ -39,7 +38,7 @@ class EPack extends StatelessWidget {
                 theme: lightTheme,
                 darkTheme: darkTheme,
                 routes: routes,
-                home: (username == '') ? SplashScreen() : HomeScreen(),
+                home: (locator.get<LoginResponse>().registered)? SplashScreen() : HomeScreen(),
               )
             : CupertinoApp(home: SplashScreen()));
   }

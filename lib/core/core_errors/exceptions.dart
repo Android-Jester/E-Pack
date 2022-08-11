@@ -6,5 +6,8 @@ class Exceptions extends Equatable {
 }
 
 class ServerException extends Exceptions {}
+class LocalServerException extends Exceptions {}
+class PaymentServerException extends Exceptions {}
 
 class LocalException extends Exceptions {}
+class DeviceLocalException extends Exceptions {}

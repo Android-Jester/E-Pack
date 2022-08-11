@@ -1,8 +1,9 @@
+import 'package:e_pack_final/features/log_in/data/model/login_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LocalLoginServer {
   Future<void> cacheLoginInfo({required String username});
-  Future<String> getUsername();
+  Future<LoginResponseModel> getUsername();
 }
 
 class LocalLoginServerImpl extends LocalLoginServer {
@@ -15,12 +16,12 @@ class LocalLoginServerImpl extends LocalLoginServer {
   }
 
   @override
-  Future<String> getUsername() async {
+  Future<LoginResponseModel> getUsername() async {
     try {
-      return await sharedPreferences.getString("local_user")!;
+      LoginResponseModel(registered: true);
+      return (sharedPreferences.getString("local_user") != null) ? LoginResponseModel(registered: true) : LoginResponseModel(registered: false);
     } catch (e) {
-      print(e.hashCode);
-      return "";
+      return LoginResponseModel(registered: false);
     }
   }
 }
