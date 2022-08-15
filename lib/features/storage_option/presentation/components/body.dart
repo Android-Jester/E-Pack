@@ -18,7 +18,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final PageController _controller = PageController();
   int currentPage = 0;
-  ScrollController _scrollControl = ScrollController();
+  final ScrollController _scrollControl = ScrollController();
 
   @override
   void initState() {

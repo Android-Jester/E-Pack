@@ -2,6 +2,8 @@ import 'package:e_pack_final/core/core_usage/network.dart';
 import 'package:e_pack_final/features/delivery_option/data/datasources/delivery_data_reciever.dart';
 import 'package:e_pack_final/features/delivery_option/domain/repositories/delivery_request_repo.dart';
 import 'package:e_pack_final/features/delivery_option/domain/usecases/send_delivery_request.dart';
+import 'package:e_pack_final/features/log_in/data/model/login_response_model.dart';
+import 'package:e_pack_final/features/log_in/domain/entities/login_response.dart';
 import 'package:e_pack_final/features/log_in/presentation/provider/login_cubit.dart';
 import 'package:e_pack_final/features/storage_option/domain/usecases/send_storage_request.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ import 'features/storage_option/data/repositories/storage_request_repo_impl.dart
 import 'features/storage_option/domain/repositories/storage_request_repo.dart';
 import 'features/storage_option/presentation/provider/bloc/storage_cubit.dart';
 
-final locator = GetIt.instance;
+final GetIt locator = GetIt.instance;
 // String username = (locator.get<RegisterRepo>().username == "" || locator.get<RegisterRepo>().username == null)
 //     ? (locator.get<AuthRepo>().username == "" || locator.get<AuthRepo>().username == null)
 //         ? ''

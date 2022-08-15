@@ -5,8 +5,10 @@ import '../configurations/sizes.dart';
 
 class DateTimePicker extends StatelessWidget {
   final DateRangePickerController dateController;
-  final void Function(DateRangePickerSelectionChangedArgs val) onSelectionChanged;
+  final void Function(DateRangePickerSelectionChangedArgs val)
+  onSelectionChanged;
   final DateTime? endDate;
+
   DateTimePicker({
     Key? key,
     required this.dateController,
@@ -18,11 +20,38 @@ class DateTimePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(itemWidth(25.0)),
+          color: Theme
+              .of(context)
+              .backgroundColor
       ),
       width: Config.width!,
       padding: EdgeInsets.symmetric(horizontal: itemWidth(20.0)),
-      child: SfDateRangePicker(allowViewNavigation: true, controller: dateController, minDate: DateTime.now(), onSelectionChanged: onSelectionChanged, navigationDirection: DateRangePickerNavigationDirection.horizontal, initialDisplayDate: DateTime.now(), maxDate: endDate),
+      child: SfDateRangePicker(
+        allowViewNavigation: true,
+        controller: dateController,
+        minDate: DateTime.now(),
+        cellBuilder: (context, cellDetails) {
+          return Container(
+            height: cellDetails.bounds.height,
+            width: cellDetails.bounds.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Center(
+              child: Text(
+                cellDetails.date.day.toString(),
+                style: Theme.of(context).textTheme.bodyText2
+              ),
+            ),
+          );
+        },
+        onSelectionChanged: onSelectionChanged,
+        navigationDirection: DateRangePickerNavigationDirection.horizontal,
+        initialDisplayDate: DateTime.now(),
+        maxDate: endDate,
+      ),
     );
   }
+
+
 }

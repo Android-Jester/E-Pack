@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/core_usage/presentation/configurations/routes.dart';
 import 'core/core_usage/presentation/configurations/theme.dart';
 import 'features/delivery_option/presentation/provider/bloc/delivery_cubit.dart';
+import 'features/log_in/domain/repositories/auth_repo.dart';
 import 'features/log_in/presentation/provider/login_cubit.dart';
 import 'features/sign_up/presentation/provider/sign_up_cubit.dart';
 import 'features/storage_option/presentation/provider/bloc/storage_cubit.dart';
@@ -38,7 +39,7 @@ class EPack extends StatelessWidget {
                 theme: lightTheme,
                 darkTheme: darkTheme,
                 routes: routes,
-                home: (locator.get<LoginResponse>().registered)? SplashScreen() : HomeScreen(),
+                home:  SplashScreen(),
               )
             : CupertinoApp(home: SplashScreen()));
   }

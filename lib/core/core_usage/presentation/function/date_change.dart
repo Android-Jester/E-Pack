@@ -11,7 +11,6 @@ void onDateChange(String value, Cubit cubit) {
   } else if(cubit is DeliveryCubit) {
     cubit.timeDate = TextEditingController(text: "$value");
     cubit.dateTimeVal = value;
-
   }
 
 }

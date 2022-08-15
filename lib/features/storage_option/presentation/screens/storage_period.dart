@@ -37,8 +37,13 @@ class _RoomTypeState extends State<StoragePeriod> with AutomaticKeepAliveClientM
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
-              )
+              ),
               //TODO: COUNTER
+              Row(
+                children: [
+                  Text()
+                ],
+              )
               //TODO: SUM COST
               //TODO: MOVE TO NEXT SCREEN
             ],

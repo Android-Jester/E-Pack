@@ -64,11 +64,16 @@ class StorageCubit extends Cubit<StorageState> {
   }
 
   List<String> addressValue = ["Hostel", "Homestel", "Apartment", "Flat", "Hall"];
+  void onDateChange(String value, Cubit cubit) {
+      timeDate = TextEditingController(text: "$value");
+      dateTimeVal = value;
+  }
+
 
   void changeValue(int val) => roomType = val;
 
   Future<void> sendStorageInfo() async {
-    var usecase = await sendStorageData(
+    await sendStorageData(
         params: Params(
       timeCollect: dateTimeVal,
       collectRoomType: storagePeriodController.text,
