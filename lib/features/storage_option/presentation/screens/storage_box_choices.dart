@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
 import '../../../../core/core_usage/presentation/function/page_movement.dart';
-import '../../../../core/core_usage/presentation/function/scroll_movement.dart';
 import '../../../../core/core_usage/presentation/widgets/box_selections/box_header.dart';
 import '../../../../core/core_usage/presentation/widgets/box_selections/box_selector.dart';
 import '../../../../core/core_usage/presentation/widgets/box_selections/box_sizes.dart';
 import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart';
 import '../../../../core/core_usage/presentation/widgets/dialog_states.dart';
-import '../../../../core/core_usage/presentation/widgets/options/box_selector.dart';
-import '../components/body.dart';
 import '../provider/bloc/storage_cubit.dart';
 
 class StorageBoxChoices extends StatefulWidget {
   final PageController controller;
   final ScrollController scroll;
   final int currentPage;
-  StorageBoxChoices({
+  const StorageBoxChoices({
     Key? key,
     required this.scroll,
     required this.controller,

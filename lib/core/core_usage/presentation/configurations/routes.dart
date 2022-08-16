@@ -10,9 +10,9 @@ import '../screen/HomeScreen.dart';
 import '../screen/splash_screen.dart';
 
 Map<String, Widget Function(BuildContext context)> routes = {
-  SplashScreen.id: (context) => SplashScreen(),
+  SplashScreen.id: (context) => const SplashScreen(),
+  TermsAndConditions.id: (context) => const TermsAndConditions(),
   HomeScreen.id: (context) => HomeScreen(),
-  TermsAndConditions.id: (context) => TermsAndConditions(),
   StorageOption.id: (context) => StorageOption(),
   DeliveryOption.id: (context) => DeliveryOption(),
   LogIn.id: (context) => LogIn(),

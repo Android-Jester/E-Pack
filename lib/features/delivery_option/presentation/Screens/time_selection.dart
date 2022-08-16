@@ -30,6 +30,7 @@ class _TimeSelectionState extends State<TimeSelection> with AutomaticKeepAliveCl
   @override
   Widget build(BuildContext context) {
     var data = BlocProvider.of<DeliveryCubit>(context);
+    var dateTime = DateTime.now();
     Config.init(context);
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -44,7 +45,7 @@ class _TimeSelectionState extends State<TimeSelection> with AutomaticKeepAliveCl
               DateTimePicker(
                 dateController: dateController!,
                 onSelectionChanged: (val) => setState(() => onDateChange(val.value.toString(), data)),
-                endDate: DateTime(2022, 05, 15, 18, 00),
+                endDate: DateTime((dateTime.year + 2), dateTime.month, dateTime.day, 18, 00),
               ),
               SizedBox(
                 height: itemHeight(100.0),

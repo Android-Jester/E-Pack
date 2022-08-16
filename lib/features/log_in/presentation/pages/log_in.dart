@@ -67,9 +67,7 @@ class BodyState extends State<Body> {
                 }
               },
               listener: (context, state) {
-                if (kDebugMode) {
-                  print(state);
-                }
+                
                 setState(() {
                   if (state is LoginError) {
                     showDialog(

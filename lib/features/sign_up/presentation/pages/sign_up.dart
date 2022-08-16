@@ -71,12 +71,16 @@ class BodyState extends State<Body> {
               return Column(
                 children: [
                   const Header(),
-                  SizedBox(height: itemHeight(30.0)),
+                  SizedBox(height: itemHeight(15.0)),
                   FormList(data: bloc),
                   SizedBox(height: itemHeight(30.0)),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: itemWidth(20), vertical: itemHeight(20)),
-                    child: CustomButton(text: "Sign Up", onPressed: () async => bloc.validate(context)),
+                    padding: EdgeInsets.symmetric(vertical: itemHeight(5)),
+                    child: CustomButton(
+                      width: itemWidth(350),
+                      height: itemHeight(40),
+                      text: "Sign Up", 
+                      onPressed: () async => bloc.validate(context),),
                   ),
                 ],
               );

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
 import '../../../../../core/core_usage/presentation/configurations/sizes.dart';
 import '../../../../../core/core_usage/presentation/widgets/container_wrapper.dart';

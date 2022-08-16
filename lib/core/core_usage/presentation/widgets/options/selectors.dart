@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../configurations/sizes.dart';
 
-class BoxSelection extends StatefulWidget {
-  final String? text;
-  final TextEditingController? textEditingController;
+class Selectors extends StatefulWidget {
+  final String name;
+  final TextEditingController textEditingController;
 
-  const BoxSelection({
+  const Selectors({
     Key? key,
-    required this.text,
+    required this.name,
     required this.textEditingController,
   }) : super(key: key);
 
@@ -16,7 +16,7 @@ class BoxSelection extends StatefulWidget {
   _boxSelectionState createState() => _boxSelectionState();
 }
 
-class _boxSelectionState extends State<BoxSelection> {
+class _boxSelectionState extends State<Selectors> {
   Widget button({bool isLeft = true, required int value}) {
     return Container(
       decoration: BoxDecoration(
@@ -24,14 +24,14 @@ class _boxSelectionState extends State<BoxSelection> {
         color: Colors.red[200],
       ),
       child: IconButton(
-        // onPressed: widget.onChanged,
           onPressed: () {
             setState(() {
               (isLeft)
                   ? (value > 0)
-                  ? widget.textEditingController!.text = (value - 1).toString()
-                  : null
-                  : widget.textEditingController!.text = (value + 1).toString();
+                      ? widget.textEditingController.text =
+                          (value - 1).toString()
+                      : null
+                  : widget.textEditingController.text = (value + 1).toString();
             });
           },
           icon: (isLeft) ? const Icon(Icons.remove) : const Icon(Icons.add)),
@@ -40,10 +40,11 @@ class _boxSelectionState extends State<BoxSelection> {
 
   @override
   Widget build(BuildContext context) {
-    int value = int.parse(widget.textEditingController!.text);
+    int value = int.parse(widget.textEditingController.text);
     Config.init(context);
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0)).copyWith(top: itemWidth(10.0)),
+      padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0))
+          .copyWith(top: itemWidth(10.0)),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0)),
         child: Row(
@@ -52,7 +53,7 @@ class _boxSelectionState extends State<BoxSelection> {
             SizedBox(
               width: itemWidth(180),
               child: Text(
-                widget.text!,
+                widget.name,
                 softWrap: true,
               ),
             ),
@@ -60,7 +61,7 @@ class _boxSelectionState extends State<BoxSelection> {
               children: [
                 button(value: value),
                 SizedBox(width: itemWidth(5.0)),
-                Container(
+                SizedBox(
                     width: itemWidth(40.0),
                     height: itemHeight(20.0),
                     child: TextField(

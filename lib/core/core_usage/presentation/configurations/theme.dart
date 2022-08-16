@@ -30,7 +30,7 @@ const kBackgroundDarkColor = Color(0xFFD9D9E5);
 var border = OutlineInputBorder(
   borderSide: const BorderSide(color: Colors.black54),
   borderRadius: BorderRadius.circular(
-    itemHeight(10),
+    itemHeight(25),
   ),
 );
 

@@ -7,24 +7,24 @@ import '../../../../features/storage_option/presentation/storage_option.dart';
 import '../configurations/sizes.dart';
 import '../widgets/selection_button.dart';
 
-
 class HomeScreen extends StatelessWidget {
   static String id = "HomeScreen";
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.blueGrey.shade300));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.blueGrey.shade300));
     Config.init(context);
     return Scaffold(
       body: Column(
-          children: [
-            header(),
-            selecionArea(context),
-            briefWidget(context),
-          ],
-        ),
-      );
+        children: [
+          header(context),
+          selecionArea(context),
+          briefWidget(context),
+        ],
+      ),
+    );
   }
 
   Container briefWidget(BuildContext context) {
@@ -46,8 +46,9 @@ class HomeScreen extends StatelessWidget {
             textAlign: TextAlign.justify,
             text: TextSpan(
                 text:
-                "On any chance you left your items at the hostel but need assistance to pack all your assets in your room please selected your preferable Room Packing Service Our expert movement group can visit your room with authorization and pack the whole items in your room, store it however long you want and redeliver to another confined hostel address",
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: itemWidth(16.7), color: Colors.blue.shade50)),
+                    "On any chance you left your items at the hostel but need assistance to pack all your assets in your room please selected your preferable Room Packing Service Our expert movement group can visit your room with authorization and pack the whole items in your room, store it however long you want and redeliver to another confined hostel address",
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    fontSize: itemWidth(16.7), color: Colors.blue.shade50)),
           ),
         ],
       ),
@@ -55,7 +56,8 @@ class HomeScreen extends StatelessWidget {
       width: Config.width,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
     );
   }
 
@@ -66,22 +68,24 @@ class HomeScreen extends StatelessWidget {
         height: Config.height,
         width: Config.width,
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        decoration: BoxDecoration(color: Theme.of(context).colorScheme.background, borderRadius: BorderRadius.circular(20.0)),
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background,
+            borderRadius: BorderRadius.circular(20.0)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SelectionButton(
               text1: "ROOM PACKING SERVICE WITH STORAGE",
-              text2: "we pick the very best location to store your very items",
-              onPressed: () => Navigator.of(context).popAndPushNamed(StorageOption.id),
-
+              // text2: "we pick the very best location to store your very items",
+              onPressed: () =>
+                  Navigator.of(context).popAndPushNamed(StorageOption.id),
             ),
             SelectionButton(
               text1: "ROOM PACKING SERVICE WITH DELIVERY",
-              text2: "We and our trusted drivers would help delivery your items back home.",
-              onPressed: () => Navigator.of(context).popAndPushNamed(DeliveryOption.id),
-
+              // text2: "We and our trusted drivers would help delivery your items back home.",
+              onPressed: () =>
+                  Navigator.of(context).popAndPushNamed(DeliveryOption.id),
             ),
           ],
         ),
@@ -89,24 +93,28 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Expanded header() {
+  Expanded header(BuildContext context) {
     return Expanded(
         flex: 2,
         child: Container(
           child: Column(
             children: [
               SizedBox(
-                height: itemHeight(70.0),
+                height: itemHeight(50.0),
               ),
-              Image.asset("assets/images/Rectangle_1.png"),
+              Image.asset("assets/images/Logo.png"),
               SizedBox(
                 height: itemHeight(10.0),
               ),
-              RichText(
-                text: const TextSpan(children: [
-                  TextSpan(text: "WELCOME TO E-PACK SERVICES", style: TextStyle(fontSize: 17.0, color: Colors.black)),
-                ]),
-              )
+              Text(
+                      "WELCOME TO E-PACK SERVICES",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                        fontSize: 25,
+                        )),          
+    
             ],
           ),
           height: Config.height! / 2.5,

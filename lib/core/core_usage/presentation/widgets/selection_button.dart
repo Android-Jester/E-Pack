@@ -4,13 +4,13 @@ import '../configurations/sizes.dart';
 
 class SelectionButton extends StatelessWidget {
   final String text1;
-  final String text2;
+  // final String text2;
   // final String? text3;
   final void Function() onPressed;
   const SelectionButton({
     Key? key,
     required this.text1,
-    required this.text2,
+    // required this.text2,
     // this.text3,
     required this.onPressed,
   }) : super(key: key);
@@ -21,27 +21,32 @@ class SelectionButton extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: itemHeight(10.0)),
       child: OutlinedButton(
         style: ButtonStyle(
-            backgroundColor: MaterialStateColor.resolveWith((states) => Theme.of(context).colorScheme.secondary),
+            backgroundColor: MaterialStateColor.resolveWith((states) => Theme.of(context).colorScheme.secondaryContainer),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(itemWidth(20.0)))))),
         onPressed: onPressed,
         child: Container(
           width: Config.width,
-          // padding: EdgeInsets.symmetric(horizontal: itemWidth(5.0)),
+          height: itemHeight(75),
+          padding: EdgeInsets.symmetric(
+            vertical: itemHeight(15),
+            horizontal: itemWidth(5.0)).copyWith(top: itemHeight(25)),
           child: Column(
             children: [
-              SizedBox(height: itemHeight(15)),
+              // SizedBox(height: itemHeight(15)),
               Text(
                 text1,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: itemWidth(17)),
+                style: Theme.of(context).textTheme.headline1!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
+                  fontSize: itemWidth(17)),
               ),
-              SizedBox(height: itemHeight(10)),
-              Text(
-                text2,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: itemWidth(14)),
-              ),
-              SizedBox(height: itemHeight(15)),
+              // SizedBox(height: itemHeight(10)),
+              // // Text(
+              // //   text2,
+              // //   textAlign: TextAlign.center,
+              // //   style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: itemWidth(14)),
+              // // ),
+              // SizedBox(height: itemHeight(15)),
             ],
           ),
         ),

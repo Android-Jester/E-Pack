@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
 import '../../../../core/core_usage/presentation/widgets/functional_header.dart';
-import '../../../../core/core_usage/presentation/widgets/sliver_deligates.dart';
 import '../Screens/box_choices.dart';
 import '../Screens/collect_location.dart';
 import '../Screens/contact_info.dart';

@@ -39,8 +39,8 @@ class EPack extends StatelessWidget {
                 theme: lightTheme,
                 darkTheme: darkTheme,
                 routes: routes,
-                home:  SplashScreen(),
+                home: const SplashScreen(),
               )
-            : CupertinoApp(home: SplashScreen()));
+            : const CupertinoApp(home: SplashScreen()));
   }
 }

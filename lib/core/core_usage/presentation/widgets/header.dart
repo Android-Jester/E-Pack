@@ -17,32 +17,21 @@ class Header extends StatelessWidget {
     Config.init(context);
     return Container(
       height: Config.height! / 2.5,
-      color: Theme.of(context).colorScheme.primary,
       width: double.infinity,
+      decoration: BoxDecoration(
+      color: Theme.of(context).colorScheme.primary,
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(itemWidth(30)),
+            bottomRight: Radius.circular(itemWidth(30)),
+      )
+      ),
       child: Stack(
         children: [
           Positioned(
-              top: itemHeight(35),
-              left: itemWidth(15),
-              child: GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: CircleAvatar(
-                  backgroundColor: Theme.of(context).colorScheme.secondaryVariant,
-                  radius: itemWidth(24),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: itemWidth(8)),
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                ),
-              )),
-          Positioned(
             top: itemHeight(100),
-            left: itemWidth(105),
+            left: itemWidth(95),
             child: Image.asset(
-              "assets/images/Rectangle_1.png",
+              "assets/images/Logo.png",
             ),
           ),
           Positioned(

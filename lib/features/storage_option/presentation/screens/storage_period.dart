@@ -1,3 +1,6 @@
+import 'package:e_pack_final/core/core_usage/presentation/function/page_movement.dart';
+import 'package:e_pack_final/core/core_usage/presentation/widgets/dialog_states.dart';
+import 'package:e_pack_final/core/core_usage/presentation/widgets/options/selectors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,9 +9,9 @@ import '../../../../core/core_usage/presentation/widgets/container_wrapper.dart'
 import '../provider/bloc/storage_cubit.dart';
 
 class StoragePeriod extends StatefulWidget {
-  final PageController? controller;
+  final PageController controller;
   final ScrollController scroll;
-  final int? currentPage;
+  final int currentPage;
   StoragePeriod({
     Key? key,
     required this.scroll,
@@ -20,7 +23,8 @@ class StoragePeriod extends StatefulWidget {
   _RoomTypeState createState() => _RoomTypeState();
 }
 
-class _RoomTypeState extends State<StoragePeriod> with AutomaticKeepAliveClientMixin {
+class _RoomTypeState extends State<StoragePeriod>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     Config.init(context);
@@ -38,14 +42,44 @@ class _RoomTypeState extends State<StoragePeriod> with AutomaticKeepAliveClientM
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
-              //TODO: COUNTER
+              SizedBox(
+                height: itemHeight(15),
+              ),
               Row(
                 children: [
-                  Text()
+                  Selectors(
+                    name: "Weeks Stored",
+                    textEditingController: data.storagePeriodController,
+                  ),
+                  const Text("Weeks"),
                 ],
-              )
-              //TODO: SUM COST
+              ),
+              const Spacer(),
+              Row(
+                children: [
+                  const Text("Total Cost: "),
+                  const Spacer(),
+                  Text("GH\$ ${data.cost}")
+                ],
+              ),
               //TODO: MOVE TO NEXT SCREEN
+              ButtonRow(
+                  pageController: widget.controller,
+                  currentPage: widget.currentPage,
+                  scroll: widget.scroll,
+                  nextAction: () {
+                    if (data.storagePeriodController !=
+                        TextEditingController(text: "0")) {
+                      direction(widget.controller, widget.scroll,
+                          widget.currentPage, true);
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) => const WarningDialog(
+                            text: "Please set the time period"),
+                      );
+                    }
+                  })
             ],
           )),
         );

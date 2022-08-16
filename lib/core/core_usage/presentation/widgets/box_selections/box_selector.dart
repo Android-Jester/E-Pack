@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../../configurations/sizes.dart';
-import '../options/box_selector.dart';
+import '../options/selectors.dart';
 
 class BoxesSelection extends StatelessWidget {
   final TextEditingController large;
   final TextEditingController medium;
   final TextEditingController small;
-  const BoxesSelection({required this.large, required this.medium, required this.small, Key? key}) : super(key: key);
+  const BoxesSelection(
+      {required this.large,
+      required this.medium,
+      required this.small,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +20,17 @@ class BoxesSelection extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: itemHeight(30)),
       child: Column(
         children: [
-          BoxSelection(
+          Selectors(
             textEditingController: large,
-            text: "Large Box",
+            name: "Large Box",
           ),
-          BoxSelection(
+          Selectors(
             textEditingController: medium,
-            text: "Medium Box",
+            name: "Medium Box",
           ),
-          BoxSelection(
+          Selectors(
             textEditingController: small,
-            text: "Small Box",
+            name: "Small Box",
           ),
         ],
       ),
