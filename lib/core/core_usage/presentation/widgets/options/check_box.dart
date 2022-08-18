@@ -6,7 +6,7 @@ class CheckBoxRow extends StatelessWidget {
   final bool checkValue;
   final void Function(bool? val)? function;
 
-  CheckBoxRow({
+  const CheckBoxRow({
     this.text,
     this.textInput,
     required this.function,
@@ -20,14 +20,20 @@ class CheckBoxRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          (text == null) ? Text(
-            textInput!,
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15.0),
-          ) : text!,
+          (text == null)
+              ? Text(
+                  textInput!,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(fontSize: 15.0),
+                )
+              : text!,
           Checkbox(
             checkColor: Theme.of(context).colorScheme.primary,
             activeColor: Theme.of(context).colorScheme.primary,
-            fillColor: MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
+            fillColor: MaterialStateProperty.all(
+                Theme.of(context).colorScheme.primary),
             value: checkValue,
             onChanged: function,
           ),

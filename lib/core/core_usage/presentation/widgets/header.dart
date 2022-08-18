@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../features/sign_up/presentation/pages/sign_up.dart';
@@ -19,12 +18,11 @@ class Header extends StatelessWidget {
       height: Config.height! / 2.5,
       width: double.infinity,
       decoration: BoxDecoration(
-      color: Theme.of(context).colorScheme.primary,
-      borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(itemWidth(30)),
+          color: Theme.of(context).colorScheme.primary,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(itemWidth(30)),
             bottomRight: Radius.circular(itemWidth(30)),
-      )
-      ),
+          )),
       child: Stack(
         children: [
           Positioned(
@@ -38,42 +36,60 @@ class Header extends StatelessWidget {
             top: itemHeight(250),
             child: Container(
               width: Config.width,
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              padding: EdgeInsets.symmetric(horizontal: itemWidth(25)),
               child: (isLogin)
                   ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "LOG IN",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: itemWidth(25.0), color: Colors.white),
-                  ),
-                  GestureDetector(
-                    child: Container(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                      padding: EdgeInsets.symmetric(vertical: itemHeight(8.0), horizontal: itemWidth(8.0)),
-                      child: Text("SIGN UP"),
-                    ),
-                    onTap: () => Navigator.popAndPushNamed(context, SignUp.id),
-                  ),
-                ],
-              )
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "LOG IN",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  fontSize: itemWidth(25.0),
+                                  color: Colors.white),
+                        ),
+                        GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10)),
+                            padding: EdgeInsets.symmetric(
+                                vertical: itemHeight(8.0),
+                                horizontal: itemWidth(8.0)),
+                            child: const Text("SIGN UP"),
+                          ),
+                          onTap: () =>
+                              Navigator.popAndPushNamed(context, SignUp.id),
+                        ),
+                      ],
+                    )
                   : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    child: Container(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                      padding: EdgeInsets.symmetric(vertical: itemHeight(8.0), horizontal: itemWidth(8.0)),
-                      child: Text("LOG IN"),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10)),
+                            padding: EdgeInsets.symmetric(
+                                vertical: itemHeight(8.0),
+                                horizontal: itemWidth(8.0)),
+                            child: const Text("LOG IN"),
+                          ),
+                          onTap: () =>
+                              Navigator.popAndPushNamed(context, SignUp.id),
+                        ),
+                        Text(
+                          "SIGN UP",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  fontSize: itemWidth(25.0),
+                                  color: Colors.white),
+                        ),
+                      ],
                     ),
-                    onTap: () => Navigator.popAndPushNamed(context, SignUp.id),
-                  ),
-                  Text(
-                    "SIGN UP",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: itemWidth(25.0), color: Colors.white),
-                  ),
-                ],
-              ),
             ),
           ),
         ],

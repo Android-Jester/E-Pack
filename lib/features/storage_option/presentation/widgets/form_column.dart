@@ -59,7 +59,7 @@ class _FormColumnState extends State<FormColumn> {
         ),
         TextWithLabel(
           text: "Room or Flat Number",
-          validate: (val) => numberValidator(val!),
+          validate: (val) => contactTimesValidator(val!),
           textCon: widget.data.roomNumController,
           type: TextInputType.number,
           node: roomNode,
@@ -67,7 +67,7 @@ class _FormColumnState extends State<FormColumn> {
         ),
         TextWithLabel(
           text: "Mobile Number",
-          validate: (val) => numberValidator(val!),
+          validate: (val) => mobileNumberValidator(val!),
           textCon: widget.data.mobileNumController,
           type: TextInputType.phone,
           node: phoneNode,

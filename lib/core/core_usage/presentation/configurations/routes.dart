@@ -6,7 +6,7 @@ import '../../../../features/delivery_option/presentation/delivery_option.dart';
 import '../../../../features/log_in/presentation/pages/log_in.dart';
 import '../../../../features/sign_up/presentation/pages/sign_up.dart';
 import '../../../../features/storage_option/presentation/storage_option.dart';
-import '../screen/HomeScreen.dart';
+import '../screen/home_screen.dart';
 import '../screen/splash_screen.dart';
 
 Map<String, Widget Function(BuildContext context)> routes = {

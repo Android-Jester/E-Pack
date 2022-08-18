@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
-import '../../../../core/core_usage/presentation/screen/HomeScreen.dart';
+import '../../../../core/core_usage/presentation/screen/home_screen.dart';
 import '../../../../core/core_usage/presentation/widgets/custom_button.dart';
 import '../../../../core/core_usage/presentation/widgets/header.dart';
 import '../provider/sign_up_cubit.dart';

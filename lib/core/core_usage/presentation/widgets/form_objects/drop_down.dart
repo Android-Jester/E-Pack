@@ -6,7 +6,7 @@ import '../../configurations/theme.dart';
 
 class DropDownObjects extends StatelessWidget {
   final StorageCubit cubit;
-  DropDownObjects({
+  const DropDownObjects({
     required this.cubit,
     Key? key}) : super(key: key);
 

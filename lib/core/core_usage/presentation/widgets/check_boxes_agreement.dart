@@ -9,7 +9,7 @@ import 'options/check_box.dart';
 
 class CheckBoxesAgreements extends StatefulWidget {
   final Cubit cubit;
-  CheckBoxesAgreements({
+  const CheckBoxesAgreements({
     required this.cubit,
     Key? key}) : super(key: key);
 

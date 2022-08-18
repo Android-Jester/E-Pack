@@ -14,7 +14,10 @@ class StorageMomoPayment extends StatefulWidget {
   final int currentPage;
   static String id = "MomoUser";
 
-  StorageMomoPayment({required this.scroll, required this.currentPage, required this.controller});
+  StorageMomoPayment(
+      {required this.scroll,
+      required this.currentPage,
+      required this.controller});
 
   @override
   State<StorageMomoPayment> createState() => _MomoInformationState();
@@ -58,11 +61,17 @@ class _MomoInformationState extends State<StorageMomoPayment> {
                     textCon: data.momoUser,
                     type: TextInputType.name,
                   ),
-                  TextWithLabel(validate: (val) => numberValidator(val!), text: "Mobile Money Number", textCon: data.momoNum, type: TextInputType.phone),
+                  TextWithLabel(
+                    validate: (val) => mobileNumberValidator(val),
+                    text: "Mobile Money Number",
+                    textCon: data.momoNum,
+                    type: TextInputType.phone,
+                  ),
                   SizedBox(height: itemHeight(35.0)),
                   CustomButton(
                     text: "Finalize",
-                    onPressed: () => data.validation(context, widget.scroll, widget.controller, widget.currentPage, data.initialKey),
+                    onPressed: () => data.validation(context, widget.scroll,
+                        widget.controller, widget.currentPage, data.initialKey),
                   ),
                 ],
               ),

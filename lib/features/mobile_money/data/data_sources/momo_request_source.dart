@@ -1,10 +1,19 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:e_pack_final/core/core_errors/exceptions.dart';
+import 'package:e_pack_final/features/mobile_money/data/models/initalize_request_model.dart';
+import 'package:e_pack_final/features/mobile_money/data/models/initialize_response_model.dart';
+import 'package:e_pack_final/features/mobile_money/data/models/momo_response_model.dart';
+import 'package:e_pack_final/features/mobile_money/domain/entities/momo_request.dart';
 
 import '../../../../core/core_usage/constants.dart';
+import '../models/momo_request_model.dart';
 
 abstract class PaymentForm {
-  Future confirmPayment({required String email, required String amount});
+  Future<InitializeResponseModel> initialize({required InitializeRequestModel model});
+  Future<VerifyPaymentResponseModel> verifyTransaction(VerifyPaymentRequestModel model);
+  // Future<PaymentResponseModel> confirmPayment({required String email, required double amount});
 }
 
 class Payment implements PaymentForm {
@@ -15,40 +24,43 @@ class Payment implements PaymentForm {
         "Content-Type" : "application/json",
       }
   ));
-  Future<String> initialize({required String email, required String amount}) async {
+
+  @override
+  Future<InitializeResponseModel> initialize({required InitializeRequestModel model}) async {
 
     Response response = await requestForm.post(
         "/initialize",
-        data: {
-          "email" : email,
-          "amount" : amount,
-          "currency" : "GHS"
-        }
+        data: model.toJson(),
     );
     if(response.statusCode == 200) {
-      return response.data;
+      return InitializeResponseModel.fromJSON(json.decode(response.data));
     } else {
       throw ServerException();
     }
   }
-  Future<void> verifyTransaction(String reference) async {
+  @override
+  Future<VerifyPaymentResponseModel> verifyTransaction(VerifyPaymentRequestModel model) async {
     Response response = await requestForm.post(
-        "/initialize",
+        "transaction/verify",
         queryParameters: {
-          "reference" : reference,
+          "reference" : model.reference,
         }
     );
     print("Status Code(Verify): ${response.statusCode}");
     if(response.statusCode == 200) {
-      print("Data(Verify): ${response.data}");
+      print(response.data);
+      return VerifyPaymentResponseModel.fromJSON(json.decode(response.data));
+
     } else {
       throw ServerException();
     }
   }
 
-  @override
-  Future confirmPayment({required String email, required String amount}) async {
-    String reference = await initialize(email: email, amount: amount);
-    verifyTransaction(reference);
-  }
+
+  // @override
+  // Future<PaymentResponseModel> confirmPayment({required String email, required double amount}) async {
+  //   String reference = await initialize(email: email, amount: amount);
+  //   return verifyTransaction(reference);
+  //
+  // }
 }

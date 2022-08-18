@@ -57,18 +57,18 @@ class StorageCubit extends Cubit<StorageState> {
 
   void validation(BuildContext context, ScrollController scroll, PageController page, int pageIndex, GlobalKey<FormState> keys) {
     if (keys.currentState!.validate()) {
-      direction(page, scroll, pageIndex, true);
+      // direction(page, scroll, pageIndex, true);
+
     } else {
-      showDialog(context: context, builder: (_) => WarningDialog(text: "Please Enter Value"));
+      showDialog(context: context, builder: (_) => const WarningDialog(text: "Please Enter Value"));
     }
   }
 
   List<String> addressValue = ["Hostel", "Homestel", "Apartment", "Flat", "Hall"];
   void onDateChange(String value, Cubit cubit) {
-      timeDate = TextEditingController(text: "$value");
+      timeDate = TextEditingController(text: value);
       dateTimeVal = value;
   }
-
 
   void changeValue(int val) => roomType = val;
 

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/core_usage/presentation/configurations/sizes.dart';
 import '../../../../core/core_usage/presentation/function/validators.dart';
@@ -60,13 +59,13 @@ class _ContactInfoState extends State<StorageContactInfo> {
                     validate: (val) => textValidator(val!),
                   ),
                   TextWithLabel(
-                    validate: (val) => phoneNumberValidator(val!),
+                    validate: (val) => mobileNumberValidator(val),
                     text: "Local Phone Number",
                     textCon: data.phoneNumberController,
                     type: TextInputType.phone,
                   ),
                   TextWithLabel(
-                    validate: (val) => phoneNumberValidator(val!),
+                    validate: (val) => mobileNumberValidator(val!),
                     text: "WhatsApp Number",
                     textCon: data.whatsAppNumberController,
                     type: TextInputType.phone,
@@ -74,7 +73,7 @@ class _ContactInfoState extends State<StorageContactInfo> {
                   TextWithLabel(
                     text: "Contact Times per week",
                     textCon: data.contactTimesController,
-                    validate: (val) => numberValidator(val!),
+                    validate: (val) => contactTimesValidator(val!),
                     type: TextInputType.number,
                   ),
                   TextWithLabel(

@@ -1,7 +1,6 @@
 import 'package:e_pack_final/features/delivery_option/presentation/delivery_option.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../features/storage_option/presentation/storage_option.dart';
 import '../configurations/sizes.dart';
@@ -9,6 +8,8 @@ import '../widgets/selection_button.dart';
 
 class HomeScreen extends StatelessWidget {
   static String id = "HomeScreen";
+
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class HomeScreen extends StatelessWidget {
       width: Config.width,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
     );
   }
@@ -106,22 +107,21 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: itemHeight(10.0),
               ),
-              Text(
-                      "WELCOME TO E-PACK SERVICES",
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
+              Text("WELCOME TO E-PACK SERVICES",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
                         fontSize: 25,
-                        )),          
-    
+                      )),
             ],
           ),
           height: Config.height! / 2.5,
           width: Config.width,
           decoration: BoxDecoration(
               color: Colors.blueGrey.shade300,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(20.0),
                 bottomRight: Radius.circular(20.0),
               )),
