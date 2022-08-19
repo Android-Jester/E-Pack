@@ -18,7 +18,7 @@ class StorageCubit extends Cubit<StorageState> {
   TextEditingController mediumBoxController = TextEditingController(text: "0");
   TextEditingController smallBoxController = TextEditingController(text: "0");
   TextEditingController residenceNameController = TextEditingController();
-  TextEditingController storagePeriodController = TextEditingController();
+  TextEditingController storagePeriodController = TextEditingController(text: "0");
   TextEditingController roomNumController = TextEditingController();
   TextEditingController mobileNumController = MaskedTextController(mask: "(000)-000-0000");
   TextEditingController accessNoteController = TextEditingController();
@@ -34,8 +34,13 @@ class StorageCubit extends Cubit<StorageState> {
   String dateTimeVal = " ";
   double cost = 0;
 
-  calculateCost() {
-    cost = (10.0 * (double.parse(storagePeriodController.text)) // storage period
+
+  void reloadState() {
+    emit(state);
+  }
+
+  double calculateCost() {
+    cost = (10.0 * (int.parse(storagePeriodController.text)) // storage period
             +
             10.0 * (int.parse(smallBoxController.text)) // small boxes
             +
@@ -43,6 +48,8 @@ class StorageCubit extends Cubit<StorageState> {
             +
             10.0 * (int.parse(largeBoxController.text)) //large boxes
         );
+    emit(state);
+    return cost;
   }
 
   // Keys
@@ -57,8 +64,7 @@ class StorageCubit extends Cubit<StorageState> {
 
   void validation(BuildContext context, ScrollController scroll, PageController page, int pageIndex, GlobalKey<FormState> keys) {
     if (keys.currentState!.validate()) {
-      // direction(page, scroll, pageIndex, true);
-
+      direction(page, scroll, pageIndex, true);
     } else {
       showDialog(context: context, builder: (_) => const WarningDialog(text: "Please Enter Value"));
     }

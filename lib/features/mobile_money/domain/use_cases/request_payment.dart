@@ -13,7 +13,7 @@ class InitializePayment extends UseCase<InitializeResponseEntity, PaymentParams>
 
   @override
   Future<Either<Failure, InitializeResponseEntity>> call({required PaymentParams params}) {
-    return repo.initalizeService(email: params.email, amount: params.amount);
+    return repo.initalizeService(email: params.email, amount: params.amount, callbackUrl: params.callbackUrl);
   }
 }
 
@@ -21,11 +21,12 @@ class InitializePayment extends UseCase<InitializeResponseEntity, PaymentParams>
 class PaymentParams extends Equatable {
   final String email;
   final double amount;
+  final String callbackUrl;
 
-  const PaymentParams({required this.email, required this.amount});
+  const PaymentParams({required this.email, required this.amount, required this.callbackUrl});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [email, amount, callbackUrl];
 
 }

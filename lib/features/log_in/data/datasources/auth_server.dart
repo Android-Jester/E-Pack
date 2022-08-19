@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-// import 'package:http/http.dart' as net;
+import 'package:http/http.dart' as net;
 
 import '../../../../core/core_errors/exceptions.dart';
 import '../../../../core/core_usage/constants.dart';
@@ -23,25 +23,21 @@ class LoginServerImpl implements LoginServer {
   Future<LoginResponse> loginUser({
     required LoginModel model,
   }) async {
-    /// Sends the data of the login model to the server
-    Response response = await baseLink.post(
-      login,
-      data: model.toJSON(),
-    );
+    try {
+      /// Sends the data of the login model to the server
+      Response response = await baseLink.post(
+        login,
+        data: model.toJSON(),
+      );
 
 
-    // net.Response response = await net.post(
-    //   Uri.parse("$api$login"),
-    //   body: model.toJSON(),
-    // );
-
-    print("STATUS: ${response.statusCode}");
-    print("DATA: ${response.data}");
-    print("DATA: ${response.data.runtimeType}");
-    if (response.statusCode == 200) {
-      return LoginResponseModel.fromJSON(response.data as Map<String, dynamic>);
-    }
-    else {
+      if (response.statusCode == 200) {
+        return LoginResponseModel.fromJSON(response.data as Map<String, dynamic>, model.email);
+      }
+      else {
+        throw ServerException();
+      }
+    } catch(e) {
       throw ServerException();
     }
   }

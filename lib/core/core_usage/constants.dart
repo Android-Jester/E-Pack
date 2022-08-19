@@ -13,6 +13,12 @@ late IosDeviceInfo iosInfo;
 // Dio link
 Dio baseLink = Dio(BaseOptions(baseUrl: baseurl));
 
+Dio requestForm = Dio(BaseOptions(
+    baseUrl: "https://api.paystack.co/transaction/",
+    headers: {
+      "Authorization" :"Bearer $secret_key",
+    }
+));
 
 
 ///Server Routes and Base URL

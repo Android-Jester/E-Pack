@@ -73,7 +73,9 @@ class BodyState extends State<Body> {
                     showDialog(
                         context: context,
                         builder: (_) {
-                          return ErrorDialog(retry: () {}, dispose: () => Navigator.pop(context));
+                          return ErrorDialog(retry: () {
+                            bloc.clearData(context);
+                          }, dispose: () => Navigator.pop(context));
                         });
                   } else if (state is LoginLoaded) {
                     Navigator.popAndPushNamed(context, HomeScreen.id);

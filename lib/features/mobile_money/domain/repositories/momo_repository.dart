@@ -6,6 +6,6 @@ import '../../../../core/core_errors/failures.dart';
 import '../entities/momo_response.dart';
 
 abstract class PaymentRepository {
-  Future<Either<Failure, InitializeResponseEntity>> initalizeService({required String email, required double amount});
+  Future<Either<Failure, InitializeResponseEntity>> initalizeService({required String email, required double amount, required String callbackUrl});
   Future<Either<Failure, VerifyPaymentResponseEntity>> verifyPayment({required String reference});
 }

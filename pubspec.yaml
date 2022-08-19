@@ -33,11 +33,12 @@ dependencies:
   get_it: ^7.2.0
 
   # HTTP Requests
+  http: any
   dio: ^4.0.4
 
   # Webview
   webview_flutter: ^3.0.4
-
+#  flutter_webview_plugin: ^0.4.0
   # DateTime Picker
   syncfusion_flutter_datepicker: ^19.2.62
   flutter_generate_assets: ^0.4.1

@@ -5,6 +5,10 @@ import 'package:e_pack_final/features/delivery_option/domain/usecases/send_deliv
 import 'package:e_pack_final/features/log_in/data/model/login_response_model.dart';
 import 'package:e_pack_final/features/log_in/domain/entities/login_response.dart';
 import 'package:e_pack_final/features/log_in/presentation/provider/login_cubit.dart';
+import 'package:e_pack_final/features/mobile_money/data/data_sources/momo_request_source.dart';
+import 'package:e_pack_final/features/mobile_money/domain/use_cases/request_payment.dart';
+import 'package:e_pack_final/features/mobile_money/domain/use_cases/verify_transaction.dart';
+import 'package:e_pack_final/features/mobile_money/presentation/manager/momo_request_cubit.dart';
 import 'package:e_pack_final/features/storage_option/domain/usecases/send_storage_request.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -18,6 +22,8 @@ import 'features/log_in/data/datasources/local_auth_server.dart';
 import 'features/log_in/data/repositories/authentication_repo_impl.dart';
 import 'features/log_in/domain/repositories/auth_repo.dart';
 import 'features/log_in/domain/usecases/auth_user.dart';
+import 'features/mobile_money/data/repositories/momo_repository_impl.dart';
+import 'features/mobile_money/domain/repositories/momo_repository.dart';
 import 'features/sign_up/data/datasources/register_server.dart';
 import 'features/sign_up/data/repositories/registration_repo_impl.dart';
 import 'features/sign_up/domain/repositories/registering_user_repo.dart';
@@ -77,4 +83,21 @@ Future<void> start() async {
         networkInfo: locator.get<NetworkInfo>(),
       ));
   locator.registerLazySingleton<SendDeliveryRequest>(() => SendDeliveryRequest(repo: locator.get<DeliveryRequestRepository>()));
+  
+  // Payment
+  locator.registerFactory<PaymentRequestCubit>(() => PaymentRequestCubit(
+      service: locator.get<InitializePayment>(),
+      verifyTransaction: locator.get<VerifyTransaction>(),
+  ));
+
+  locator.registerLazySingleton<PaymentForm>(() => Payment());
+  locator.registerLazySingleton<PaymentRepository>(() => PaymentRepoImpl(
+    payment: locator.get<PaymentForm>(),
+    netInfo: locator.get<NetworkInfo>(),
+  ));
+  locator.registerLazySingleton<InitializePayment>(() => InitializePayment(locator.get<PaymentRepository>()));
+  locator.registerLazySingleton<VerifyTransaction>(() => VerifyTransaction(locator.get<PaymentRepository>()));
+
+
+
 }

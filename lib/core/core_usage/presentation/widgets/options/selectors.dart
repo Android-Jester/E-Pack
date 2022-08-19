@@ -5,11 +5,13 @@ import '../../configurations/sizes.dart';
 class Selectors extends StatefulWidget {
   final String name;
   final TextEditingController textEditingController;
+  final void Function()? onPressed;
 
   const Selectors({
     Key? key,
     required this.name,
     required this.textEditingController,
+    this.onPressed,
   }) : super(key: key);
 
   @override
@@ -23,6 +25,7 @@ class _boxSelectionState extends State<Selectors> {
         borderRadius: BorderRadius.circular(itemWidth(30.0)),
         color: Colors.red[200],
       ),
+      padding: EdgeInsets.symmetric(horizontal: itemWidth(5)),
       child: IconButton(
           onPressed: () {
             setState(() {
@@ -33,6 +36,7 @@ class _boxSelectionState extends State<Selectors> {
                       : null
                   : widget.textEditingController.text = (value + 1).toString();
             });
+            (widget.onPressed != null ) ? widget.onPressed!() : (){};
           },
           icon: (isLeft) ? const Icon(Icons.remove) : const Icon(Icons.add)),
     );
@@ -43,10 +47,8 @@ class _boxSelectionState extends State<Selectors> {
     int value = int.parse(widget.textEditingController.text);
     Config.init(context);
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0))
+      padding: EdgeInsets.symmetric(horizontal: itemWidth(5.0))
           .copyWith(top: itemWidth(10.0)),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: itemWidth(10.0)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -75,7 +77,6 @@ class _boxSelectionState extends State<Selectors> {
             )
           ],
         ),
-      ),
-    );
+      );
   }
 }

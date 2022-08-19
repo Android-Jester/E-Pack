@@ -40,6 +40,11 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
+  void clearData(BuildContext context) {
+    passwordcontroller.clear();
+    Navigator.pop(context);
+  }
+
   Future<void> loginUser() async {
     print("PRESSED");
     emit(LoginLoading());

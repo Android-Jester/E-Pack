@@ -6,7 +6,7 @@ import 'package:e_pack_final/features/mobile_money/data/models/initalize_request
 import 'package:e_pack_final/features/mobile_money/data/models/initialize_response_model.dart';
 import 'package:e_pack_final/features/mobile_money/data/models/momo_response_model.dart';
 import 'package:e_pack_final/features/mobile_money/domain/entities/momo_request.dart';
-
+import 'package:http/http.dart' as net;
 import '../../../../core/core_usage/constants.dart';
 import '../models/momo_request_model.dart';
 
@@ -17,23 +17,19 @@ abstract class PaymentForm {
 }
 
 class Payment implements PaymentForm {
-  Dio requestForm = Dio(BaseOptions(
-      baseUrl: "https://api.paystack.co/transaction",
-      headers: {
-        "Authorization" : secret_key,
-        "Content-Type" : "application/json",
-      }
-  ));
+
 
   @override
   Future<InitializeResponseModel> initialize({required InitializeRequestModel model}) async {
+
 
     Response response = await requestForm.post(
         "/initialize",
         data: model.toJson(),
     );
+    // print("STATUSCODE: ${response.statusCode}");
     if(response.statusCode == 200) {
-      return InitializeResponseModel.fromJSON(json.decode(response.data));
+      return InitializeResponseModel.fromJSON(response.data);
     } else {
       throw ServerException();
     }
@@ -41,10 +37,10 @@ class Payment implements PaymentForm {
   @override
   Future<VerifyPaymentResponseModel> verifyTransaction(VerifyPaymentRequestModel model) async {
     Response response = await requestForm.post(
-        "transaction/verify",
-        queryParameters: {
-          "reference" : model.reference,
-        }
+        "verify/${model.reference}",
+        // queryParameters: {
+        //   "reference" : model.reference,
+        // }
     );
     print("Status Code(Verify): ${response.statusCode}");
     if(response.statusCode == 200) {

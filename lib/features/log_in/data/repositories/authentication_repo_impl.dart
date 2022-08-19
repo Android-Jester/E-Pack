@@ -25,6 +25,7 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, LoginResponse>> authenticateUser(String email, String password) async {
+    print("Network State: " + (await networkInfo.isConnected).toString());
     if (await networkInfo.isConnected) {
       // try {
       // acquire model from the User

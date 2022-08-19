@@ -27,9 +27,9 @@ class ErrorDialog extends StatelessWidget {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(itemWidth(30.0))),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: itemHeight(20.0)),
+        margin: EdgeInsets.symmetric(vertical: itemHeight(20.0)),
         width: itemWidth(150),
-        height: itemHeight(260),
+        height: itemHeight(250),
         child: Center(
           child: Column(
             children: [
@@ -150,9 +150,9 @@ class WarningDialog extends StatelessWidget {
       child: Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(itemWidth(30.0))),
         child: Container(
-          padding: EdgeInsets.all(itemWidth(20.0)),
+          margin: EdgeInsets.all(itemWidth(20.0)),
           width: itemWidth(150),
-          height: itemHeight(260),
+          height: itemHeight(250),
           child: Center(
             child: Column(
               children: [

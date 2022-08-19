@@ -24,16 +24,20 @@ class PaymentRepoImpl extends PaymentRepository {
   // }
 
   @override
-  Future<Either<Failure, InitializeResponseEntity>> initalizeService({required String email, required double amount}) async {
+  Future<Either<Failure, InitializeResponseEntity>> initalizeService({required String email, required double amount, required String callbackUrl}) async {
+    print("STARTED");
     try {
       if (await netInfo.isConnected) {
-        var requestModel = InitializeRequestModel(email: email, amount: amount);
+        var requestModel = InitializeRequestModel(email: email, amount: amount, callbackUrl: callbackUrl);
+        print("requestModel done");
         final model = await payment.initialize(model: requestModel);
+
         return Right(model);
       } else {
         return Left(ServerFailure());
       }
     } catch(e) {
+      print(e);
       return Left(ServerFailure());
     }
   }

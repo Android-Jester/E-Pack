@@ -68,7 +68,6 @@ class _TimeSelectionState extends State<StorageTimeSelection> with AutomaticKeep
                         ),
                       ),
                       PageButton(true, onPressed: () {
-                        print("press");
                         data.validation(context, widget.scroll, widget.controller, widget.currentPage, data.initialKey);
                       }),
                     ],

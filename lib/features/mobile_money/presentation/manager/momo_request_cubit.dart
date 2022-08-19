@@ -1,10 +1,6 @@
-import 'dart:html';
 
 import 'package:bloc/bloc.dart';
-import 'package:e_pack_final/features/delivery_option/presentation/provider/bloc/delivery_cubit.dart';
 import 'package:e_pack_final/features/mobile_money/domain/use_cases/verify_transaction.dart';
-import 'package:e_pack_final/features/storage_option/presentation/provider/bloc/storage_cubit.dart';
-import 'package:e_pack_final/injector.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +14,7 @@ class PaymentRequestCubit extends Cubit<PaymentRequestState> {
   PaymentRequestCubit({required this.service, required this.verifyTransaction,}) : super(PaymentRequestInitial());
 
   Stream<PaymentRequestState> payAmount({required String email, required double amount}) async* {
-    var services = await service(params: PaymentParams(email: email, amount: amount));
+    var services = await service(params: PaymentParams(email: email, amount: amount, callbackUrl: "https://google.com"));
     yield PaymentRequestLoading();
     yield* services.fold(
             (l) async* {

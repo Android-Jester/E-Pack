@@ -1,3 +1,4 @@
+import 'package:e_pack_final/core/core_errors/exceptions.dart';
 import 'package:e_pack_final/features/log_in/data/model/login_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,10 +19,14 @@ class LocalLoginServerImpl extends LocalLoginServer {
   @override
   Future<LoginResponseModel> getUsername() async {
     try {
-      LoginResponseModel(registered: true);
-      return (sharedPreferences.getString("local_user") != null) ? LoginResponseModel(registered: true) : LoginResponseModel(registered: false);
+      var username = sharedPreferences.getString("local_user");
+      if(username != null) {
+      return LoginResponseModel(registered: true, email: username);
+      } else {
+        throw LocalException();
+      }
     } catch (e) {
-      return LoginResponseModel(registered: false);
+      throw LocalException();
     }
   }
 }
